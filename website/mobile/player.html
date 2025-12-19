@@ -227,7 +227,11 @@
 
         // Initialize
         radioStream.src = CONFIG.streamUrl;
-        radioStream.volume = 0.7;
+
+        // Restore volume from localStorage or default to 0.7
+        const savedVolume = localStorage.getItem('urbanRadioVolume');
+        radioStream.volume = savedVolume ? parseFloat(savedVolume) : 0.7;
+        volumeSlider.value = radioStream.volume * 100;
 
         // Format seconds to M:SS
         function formatTime(seconds) {
@@ -260,6 +264,7 @@
                 liveIndicator.classList.remove('animate-pulse');
                 liveIndicator.classList.add('bg-gray-500');
                 liveIndicator.classList.remove('bg-primary');
+                localStorage.setItem('urbanRadioPlaying', 'false');
             } else {
                 radioStream.play().catch(e => console.error(e));
                 playIcon.textContent = 'pause';
@@ -267,6 +272,7 @@
                 liveIndicator.classList.add('animate-pulse');
                 liveIndicator.classList.remove('bg-gray-500');
                 liveIndicator.classList.add('bg-primary');
+                localStorage.setItem('urbanRadioPlaying', 'true');
             }
             isPlaying = !isPlaying;
         }
@@ -276,7 +282,13 @@
         // Volume
         volumeSlider.addEventListener('input', (e) => {
             radioStream.volume = e.target.value / 100;
+            localStorage.setItem('urbanRadioVolume', radioStream.volume);
         });
+
+        // Auto-resume if was playing before
+        if (localStorage.getItem('urbanRadioPlaying') === 'true') {
+            togglePlay();
+        }
 
         // Now Playing
         async function fetchNowPlaying() {
