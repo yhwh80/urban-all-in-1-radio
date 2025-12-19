@@ -85,8 +85,8 @@
     </style>
 </head>
 
-<body class="font-display bg-background-dark text-white antialiased overflow-hidden">
-    <div class="relative flex h-screen w-full flex-col overflow-hidden">
+<body class="font-display bg-background-dark text-white antialiased">
+    <div class="relative flex min-h-screen w-full flex-col pb-24">
         <!-- Background Gradient -->
         <div class="absolute inset-0 z-0">
             <div class="absolute top-[-20%] left-[-20%] w-[60%] h-[40%] bg-primary/20 rounded-full blur-[100px]"></div>
@@ -172,30 +172,28 @@
             </div>
         </main>
 
-        <!-- Bottom Nav -->
-        <nav
-            class="flex justify-around items-center p-4 pb-8 z-10 border-t border-white/5 bg-background-dark/80 backdrop-blur-lg">
-            <button class="flex flex-col items-center gap-1 text-primary">
-                <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">radio</span>
-                <span class="text-[10px] font-medium">Live</span>
-            </button>
-            <button onclick="window.location.href='schedule.html'"
-                class="flex flex-col items-center gap-1 text-white/50 hover:text-white active:text-primary">
-                <span class="material-symbols-outlined text-2xl">calendar_month</span>
-                <span class="text-[10px] font-medium">Schedule</span>
-            </button>
-            <button onclick="window.location.href='news.html'"
-                class="flex flex-col items-center gap-1 text-white/50 hover:text-white active:text-primary">
-                <span class="material-symbols-outlined text-2xl">newspaper</span>
-                <span class="text-[10px] font-medium">News</span>
-            </button>
-            <button onclick="window.location.href='discover.html'"
-                class="flex flex-col items-center gap-1 text-white/50 hover:text-white active:text-primary">
-                <span class="material-symbols-outlined text-2xl">explore</span>
-                <span class="text-[10px] font-medium">Discover</span>
-            </button>
-        </nav>
     </div>
+
+    <!-- Bottom Nav (Fixed) -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 flex justify-around items-center p-4 pb-8 z-50 border-t border-white/5 bg-background-dark/95 backdrop-blur-lg">
+        <button class="flex flex-col items-center gap-1 text-primary">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">radio</span>
+            <span class="text-[10px] font-medium">Live</span>
+        </button>
+        <a href="schedule.html" class="flex flex-col items-center gap-1 text-white/50 active:text-primary">
+            <span class="material-symbols-outlined text-2xl">calendar_month</span>
+            <span class="text-[10px] font-medium">Schedule</span>
+        </a>
+        <a href="news.html" class="flex flex-col items-center gap-1 text-white/50 active:text-primary">
+            <span class="material-symbols-outlined text-2xl">newspaper</span>
+            <span class="text-[10px] font-medium">News</span>
+        </a>
+        <a href="discover.html" class="flex flex-col items-center gap-1 text-white/50 active:text-primary">
+            <span class="material-symbols-outlined text-2xl">explore</span>
+            <span class="text-[10px] font-medium">Discover</span>
+        </a>
+    </nav>
 
     <!-- Audio Element -->
     <audio id="radioStream" preload="none"></audio>
