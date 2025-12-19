@@ -1,0 +1,67 @@
+[
+  {
+    "file": "Neon Shadows (2).mp3",
+    "bpm": 131,
+    "bpm_precise": 131.2,
+    "bpm_raw": 129.2,
+    "duration": "04:02",
+    "duration_seconds": 242.8,
+    "cue_in": "00:15",
+    "cue_in_seconds": 15.88,
+    "cue_out": "03:43",
+    "cue_out_seconds": 223.28,
+    "total_beats": 506
+  },
+  {
+    "file": "City Lights.mp3",
+    "bpm": 83,
+    "bpm_precise": 83.4,
+    "bpm_raw": 83.4,
+    "duration": "03:19",
+    "duration_seconds": 199.64,
+    "cue_in": "00:22",
+    "cue_in_seconds": 22.96,
+    "cue_out": "02:52",
+    "cue_out_seconds": 172.25,
+    "total_beats": 271
+  },
+  {
+    "file": "City Heat.mp3",
+    "bpm": 125,
+    "bpm_precise": 125.0,
+    "bpm_raw": 123.0,
+    "duration": "03:19",
+    "duration_seconds": 199.76,
+    "cue_in": "00:16",
+    "cue_in_seconds": 16.14,
+    "cue_out": "02:47",
+    "cue_out_seconds": 167.14,
+    "total_beats": 378
+  },
+  {
+    "file": "City Lights (1).mp3",
+    "bpm": 125,
+    "bpm_precise": 125.0,
+    "bpm_raw": 123.0,
+    "duration": "04:07",
+    "duration_seconds": 247.84,
+    "cue_in": "00:15",
+    "cue_in_seconds": 15.7,
+    "cue_out": "03:48",
+    "cue_out_seconds": 228.55,
+    "total_beats": 507
+  },
+  {
+    "file": "Neon Shadows (1).mp3",
+    "bpm": 125,
+    "bpm_precise": 125.0,
+    "bpm_raw": 123.0,
+    "duration": "02:38",
+    "duration_seconds": 158.84,
+    "cue_in": "00:16",
+    "cue_in_seconds": 16.6,
+    "cue_out": "02:19",
+    "cue_out_seconds": 139.25,
+    "total_beats": 319
+  }
+]

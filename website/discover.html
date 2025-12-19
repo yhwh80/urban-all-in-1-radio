@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Urban Radio - Discover</title>
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#a413ec",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1c1022",
+                        "surface-dark": "#2b1933",
+                        "surface-light": "#3c2348",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display antialiased overflow-x-hidden selection:bg-primary selection:text-white">
+    <div class="relative flex min-h-screen flex-col pb-24 w-full max-w-md mx-auto shadow-2xl overflow-hidden">
+        <!-- Top App Bar -->
+        <header
+            class="sticky top-0 z-30 flex items-center bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md p-4 pb-2 justify-between">
+            <div class="flex size-12 shrink-0 items-center">
+                <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary"
+                    data-alt="User profile avatar with urban fashion style"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC55228LjTqyiluLe1sfMgwyZRe9Rw8VDnZC8yB-JAYZbZ7HF1XDsmC8PUVYGRJqAXdkDn5RfzPNhVsfcm0HyDgu-KCOCJcF9o9se4K4qwW0qrZPJmQRqSP-w_OqTaVW8T0A3Y-rhEEXILkmdH_NKt2GL_YRVdltnb_9xfEtMJqVyPe3yr1C2iwbgKMwAAhdXV8Ocag8-c_aYhsjGI0qxnCsOZXhnvWRexBpmNo1yAGqLylT45qYThU-Y6aiXfqxArVHoEOgNgdVSqR");'>
+                </div>
+            </div>
+            <h2 class="text-white text-xl font-bold leading-tight tracking-[-0.015em] text-center flex-1">Discover</h2>
+            <div class="flex w-12 items-center justify-end">
+                <button
+                    class="flex items-center justify-center rounded-full h-10 w-10 bg-surface-light/50 text-white hover:bg-surface-light transition-colors">
+                    <span class="material-symbols-outlined text-white" style="font-size: 24px;">notifications</span>
+                </button>
+            </div>
+        </header>
+        <!-- Search Bar -->
+        <div class="px-4 py-2 sticky top-[72px] z-20 bg-background-dark">
+            <label class="flex flex-col w-full h-12">
+                <div class="flex w-full flex-1 items-stretch rounded-full h-full bg-surface-light shadow-inner">
+                    <div class="text-[#b792c9] flex border-none items-center justify-center pl-4 pr-2">
+                        <span class="material-symbols-outlined" style="font-size: 24px;">search</span>
+                    </div>
+                    <input
+                        class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-full text-white focus:outline-0 focus:ring-0 border-none bg-transparent focus:border-none h-full placeholder:text-[#b792c9] px-0 text-base font-normal leading-normal"
+                        placeholder="Artists, songs, podcasts..." value="" />
+                    <div
+                        class="text-[#b792c9] flex border-none items-center justify-center pr-4 pl-2 cursor-pointer hover:text-white transition-colors">
+                        <span class="material-symbols-outlined" style="font-size: 24px;">mic</span>
+                    </div>
+                </div>
+            </label>
+        </div>
+        <!-- Filter Chips -->
+        <div class="flex gap-3 px-4 py-4 overflow-x-auto no-scrollbar">
+            <button
+                class="flex h-9 shrink-0 items-center justify-center px-5 rounded-full bg-primary text-white shadow-[0_0_10px_rgba(164,19,236,0.4)] transition-transform active:scale-95">
+                <p class="text-sm font-bold leading-normal">All</p>
+            </button>
+            <button
+                class="flex h-9 shrink-0 items-center justify-center px-5 rounded-full bg-surface-light text-[#b792c9] hover:text-white transition-colors active:scale-95 border border-transparent hover:border-primary/50">
+                <p class="text-sm font-medium leading-normal">Music</p>
+            </button>
+            <button
+                class="flex h-9 shrink-0 items-center justify-center px-5 rounded-full bg-surface-light text-[#b792c9] hover:text-white transition-colors active:scale-95 border border-transparent hover:border-primary/50">
+                <p class="text-sm font-medium leading-normal">Podcasts</p>
+            </button>
+            <button
+                class="flex h-9 shrink-0 items-center justify-center px-5 rounded-full bg-surface-light text-[#b792c9] hover:text-white transition-colors active:scale-95 border border-transparent hover:border-primary/50">
+                <p class="text-sm font-medium leading-normal">Events</p>
+            </button>
+            <button
+                class="flex h-9 shrink-0 items-center justify-center px-5 rounded-full bg-surface-light text-[#b792c9] hover:text-white transition-colors active:scale-95 border border-transparent hover:border-primary/50">
+                <p class="text-sm font-medium leading-normal">News</p>
+            </button>
+        </div>
+        <!-- Hero Carousel -->
+        <div class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory px-4 pb-6 pt-2 gap-4">
+            <!-- Hero Card 1 -->
+            <div
+                class="snap-center shrink-0 w-[85vw] max-w-[340px] flex flex-col gap-4 rounded-2xl bg-surface-dark shadow-[0_4px_20px_rgba(0,0,0,0.3)] border border-white/5 relative overflow-hidden group">
+                <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover relative"
+                    data-alt="Kendrick Lamar performing on stage with dramatic lighting"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARUkYfro-OsthD5LFN9J9g68gt9Dr746uXN5szrbjPACQZCY4s035q2MDxu49cnpC74HQ4qiTtSSxH9j0a_VBARDxFwD7rfQSQPM7FAnge1f2Xk2W-jGVJSByT9DZz9nBdKO2VM0VsEXaHMWg-8mtCmO8iFZVTxbAPY7tkF1imQ9gVxvtEAIbDRxPteyM2fNUS_vEtbgN1rn2Lk3yqIH_9nFR8iUS8Gy0WbyTQBbN9FM7P_SwEkC2qQqNhi33LpHbxJa3P8d3s8dU_");'>
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-dark via-transparent to-transparent">
+                    </div>
+                    <div
+                        class="absolute top-3 left-3 bg-primary/90 text-white text-xs font-bold px-2 py-1 rounded-md uppercase tracking-wider">
+                        Exclusive</div>
+                </div>
+                <div class="flex flex-col flex-1 justify-between p-5 pt-0 gap-3 relative z-10 -mt-8">
+                    <div>
+                        <p class="text-[#b792c9] text-xs font-semibold uppercase tracking-wider mb-1">Breaking News</p>
+                        <h3 class="text-white text-xl font-bold leading-tight">Interview with Kendrick Lamar</h3>
+                        <p class="text-slate-400 text-sm mt-2 line-clamp-2">Discussing the new album, tour life, and the
+                            state of the culture.</p>
+                    </div>
+                    <div class="flex items-center gap-3 mt-2">
+                        <button
+                            class="flex-1 cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-white text-background-dark text-sm font-bold leading-normal tracking-[0.015em] hover:bg-gray-200 transition-colors">
+                            Listen Now
+                        </button>
+                        <button
+                            class="size-10 flex items-center justify-center rounded-full bg-surface-light text-white hover:bg-primary transition-colors">
+                            <span class="material-symbols-outlined" style="font-size: 20px;">add</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Hero Card 2 -->
+            <div
+                class="snap-center shrink-0 w-[85vw] max-w-[340px] flex flex-col gap-4 rounded-2xl bg-surface-dark shadow-[0_4px_20px_rgba(0,0,0,0.3)] border border-white/5 relative overflow-hidden">
+                <div class="w-full bg-center bg-no-repeat aspect-[4/3] bg-cover relative"
+                    data-alt="DJ console mixer in a dark club setting with neon lights"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDcuPCDD9BgPY6lnCg4vDPnrQAVHiZ8fWD85JW1JL3ShzTvLNsNVcQB8pNd8Ju6l5Goq9YVMvCkg4vdA9YiRAt9Z1aEJLO8xwFLokLwALBp57DBIdSZpmPpOYJ0bk1fImaz87tvvnKUHLYoxzhLfNaAiSf-6bgNxY8pqDMBBRZ_WEqUxiGYHqSxCLEPT5O7L3-3F90DV-tX_Qb0AVE1xKmJtgpqRVlwPCQdwkhF7nI1JvWfugJ1_Zm54A0M_UIisBU0GOeXDt5vM_EO");'>
+                    <div class="absolute inset-0 bg-gradient-to-t from-surface-dark via-transparent to-transparent">
+                    </div>
+                    <div
+                        class="absolute top-3 left-3 bg-white/20 backdrop-blur-md text-white text-xs font-bold px-2 py-1 rounded-md uppercase tracking-wider">
+                        Live Now</div>
+                </div>
+                <div class="flex flex-col flex-1 justify-between p-5 pt-0 gap-3 relative z-10 -mt-8">
+                    <div>
+                        <p class="text-[#b792c9] text-xs font-semibold uppercase tracking-wider mb-1">On Air</p>
+                        <h3 class="text-white text-xl font-bold leading-tight">The Morning Hustle</h3>
+                        <p class="text-slate-400 text-sm mt-2 line-clamp-2">Wake up with the hottest tracks and
+                            controversial takes.</p>
+                    </div>
+                    <button
+                        class="w-full cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] mt-2 shadow-[0_0_15px_rgba(164,19,236,0.3)]">
+                        Tune In
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Featured Podcasts Section -->
+        <div class="mt-2">
+            <div class="flex items-center justify-between px-4 py-2">
+                <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em]">Featured Podcasts</h3>
+                <a class="text-primary text-sm font-medium hover:text-white transition-colors" href="#">See All</a>
+            </div>
+            <div class="flex overflow-x-auto no-scrollbar gap-4 px-4 py-2">
+                <!-- Podcast Item 1 -->
+                <div class="flex flex-col gap-2 w-32 shrink-0 group cursor-pointer">
+                    <div class="w-32 h-32 rounded-2xl bg-surface-light overflow-hidden relative shadow-lg">
+                        <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                            data-alt="Abstract colorful geometric album art"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChkZdBqmvKbwTOR9QYIBfO0UBPYZcQ8EmeDVFo1377grLKZwSuvNgEYfmJ8_kgnXpmEiUYrYd2_asX39C3GGbuF9rZmi7OgvLESLeD_ma9q7UCF1MMmqS9BhTGWuUbMuvANM4TtNAtVjlcZMK73e4z6gnGBqaVbxb0oy2o4X6OA0ZojtKFE4Qb18tOaKlqIV0BN10Uaxf5Op_4znhgZSbIdECSK75cPS6r_ZZBcsemqWwkJEtScv1MGuN8n2VOGAWuOhmdW2t909LK");'>
+                        </div>
+                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                        <div
+                            class="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm rounded-full p-1 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white"
+                                style="font-size: 16px;">play_arrow</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-white text-sm font-semibold truncate">Street Politics</p>
+                        <p class="text-[#b792c9] text-xs truncate">Ep. 42 • 45m</p>
+                    </div>
+                </div>
+                <!-- Podcast Item 2 -->
+                <div class="flex flex-col gap-2 w-32 shrink-0 group cursor-pointer">
+                    <div class="w-32 h-32 rounded-2xl bg-surface-light overflow-hidden relative shadow-lg">
+                        <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                            data-alt="Microphone with neon pink lighting background"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBW0O2ZTEWUj52bMG6DJEjblzzVPes32stsEXmOr7u9XtwIJ-mBVZX8LlF5T3LqmFWm7bVTkpTZvC9orOnCHsGZk8lZP0bNfqmhmvHyE-DwqNv2_t7onAoGiWAhBEs_8Rv1ovGIxvZhWD2NAmUE0QCAOTuF6R6oEH-faezTrQP2KCB6uQSbaZGbQu2FmE9-0Oix0mYoQvA47X0B9idZoC1okpTaraMfcHbDQwAzLCq-QUJs2bIFJ7CcixwlXduAYzgLI6pg6j5uw2Zm");'>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-white text-sm font-semibold truncate">Beats &amp; Rhymes</p>
+                        <p class="text-[#b792c9] text-xs truncate">Ep. 108 • 1h 12m</p>
+                    </div>
+                </div>
+                <!-- Podcast Item 3 -->
+                <div class="flex flex-col gap-2 w-32 shrink-0 group cursor-pointer">
+                    <div class="w-32 h-32 rounded-2xl bg-surface-light overflow-hidden relative shadow-lg">
+                        <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                            data-alt="Retro cassette tape on dark background"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDp8Gx7cNfgZRFRgKcLbNKBDEpWwcBX78BWOQeK8WxYFTcJs2-u8bIMOdl4WHog8Qeol_VYfdL0fZ-JYz6Z4Qkod0dtYTx5qUTO8DCn_oLQA4QXcJWnI87IVGL3cnI3IjpCVvWQ3a4oymwQfiFPjmponmAN7zXKoN2jfpGxo-ao3ZBV5BzZiscgmCtgA72Wj_6dqEJsy-vnbff5N_bZ1vorlG8HizmFhzo55-qn9aJ4y6sdyT8AMQr8nv_uqtTuixLMI-IcNY3xXrFX");'>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-white text-sm font-semibold truncate">Old School</p>
+                        <p class="text-[#b792c9] text-xs truncate">Ep. 15 • 30m</p>
+                    </div>
+                </div>
+                <!-- Podcast Item 4 -->
+                <div class="flex flex-col gap-2 w-32 shrink-0 group cursor-pointer">
+                    <div class="w-32 h-32 rounded-2xl bg-surface-light overflow-hidden relative shadow-lg">
+                        <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-500"
+                            data-alt="Graffiti wall art texture"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBCJGkbkx0N9uYKP_dz4C0Ns5XqsyrZrnJDlcLbJ2S2-jAbpThnXqh4edGrWSOaeSfjmkxtaEVq8VqON3oAKQTHaaV_4iK6N2kYoZHRLsyxgvQqQtIsXglXWRneVjrq-YbVUDkPRE894-JBIl3EoO0QF943fjVRRJ3qN-WPypWv4uK2uUHpRKpTePC6HTTsRz8kwaGStH_wslKEzMcNScvxPcYoZj09Ln6B6HkRxM_lB0VU0TIl_qqmBbvgD8WqkwmoAi05vjc-5CVl");'>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-white text-sm font-semibold truncate">Urban Culture</p>
+                        <p class="text-[#b792c9] text-xs truncate">Ep. 05 • 55m</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Trending Now Grid -->
+        <div class="mt-6 mb-4">
+            <h3 class="text-white text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-4">Trending Now</h3>
+            <div class="grid grid-cols-2 gap-4 px-4">
+                <!-- Grid Item 1 -->
+                <div
+                    class="bg-surface-dark rounded-2xl p-3 flex flex-col gap-3 hover:bg-surface-light transition-colors cursor-pointer group">
+                    <div class="aspect-square w-full rounded-xl overflow-hidden relative">
+                        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform"
+                            data-alt="Crowd at a concert with purple lighting"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDe1p6uGc3ERHcxQTxpmCuktyPt_k8eL8Cl-7TUZIirYKPU3ZVWut6zuifFqNN4P8Cqos_mLHv5JkGSiqIagYlmPWiFI-qI_SL1oaRhFwZunfEbpHoRCxThkWdBoL4Hwe9IeFibOkEWcHlHX5BEe8ZaKto0pgYb6AoO1IStXYuKtEL2TG9gP54PfuFVgoE5ZLZHU4_dS53KDMexU8cGyuv2lNHbNCs4OEKpfVHOogxtH872Q2PkDwJwK5S0X3Tn2YgWo8MZqgNu0pKB");'>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xs font-bold text-primary uppercase tracking-wide">Playlist</span>
+                        <h4 class="text-white font-bold leading-tight">Friday Night Mix</h4>
+                        <p class="text-slate-400 text-xs mt-1">Top 50 Hip-Hop hits</p>
+                    </div>
+                </div>
+                <!-- Grid Item 2 -->
+                <div
+                    class="bg-surface-dark rounded-2xl p-3 flex flex-col gap-3 hover:bg-surface-light transition-colors cursor-pointer group">
+                    <div class="aspect-square w-full rounded-xl overflow-hidden relative">
+                        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform"
+                            data-alt="Vinyl record spinning on turntable"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBF52DDlEBTgSkoWOgwTntSRG7I0IbWN1SDZLEb17xiGgMbeu-3q83ibKgQrEeHQyZ3Gord5tKEXugptFiEbIdJBHnSeaMZeKzQA0UhUHcU9TUKCEInfaW-9Luc0pCXybb4K-E8qcQSKhoxBaDnuqIk1ig5iP6Ztqnn66FxPD_s6Fi8C5255sDV-YW8xgguEyVFSHYdRoFMO5z6q0za2_5O36DjjACwLeniQINHRkwH2xoBx8F8w0l5VC4vPMNWy7twp1-RjX01JzIL");'>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xs font-bold text-[#b792c9] uppercase tracking-wide">Event</span>
+                        <h4 class="text-white font-bold leading-tight">Club Onyx</h4>
+                        <p class="text-slate-400 text-xs mt-1">This Saturday • 10PM</p>
+                    </div>
+                </div>
+                <!-- Grid Item 3 -->
+                <div
+                    class="bg-surface-dark rounded-2xl p-3 flex flex-col gap-3 hover:bg-surface-light transition-colors cursor-pointer group">
+                    <div class="aspect-square w-full rounded-xl overflow-hidden relative">
+                        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform"
+                            data-alt="Silhouette of person in hoodie against city lights"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARZCLtcjoc-_8XGHBdMZc7aOqB5a0s_gFHlGsCqF7fTjhKIj1krA3KIHpQ2YYrdsrxTB0TpeGoxRS7_5z5aJ0abkOpp7b0MZTq630mMOlgIGEOb5yv6a5_GWYEIC-JALQydYQJZZ8hpXeNo2_8eDCOs2ShILnGlMGzzkyppuWHlOqqurS7f7rtP1NwcH5dOoMBJjKvnlRJMqSHH24GfgUXcAUrjGIXZ8Hc03HeftDACoIb31rF-1VmKJ5JihfKNeslP_HncCjfXZkl");'>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xs font-bold text-primary uppercase tracking-wide">Curated</span>
+                        <h4 class="text-white font-bold leading-tight">Underground Kings</h4>
+                        <p class="text-slate-400 text-xs mt-1">Discover new artists</p>
+                    </div>
+                </div>
+                <!-- Grid Item 4 -->
+                <div
+                    class="bg-surface-dark rounded-2xl p-3 flex flex-col gap-3 hover:bg-surface-light transition-colors cursor-pointer group">
+                    <div class="aspect-square w-full rounded-xl overflow-hidden relative">
+                        <div class="w-full h-full bg-cover bg-center group-hover:scale-105 transition-transform"
+                            data-alt="Golden microphone on stand"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAn3BPGaSocn0ri4UHrX4H289A6-H-AsUu9O0DxGPIqoKB_HHSay_5DKXepdv3jraqRacnOC7JtDuCPNLPd6HXnZyDOoP-9u0QpLUvkmiPzuci4NLuEqU9_TTfg1WlGGDOWPZReQjgZQTRvBHPevlTNDAwC-JwKJVwGyV_-mogoErlTWMAhWD8awNwhroPT5_Vq-vyWpQEwnXoXyWdxlSq3WHbn0LAPGqX3pmZ3k5v8c9k0YtCjHJG_JgdCDWmP9bZmtBX-50FC4U7r");'>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xs font-bold text-[#b792c9] uppercase tracking-wide">Contest</span>
+                        <h4 class="text-white font-bold leading-tight">Summer Jam</h4>
+                        <p class="text-slate-400 text-xs mt-1">Win VIP Tickets</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom Navigation Bar -->
+        <nav
+            class="fixed bottom-0 left-0 right-0 z-50 px-4 pb-6 pt-2 bg-background-dark/80 backdrop-blur-xl border-t border-white/5 flex justify-between items-center max-w-md mx-auto">
+            <button class="flex flex-col items-center gap-1 w-16 text-primary group">
+                <span class="material-symbols-outlined"
+                    style="font-size: 28px; font-variation-settings: 'FILL' 1;">explore</span>
+                <span class="text-[10px] font-medium">Discover</span>
+            </button>
+            <button
+                class="flex flex-col items-center gap-1 w-16 text-[#b792c9] hover:text-white transition-colors group">
+                <span class="material-symbols-outlined group-hover:scale-110 transition-transform"
+                    style="font-size: 28px;">radio</span>
+                <span class="text-[10px] font-medium">Live</span>
+            </button>
+            <!-- Floating Play Button (Optional stylistic choice for music apps) -->
+            <button
+                class="flex items-center justify-center size-14 rounded-full bg-primary shadow-[0_0_15px_rgba(164,19,236,0.5)] -mt-6 hover:scale-105 transition-transform">
+                <span class="material-symbols-outlined text-white"
+                    style="font-size: 32px; font-variation-settings: 'FILL' 1;">play_arrow</span>
+            </button>
+            <button
+                class="flex flex-col items-center gap-1 w-16 text-[#b792c9] hover:text-white transition-colors group">
+                <span class="material-symbols-outlined group-hover:scale-110 transition-transform"
+                    style="font-size: 28px;">library_music</span>
+                <span class="text-[10px] font-medium">Library</span>
+            </button>
+            <button
+                class="flex flex-col items-center gap-1 w-16 text-[#b792c9] hover:text-white transition-colors group">
+                <span class="material-symbols-outlined group-hover:scale-110 transition-transform"
+                    style="font-size: 28px;">person</span>
+                <span class="text-[10px] font-medium">Profile</span>
+            </button>
+        </nav>
+    </div>
+</body>
+
+</html>

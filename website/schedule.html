@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Radio Schedule UI</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#a413ec",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1c1022",
+                        "card-dark": "#2b1933",
+                        "card-active": "#3c2348",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-gray-900 dark:text-white antialiased selection:bg-primary selection:text-white">
+    <div class="relative flex h-full min-h-screen w-full flex-col overflow-hidden pb-24">
+        <!-- Sticky Header & Date Navigator -->
+        <div
+            class="sticky top-0 z-30 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-200 dark:border-white/5 pb-2">
+            <!-- Top App Bar -->
+            <div class="flex items-center px-4 pt-12 pb-2 justify-between">
+                <div
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-200 dark:hover:bg-white/10 transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-gray-900 dark:text-white">menu</span>
+                </div>
+                <h2 class="text-xl font-bold leading-tight tracking-tight flex-1 text-center">Schedule</h2>
+                <div
+                    class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-200 dark:hover:bg-white/10 transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-gray-900 dark:text-white">search</span>
+                </div>
+            </div>
+            <!-- Date Chips -->
+            <div class="flex gap-3 px-4 py-2 overflow-x-auto no-scrollbar">
+                <button
+                    class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary pl-6 pr-6 shadow-[0_0_15px_rgba(164,19,236,0.4)] transition-transform hover:scale-105">
+                    <p class="text-white text-sm font-bold leading-normal">Today</p>
+                </button>
+                <button
+                    class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-200 dark:bg-card-active pl-6 pr-6 transition-colors hover:bg-gray-300 dark:hover:bg-[#4d2d5c]">
+                    <p class="text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal">Tomorrow</p>
+                </button>
+                <button
+                    class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-200 dark:bg-card-active pl-6 pr-6 transition-colors hover:bg-gray-300 dark:hover:bg-[#4d2d5c]">
+                    <p class="text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal">Wed 14</p>
+                </button>
+                <button
+                    class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-200 dark:bg-card-active pl-6 pr-6 transition-colors hover:bg-gray-300 dark:hover:bg-[#4d2d5c]">
+                    <p class="text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal">Thu 15</p>
+                </button>
+                <button
+                    class="flex h-10 shrink-0 items-center justify-center gap-x-2 rounded-full bg-gray-200 dark:bg-card-active pl-6 pr-6 transition-colors hover:bg-gray-300 dark:hover:bg-[#4d2d5c]">
+                    <p class="text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal">Fri 16</p>
+                </button>
+            </div>
+        </div>
+        <!-- Main Content -->
+        <div class="flex flex-col px-4 pt-6 space-y-6">
+            <!-- On Air Now Section -->
+            <section>
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="relative flex h-3 w-3">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+                    </span>
+                    <h2 class="tracking-tight text-2xl font-bold leading-tight">On Air Now</h2>
+                </div>
+                <div class="@container">
+                    <div
+                        class="flex flex-col overflow-hidden rounded-[2rem] bg-white dark:bg-card-dark shadow-lg border border-gray-100 dark:border-white/5">
+                        <!-- Hero Image -->
+                        <div class="relative w-full h-48 sm:h-56 bg-gray-800">
+                            <img alt="DJ mixing music in a neon lit studio booth"
+                                class="w-full h-full object-cover opacity-90 hover:scale-105 transition-transform duration-700"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDYhgYsbdju9yjKiKlcc9DYSOZgb-a81mwNDL12yM0Cw_htC-j-hMjoZTHnIFlbEoSDM3DGX2t-xqW42gIh0jfeCiauJ4bXNHHFH7qAmaeGJemCG5Z-_qvYlgV82y2CuWcHm2l6gdFGucJc821K4yhAscijbxDXYFQ8HoWQ5IRyVask5xm_nHe4PfqrPNVH1OASlZIsf7SDCruEfddJADk9xDEG7ti2hzXUxOiy-AZwHn8nKeToNleaLyPYja-2LVYmJHFNxoonU4v" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                            </div>
+                            <div class="absolute bottom-4 left-4 flex items-center gap-2">
+                                <span
+                                    class="px-3 py-1 bg-red-600 rounded-full text-[10px] font-bold tracking-wider text-white uppercase shadow-md flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">graphic_eq</span>
+                                    Live
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Content -->
+                        <div class="p-5 flex flex-col gap-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-2xl font-bold leading-tight mb-1 text-gray-900 dark:text-white">The
+                                        Morning Grind</h3>
+                                    <p class="text-primary font-semibold text-sm uppercase tracking-wide">w/ DJ Hype</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm font-medium">Ends 11:00</p>
+                                </div>
+                            </div>
+                            <!-- Progress Bar for Show Duration (Static visual) -->
+                            <div class="w-full bg-gray-200 dark:bg-white/10 rounded-full h-1.5 overflow-hidden">
+                                <div class="bg-primary h-1.5 rounded-full w-2/3 shadow-[0_0_8px_#a413ec]"></div>
+                            </div>
+                            <button
+                                class="w-full py-3.5 mt-1 cursor-pointer flex items-center justify-center gap-2 rounded-full bg-primary text-white text-base font-bold shadow-lg shadow-primary/25 hover:bg-primary/90 hover:shadow-primary/40 transition-all active:scale-[0.98]">
+                                <span class="material-symbols-outlined">play_arrow</span>
+                                <span>Listen Live</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Upcoming Section -->
+            <section>
+                <h2 class="tracking-tight text-xl font-bold leading-tight mb-4 text-gray-900 dark:text-white">Upcoming
+                </h2>
+                <div class="flex flex-col gap-4">
+                    <!-- Card 2 -->
+                    <div
+                        class="group relative flex flex-row items-center bg-white dark:bg-card-dark rounded-3xl p-4 gap-4 shadow-sm border border-gray-100 dark:border-white/5 active:scale-[0.99] transition-transform">
+                        <!-- Time Column -->
+                        <div
+                            class="flex flex-col items-center justify-center w-14 shrink-0 border-r border-gray-100 dark:border-white/10 pr-4 gap-1">
+                            <span class="text-sm font-bold text-gray-900 dark:text-white">11:00</span>
+                            <span class="text-xs text-gray-400 font-medium">AM</span>
+                        </div>
+                        <!-- Info Column -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="h-6 w-6 rounded-full overflow-hidden bg-gray-700 shrink-0">
+                                    <img class="h-full w-full object-cover"
+                                        data-alt="Female DJ portrait with confident look"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCjfiQP-nDbljQuT4DLz4F4u6yuLPtji1VxHCNI66yZQIZurHQLhDHKtcEkJN1S5yO82UhjP2QWdaIM6s53XQQC9WNhmc2Jxn5O2K57K45m8Ucug6oJZRq0jLo-82_tF23vmxOQB940XTVsjM4bGBrTwpMd8csjIN1Pmd_ipjLHBw_u_EUmea_9QNp3cxxnFAd7UJ22oJsaCuGkkUqThj3ibNQ0KSC3A4kCGvXBdL1Twv3a3SquYlb9fuCUToAvzPBMo3oN6I-hk7eD" />
+                                </div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wide truncate">Sarah
+                                    V</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white leading-tight truncate mb-1">
+                                Mid-Day Mix</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">Old school R&amp;B and Hip
+                                Hop classics to get you through lunch.</p>
+                        </div>
+                        <!-- Action -->
+                        <button
+                            class="shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 hover:bg-primary/10 hover:text-primary transition-colors text-gray-400">
+                            <span class="material-symbols-outlined">notifications</span>
+                        </button>
+                    </div>
+                    <!-- Card 3 -->
+                    <div
+                        class="group relative flex flex-row items-center bg-white dark:bg-card-dark rounded-3xl p-4 gap-4 shadow-sm border border-gray-100 dark:border-white/5 active:scale-[0.99] transition-transform">
+                        <!-- Time Column -->
+                        <div
+                            class="flex flex-col items-center justify-center w-14 shrink-0 border-r border-gray-100 dark:border-white/10 pr-4 gap-1">
+                            <span class="text-sm font-bold text-gray-900 dark:text-white">14:00</span>
+                            <span class="text-xs text-gray-400 font-medium">PM</span>
+                        </div>
+                        <!-- Info Column -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="h-6 w-6 rounded-full overflow-hidden bg-gray-700 shrink-0">
+                                    <img class="h-full w-full object-cover"
+                                        data-alt="Male DJ wearing sunglasses smiling"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2vbHRR_y9uA_2JglkthfCFbhRITqJdwgCYK83fzsmK3mnD1sndYzXKZQKvcsnsKjG3IDBacKTzd1Gx09YF4Zitd79M2Z3cCIQTB378_b-443x8iotSnMPtjxw5N59be3bw8xf5zrOdQJcOI0uiq2Veg6-wfwuWK2HCNnY12Z6H7F_jKqOl7kIMbIRdFmqICEYc8bqBV_sQaw2JsDgGXMcT7DGJmg43OSGAQnAI558Hlae8rCirrZPhYMO2yW0GemIiNvh3bwgBFQU" />
+                                </div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wide truncate">MC
+                                    Flow</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white leading-tight truncate mb-1">The
+                                Drop</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">New releases and
+                                underground tracks straight from the streets.</p>
+                        </div>
+                        <!-- Action -->
+                        <button
+                            class="shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 hover:bg-primary/10 hover:text-primary transition-colors text-gray-400">
+                            <span class="material-symbols-outlined">notifications</span>
+                        </button>
+                    </div>
+                    <!-- Card 4 -->
+                    <div
+                        class="group relative flex flex-row items-center bg-white dark:bg-card-dark rounded-3xl p-4 gap-4 shadow-sm border border-gray-100 dark:border-white/5 active:scale-[0.99] transition-transform">
+                        <!-- Time Column -->
+                        <div
+                            class="flex flex-col items-center justify-center w-14 shrink-0 border-r border-gray-100 dark:border-white/10 pr-4 gap-1">
+                            <span class="text-sm font-bold text-gray-900 dark:text-white">17:00</span>
+                            <span class="text-xs text-gray-400 font-medium">PM</span>
+                        </div>
+                        <!-- Info Column -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="h-6 w-6 rounded-full overflow-hidden bg-gray-700 shrink-0">
+                                    <img class="h-full w-full object-cover"
+                                        data-alt="Close up profile of a female radio host"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZxLTJMOxiple3hC63yrEe5MTVxUlMI4Ey5BIS_Xqu52QQxtn9STplI1wnj7lXQPzJ7r5UVO207iJNWUV55Z8ePWoZcrHP1YJTAl9ebgWYYVMaYLT4C47lfA89nkQAxDzoe2hDcP-TfuoDP2M16d36W0HvyY_edw73vpLBlbp-0qFv4r7qRNfEn7lwsPGmVyJ1ZDYPqyeMamQ4vYRS0kf4lKkiaBR0XiUNl9cOJwD_PUqbHUuUHYWnu3VYGYB1ezXk12AQ3gTVDsCE" />
+                                </div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wide truncate">Lady
+                                    J</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white leading-tight truncate mb-1">
+                                Drive Time</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">Traffic updates and high
+                                energy beats to get you home.</p>
+                        </div>
+                        <!-- Action: Active State Example -->
+                        <button
+                            class="shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-primary/20 text-primary hover:bg-primary/30 transition-colors">
+                            <span class="material-symbols-outlined fill-1"
+                                style="font-variation-settings: 'FILL' 1;">notifications_active</span>
+                        </button>
+                    </div>
+                    <!-- Card 5 -->
+                    <div
+                        class="group relative flex flex-row items-center bg-white dark:bg-card-dark rounded-3xl p-4 gap-4 shadow-sm border border-gray-100 dark:border-white/5 active:scale-[0.99] transition-transform">
+                        <!-- Time Column -->
+                        <div
+                            class="flex flex-col items-center justify-center w-14 shrink-0 border-r border-gray-100 dark:border-white/10 pr-4 gap-1">
+                            <span class="text-sm font-bold text-gray-900 dark:text-white">20:00</span>
+                            <span class="text-xs text-gray-400 font-medium">PM</span>
+                        </div>
+                        <!-- Info Column -->
+                        <div class="flex-1 min-w-0">
+                            <div class="flex items-center gap-2 mb-1">
+                                <div class="h-6 w-6 rounded-full overflow-hidden bg-gray-700 shrink-0">
+                                    <img class="h-full w-full object-cover"
+                                        data-alt="Smiling man with headphones in dark studio"
+                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDmITAqBXxhddxv5_5KQfccqipFaMh8Y8sVBDLkaro7w0bAYHjGTdwJxXqPL4CJgDTFKgCL_bGBxVbzaZO8MTjel5vDX86dqAxMJSUUGooTxh7bYFi5Dnbp0aqED-ImoGvY7OV6adMJXgUoKhw_8nCpXmc35qoTDLisIFOc09RTLA5HVtP4V3U7V1QOvkComSYwmaxxdn_bDg7SCm5t81yaCmlsoimT0FsbBS_B0uGXTVgIvPaplOS9vkAhFDUt22eLiidnOYEdyB4" />
+                                </div>
+                                <span class="text-xs font-bold text-primary uppercase tracking-wide truncate">DJ
+                                    Nightowl</span>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white leading-tight truncate mb-1">Late
+                                Night Vibez</h3>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-1">Smooth jazz and slow jams.
+                            </p>
+                        </div>
+                        <!-- Action -->
+                        <button
+                            class="shrink-0 h-10 w-10 flex items-center justify-center rounded-full bg-gray-100 dark:bg-white/5 hover:bg-primary/10 hover:text-primary transition-colors text-gray-400">
+                            <span class="material-symbols-outlined">notifications</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Bottom Navigation -->
+        <div
+            class="fixed bottom-0 z-50 w-full bg-white/95 dark:bg-[#150d1a]/95 backdrop-blur-lg border-t border-gray-200 dark:border-white/5 pb-6 pt-3 px-6">
+            <div class="flex justify-between items-center max-w-md mx-auto">
+                <button class="flex flex-col items-center gap-1 group w-16">
+                    <span
+                        class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors text-[28px]">home</span>
+                    <span
+                        class="text-[10px] font-medium text-gray-500 group-hover:text-primary transition-colors">Home</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 group w-16">
+                    <span class="material-symbols-outlined text-primary text-[28px]">calendar_month</span>
+                    <span class="text-[10px] font-medium text-primary">Schedule</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 group w-16">
+                    <span
+                        class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors text-[28px]">music_note</span>
+                    <span
+                        class="text-[10px] font-medium text-gray-500 group-hover:text-primary transition-colors">Music</span>
+                </button>
+                <button class="flex flex-col items-center gap-1 group w-16">
+                    <div
+                        class="h-7 w-7 rounded-full overflow-hidden border border-transparent group-hover:border-primary transition-colors">
+                        <img class="h-full w-full object-cover" data-alt="User profile picture"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyvvsgKskhSuYfwqkvTxBDKcSWDzdKDF0A3MSLwWQuglEl7FvZFD0fAx0s9M9K-XlBkidbkOrNlgpLtptJLYO21k0NeJ5kaq-IGjBhP9igZ7e8YvvIJecF5pZqe5ni62or4CliHlrJAiziccWMW-RBVTZQydsr-x5MhnvY0TCWoqcpZe9ekbSbSY3B9oGL1OrqgswbhuxQCE8HR7iGrl7g9D3K4duBGJFDnKYhnKY2FuUxjfE0et6X5IYbqdcDpK2mUST0lot-h3G4" />
+                    </div>
+                    <span
+                        class="text-[10px] font-medium text-gray-500 group-hover:text-primary transition-colors">Profile</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

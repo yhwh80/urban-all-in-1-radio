@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Urban Radio Splash Screen</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#a413ec",
+                        "background-light": "#f7f6f8",
+                        "background-dark": "#1c1022",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+</head>
+
+<body
+    class="font-display bg-background-light dark:bg-background-dark text-slate-900 dark:text-white antialiased selection:bg-primary selection:text-white overflow-hidden">
+    <!-- Main Container: Simulating iPhone screen dimensions in a responsive container -->
+    <div class="relative w-full h-screen flex flex-col justify-between overflow-hidden bg-background-dark">
+        <!-- Background Visuals -->
+        <div class="absolute inset-0 z-0">
+            <!-- Gradient Overlay for tinting -->
+            <div
+                class="absolute inset-0 bg-gradient-to-b from-[#1c1022]/80 via-[#1c1022]/90 to-[#1c1022] z-10 mix-blend-multiply">
+            </div>
+            <div class="absolute inset-0 bg-primary/20 mix-blend-overlay z-10"></div>
+            <!-- Background Image -->
+            <div class="w-full h-full bg-cover bg-center grayscale contrast-125 opacity-40"
+                data-alt="Abstract blurred night cityscape with bokeh lights"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDA1-TOlsvVQ3WMoKK4ZjHJpHNqe0Y6SNRU7G-Iu0zn87SbK08wrlT7z6CEDcQsHOiSpAuHNKgUqZl2KSsAAJCrXWg6d1KEbQ3zIvtNiHIkVhCtMnz8q04h7G03VlF2idvP4qHKoxJbepuOgD_abYN2NplYEWfus3avfWPcKoKw-a_y89L2oUoZRQm6V-fHkVO2REn_AxTdtI896c8I8lDvCVS3W0O-_q0U672wg1WvC1lkHC0XfsJtuL0dRzCuGUahU5Waqeaqglbu");'>
+            </div>
+        </div>
+        <!-- Decorative Elements -->
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[30%] bg-primary/20 rounded-full blur-[100px] z-0"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[40%] bg-blue-600/10 rounded-full blur-[100px] z-0">
+        </div>
+        <!-- Main Content Area -->
+        <div class="relative z-20 flex flex-col h-full p-8 w-full max-w-md mx-auto">
+            <!-- Top Spacer (Optional safe area padding) -->
+            <div class="flex-none h-16"></div>
+            <!-- Center: Logo & Branding -->
+            <div class="flex-grow flex flex-col items-center justify-center -mt-16">
+                <!-- Logo with Glow Effect -->
+                <div class="relative group cursor-default">
+                    <!-- Static Glow (Simulating pulse) -->
+                    <div class="absolute inset-0 bg-primary rounded-full blur-2xl opacity-40 scale-110"></div>
+                    <!-- Icon Container -->
+                    <div class="relative bg-[#1c1122] p-2 rounded-[2rem] border border-white/5 shadow-2xl">
+                        <div
+                            class="flex items-center justify-center w-36 h-36 bg-gradient-to-br from-gray-800 to-black rounded-[1.5rem] overflow-hidden border border-white/5">
+                            <!-- Using Material Symbol as a conceptual logo placeholder -->
+                            <span
+                                class="material-symbols-outlined text-[6rem] text-primary bg-clip-text bg-gradient-to-b from-primary to-purple-400">
+                                graphic_eq
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Text Branding -->
+                <div class="flex flex-col items-center justify-center gap-3 mt-10">
+                    <h1 class="text-white text-4xl font-bold tracking-tight text-center drop-shadow-lg">
+                        URBAN RADIO
+                    </h1>
+                    <div class="flex items-center gap-2">
+                        <div class="h-[1px] w-4 bg-primary/50"></div>
+                        <p
+                            class="text-primary text-lg font-medium tracking-[0.15em] text-center uppercase drop-shadow-md">
+                            Your City, Your Sound
+                        </p>
+                        <div class="h-[1px] w-4 bg-primary/50"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Bottom: Loading & Meta -->
+            <div class="flex-none flex flex-col gap-6 items-center w-full pb-8">
+                <!-- Loading Indicator -->
+                <div class="w-full flex flex-col gap-3">
+                    <div class="flex justify-between items-end px-2">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-sm text-primary animate-spin-slow">
+                                sync
+                            </span>
+                            <p class="text-slate-300 text-xs font-medium tracking-wide">Tuning in...</p>
+                        </div>
+                        <p class="text-white text-xs font-bold font-mono">40%</p>
+                    </div>
+                    <div
+                        class="w-full h-1.5 bg-white/5 rounded-full overflow-hidden backdrop-blur-sm border border-white/5">
+                        <div class="h-full bg-gradient-to-r from-primary to-purple-400 rounded-full"
+                            style="width: 40%; box-shadow: 0 0 10px rgba(164, 19, 236, 0.5);"></div>
+                    </div>
+                </div>
+                <!-- Footer Meta -->
+                <div class="flex flex-col items-center gap-1">
+                    <p class="text-slate-500 text-[10px] font-normal tracking-wide text-center uppercase opacity-60">
+                        v2.0.1 • Build 8942
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

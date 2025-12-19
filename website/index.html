@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URBAN // DIRECTOR'S CUT</title>
+    <meta name="description" content="Reactive Audio Ecosystem">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Mobile Redirect -->
+    <script>
+        (function () {
+            const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isSmallScreen = window.innerWidth <= 768;
+            if (isMobile || isSmallScreen) {
+                window.location.href = 'mobile/';
+            }
+        })();
+    </script>
+</head>
+
+<body>
+    <!-- Particle Canvas -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- HUD Overlay -->
+    <div class="hud-layer">
+        <!-- Top Left: Identity -->
+        <div class="hud-top-left">
+            <h1 class="brand">URBAN // RADIO</h1>
+            <div class="meta">
+                <span class="freq">FREQ: 128.0kbps</span>
+                <span class="status-dot"></span>
+                <span id="connectionStatus">READY</span>
+            </div>
+        </div>
+
+        <!-- Top Right: Menu -->
+        <div class="hud-top-right">
+            <button id="menuBtn" class="hud-btn" aria-label="Menu">
+                <span>[ MENU ]</span>
+            </button>
+
+            <!-- Menu Dropdown -->
+            <div id="menuDropdown" class="menu-dropdown">
+                <button id="navSchedule" class="menu-item">SCHEDULE</button>
+                <button id="navDiscover" class="menu-item">DISCOVER</button>
+                <button id="navNews" class="menu-item">NEWS</button>
+                <button id="navAbout" class="menu-item disabled">ABOUT</button>
+            </div>
+        </div>
+
+        <!-- Bottom Left: Now Playing -->
+        <div class="hud-bottom-left">
+            <!-- Controls (Moved Above Track Info) -->
+            <div class="controls-container">
+                <div class="controls">
+                    <button id="playBtn" class="hud-control-btn" aria-label="Play/Pause">
+                        <span id="playIcon">▶</span>
+                    </button>
+                    <div class="volume-wrapper">
+                        <span class="vol-label">VOL</span>
+                        <input type="range" id="volumeSlider" min="0" max="100" value="70" class="hud-slider">
+                        <span id="volValue">70%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="track-info">
+                <div>
+                    <div class="label">NOW PLAYING</div>
+                    <div class="track-title" id="trackTitle">CONNECTING...</div>
+                    <div class="track-artist" id="trackArtist">WAITING FOR DATA</div>
+                </div>
+            </div>
+
+            <!-- Center: Interaction Hint -->
+            <div class="hud-center-hint">
+                <span>CLICK PLAY TO START STREAM</span>
+            </div>
+        </div>
+
+        <!-- Hidden Audio -->
+        <audio id="radioStream" preload="none" crossorigin="anonymous"></audio>
+
+        <!-- Schedule Overlay -->
+        <div id="scheduleOverlay" class="schedule-overlay">
+            <div class="schedule-header">
+                <h2 class="schedule-title">BROADCAST SCHEDULE</h2>
+                <button id="closeScheduleBtn" class="close-btn">[ CLOSE ]</button>
+            </div>
+
+            <div class="schedule-grid">
+                <!-- Morning Mix (06:00 - 12:00) -->
+                <div class="schedule-item" data-start="6" data-end="12">
+                    <div class="time-col">
+                        <span class="time">06:00</span>
+                        <span class="ampm">AM</span>
+                    </div>
+                    <div class="info-col">
+                        <div class="show-title">Morning Mix</div>
+                        <div class="show-host">Urban Radio</div>
+                        <div class="show-desc">Start your day with high energy beats and news updates.</div>
+                    </div>
+                </div>
+
+                <!-- Afternoon Vibes (12:00 - 18:00) -->
+                <div class="schedule-item" data-start="12" data-end="18">
+                    <div class="time-col">
+                        <span class="time">12:00</span>
+                        <span class="ampm">PM</span>
+                    </div>
+                    <div class="info-col">
+                        <div class="show-title">Afternoon Vibes</div>
+                        <div class="show-host">Urban Radio</div>
+                        <div class="show-desc">The perfect soundtrack for your daily grind.</div>
+                    </div>
+                </div>
+
+                <!-- Evening Flow (18:00 - 00:00) -->
+                <div class="schedule-item" data-start="18" data-end="24">
+                    <div class="time-col">
+                        <span class="time">18:00</span>
+                        <span class="ampm">PM</span>
+                    </div>
+                    <div class="info-col">
+                        <div class="show-title">Evening Flow</div>
+                        <div class="show-host">Urban Radio</div>
+                        <div class="show-desc">Winding down with smooth tracks and requests.</div>
+                    </div>
+                </div>
+
+                <!-- Late Night (00:00 - 06:00) -->
+                <div class="schedule-item" data-start="0" data-end="6">
+                    <div class="time-col">
+                        <span class="time">00:00</span>
+                        <span class="ampm">AM</span>
+                    </div>
+                    <div class="info-col">
+                        <div class="show-title">Late Night Session</div>
+                        <div class="show-host">Urban Radio</div>
+                        <div class="show-desc">Non-stop music for the night owls.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Discover Overlay -->
+        <div id="discoverOverlay" class="schedule-overlay">
+            <div class="schedule-header">
+                <h2 class="schedule-title">DISCOVER</h2>
+                <button id="closeDiscoverBtn" class="close-btn">[ CLOSE ]</button>
+            </div>
+
+            <div class="schedule-grid">
+                <!-- Breaking News Hero -->
+                <div class="schedule-item" style="border-color: var(--accent); flex-direction: column;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                        <span class="live-badge" style="background: #fff; color: #000;">BREAKING NEWS</span>
+                        <span class="time" style="font-size: 0.8rem;">JUST NOW</span>
+                    </div>
+                    <div class="info-col">
+                        <div class="show-title" style="font-size: 1.5rem;">Interview with Kendrick Lamar</div>
+                        <div class="show-desc" style="margin-top: 0.5rem;">Discussing the new album, tour life, and the
+                            state of the culture.</div>
+                        <button class="hud-btn" style="margin-top: 1rem; align-self: flex-start;">[ LISTEN NOW
+                            ]</button>
+                    </div>
+                </div>
+
+                <!-- Featured Podcasts Header -->
+                <h3 class="schedule-title" style="font-size: 1.2rem; margin-top: 1rem;">FEATURED PODCASTS</h3>
+
+                <!-- Podcast 1 -->
+                <div class="schedule-item">
+                    <div class="time-col">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 2rem; color: var(--hud-color);">podcasts</span>
+                    </div>
+                    <div class="info-col">
+                        <div class="show-title">Street Politics</div>
+                        <div class="show-host">Ep. 42 • 45m</div>
+                        <div class="show-desc">Deep dive into local community issues.</div>
+                    </div>
+                </div>
+
+                <!-- Podcast 2 -->
+                <div class="schedule-item">
+                    <div class="time-col">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 2rem; color: var(--hud-color);">graphic_eq</span>
+                    </div>
+                    <div class="info-col">
+                        <div class="show-title">Beats & Rhymes</div>
+                        <div class="show-host">Ep. 108 • 1h 12m</div>
+                        <div class="show-desc">Production breakdown of top hits.</div>
+                    </div>
+                </div>
+
+                <!-- Podcast 3 -->
+                <div class="schedule-item">
+                    <div class="time-col">
+                        <span class="material-symbols-outlined"
+                            style="font-size: 2rem; color: var(--hud-color);">history</span>
+                    </div>
+                    <div class="info-col">
+                        <div class="show-title">Old School</div>
+                        <div class="show-host">Ep. 15 • 30m</div>
+                        <div class="show-desc">History of the golden era.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="js/player.js"></script>
+</body>
+
+</html>

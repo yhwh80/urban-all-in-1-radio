@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: urban-radio
+    runtime: static
+    buildCommand: echo "No build needed"
+    staticPublishPath: ./website
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=3600
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+

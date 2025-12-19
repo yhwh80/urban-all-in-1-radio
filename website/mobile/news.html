@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Urban Radio - News</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#00f5ff",
+                        "accent": "#ff00ff",
+                        "background-dark": "#0a0a0f",
+                        "surface-dark": "#12121a",
+                    },
+                    fontFamily: { "display": ["Spline Sans", "sans-serif"] },
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            min-height: 100dvh;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+
+<body class="font-display bg-background-dark text-white antialiased">
+    <div class="relative flex min-h-screen w-full flex-col">
+        <!-- Background -->
+        <div class="fixed inset-0 z-0">
+            <div class="absolute top-[-20%] left-[-20%] w-[60%] h-[40%] bg-primary/10 rounded-full blur-[100px]"></div>
+            <div class="absolute bottom-[-20%] right-[-20%] w-[70%] h-[50%] bg-accent/5 rounded-full blur-[100px]">
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="flex items-center justify-between p-4 pt-12 z-10 relative border-b border-white/5">
+            <a href="player.html" class="flex items-center justify-center text-white/70 size-10 rounded-full">
+                <span class="material-symbols-outlined text-2xl">arrow_back</span>
+            </a>
+            <h1 class="text-lg font-bold tracking-wider">URBAN <span class="text-primary">//</span> NEWS</h1>
+            <div class="w-10"></div>
+        </header>
+
+        <!-- Topic Tabs -->
+        <div class="flex gap-2 p-4 overflow-x-auto no-scrollbar z-10 relative">
+            <button
+                class="topic-tab active flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-primary bg-primary text-background-dark"
+                data-topic="uk">🇬🇧 UK</button>
+            <button
+                class="topic-tab flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-white/20 text-white/60"
+                data-topic="hiphop">🎤 HIP-HOP</button>
+            <button
+                class="topic-tab flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-white/20 text-white/60"
+                data-topic="basketball">🏀 NBA</button>
+            <button
+                class="topic-tab flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-white/20 text-white/60"
+                data-topic="football">⚽ FOOTBALL</button>
+            <button
+                class="topic-tab flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-white/20 text-white/60"
+                data-topic="f1">🏎️ F1</button>
+            <button
+                class="topic-tab flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-white/20 text-white/60"
+                data-topic="tech">🤖 TECH</button>
+            <button
+                class="topic-tab flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-white/20 text-white/60"
+                data-topic="entertainment">🎬 ENTERTAINMENT</button>
+        </div>
+
+        <!-- News Content -->
+        <main id="newsContent" class="flex-1 p-4 pb-24 z-10 relative overflow-y-auto">
+            <div class="flex flex-col items-center justify-center py-12">
+                <div class="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full spinner"></div>
+                <p class="text-white/50 text-sm mt-4">LOADING...</p>
+            </div>
+        </main>
+
+        <!-- Bottom Nav -->
+        <nav
+            class="fixed bottom-0 left-0 right-0 flex justify-around items-center p-4 pb-8 z-20 border-t border-white/5 bg-background-dark/90 backdrop-blur-lg">
+            <a href="player.html" class="flex flex-col items-center gap-1 text-white/50">
+                <span class="material-symbols-outlined text-2xl">radio</span>
+                <span class="text-[10px] font-medium">Live</span>
+            </a>
+            <a href="schedule.html" class="flex flex-col items-center gap-1 text-white/50">
+                <span class="material-symbols-outlined text-2xl">calendar_month</span>
+                <span class="text-[10px] font-medium">Schedule</span>
+            </a>
+            <button class="flex flex-col items-center gap-1 text-primary">
+                <span class="material-symbols-outlined text-2xl"
+                    style="font-variation-settings: 'FILL' 1;">newspaper</span>
+                <span class="text-[10px] font-medium">News</span>
+            </button>
+            <a href="discover.html" class="flex flex-col items-center gap-1 text-white/50">
+                <span class="material-symbols-outlined text-2xl">explore</span>
+                <span class="text-[10px] font-medium">Discover</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        const newsContent = document.getElementById('newsContent');
+        const topicTabs = document.querySelectorAll('.topic-tab');
+        let currentTopic = 'uk';
+
+        // Supabase Edge Function
+        const SUPABASE_URL = 'https://vltamaobaqamxnpkftiq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZsdGFtYW9iYXFhbXhucGtmdGlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAxMDY0MDAsImV4cCI6MjA2NTY4MjQwMH0.jvpgWPhgMBP25oE8iDsaPyBHbDucCctEUQVWid1fBZo';
+
+        async function fetchNews(topic) {
+            newsContent.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-12">
+                    <div class="w-8 h-8 border-2 border-primary/30 border-t-primary rounded-full spinner"></div>
+                    <p class="text-white/50 text-sm mt-4">SCANNING ${topic.toUpperCase()}...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/get-news`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({ topic })
+                });
+                const data = await response.json();
+
+                if (data.error) throw new Error(data.error);
+                if (data.news && Array.isArray(data.news)) {
+                    renderNews(data.news);
+                } else if (data.raw) {
+                    newsContent.innerHTML = `<div class="p-4 bg-surface-dark rounded-xl text-sm text-white/70">${data.raw}</div>`;
+                }
+            } catch (error) {
+                newsContent.innerHTML = `
+                    <div class="flex flex-col items-center py-12 text-center">
+                        <span class="material-symbols-outlined text-4xl text-accent mb-2">error</span>
+                        <p class="text-white/70 text-sm">${error.message}</p>
+                        <button onclick="fetchNews('${topic}')" class="mt-4 px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-bold">RETRY</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Curated fallback images by topic
+        const fallbackImages = {
+            uk: [
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=180&fit=crop',
+            ],
+            hiphop: [
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=400&h=180&fit=crop',
+            ],
+            basketball: [
+                'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=400&h=180&fit=crop',
+            ],
+            football: [
+                'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=180&fit=crop',
+            ],
+            f1: [
+                'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1541348263662-e068662d82af?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1504817343863-5092a923803e?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1580341289255-5b47c98a59dd?w=400&h=180&fit=crop',
+            ],
+            tech: [
+                'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=180&fit=crop',
+            ],
+            entertainment: [
+                'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=180&fit=crop',
+                'https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=400&h=180&fit=crop',
+            ]
+        };
+
+        function getImage(topic, index) {
+            const images = fallbackImages[topic] || fallbackImages.uk;
+            return images[index % images.length];
+        }
+
+        function renderNews(news) {
+            if (!news.length) {
+                newsContent.innerHTML = '<p class="text-center text-white/50 py-12">No news available</p>';
+                return;
+            }
+            newsContent.innerHTML = `
+                <div class="flex flex-col gap-4">
+                    ${news.map((story, index) => `
+                        <article class="bg-surface-dark/50 rounded-xl border border-white/5 overflow-hidden">
+                            <img src="${story.imageUrl || getImage(currentTopic, index)}"
+                                 alt=""
+                                 class="w-full h-36 object-cover bg-gradient-to-br from-primary/5 to-accent/5"
+                                 loading="lazy"
+                                 onerror="this.src='${getImage(currentTopic, index)}'">
+                            <div class="p-4">
+                                <h3 class="text-base font-bold leading-snug mb-2">${story.title}</h3>
+                                <p class="text-sm text-white/60 leading-relaxed mb-3">${story.summary}</p>
+                                <div class="flex justify-between items-center text-xs">
+                                    <span class="text-primary/70">${story.source || 'Source'} · ${story.timeAgo || 'Recent'}</span>
+                                    ${story.url ? `<a href="${story.url}" target="_blank" class="text-accent font-bold">READ →</a>` : ''}
+                                </div>
+                            </div>
+                        </article>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        topicTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                topicTabs.forEach(t => {
+                    t.classList.remove('active', 'bg-primary', 'text-background-dark', 'border-primary');
+                    t.classList.add('border-white/20', 'text-white/60');
+                });
+                tab.classList.add('active', 'bg-primary', 'text-background-dark', 'border-primary');
+                tab.classList.remove('border-white/20', 'text-white/60');
+                currentTopic = tab.dataset.topic;
+                fetchNews(currentTopic);
+            });
+        });
+
+        fetchNews(currentTopic);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URBAN NEWS // AI-Curated</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        .news-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-color);
+            overflow-y: auto;
+            padding: 2rem;
+            z-index: 100;
+        }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--hud-color);
+        }
+
+        .news-title {
+            font-size: 1.5rem;
+            color: var(--hud-color);
+            letter-spacing: 0.2em;
+        }
+
+        .news-title span {
+            color: var(--accent);
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid var(--hud-color);
+            color: var(--hud-color);
+            padding: 0.5rem 1rem;
+            font-family: 'Space Mono', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--hud-color);
+            color: var(--bg-color);
+        }
+
+        .topic-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .topic-tab {
+            background: transparent;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            color: rgba(0, 245, 255, 0.6);
+            padding: 0.75rem 1.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .topic-tab:hover {
+            border-color: var(--hud-color);
+            color: var(--hud-color);
+        }
+
+        .topic-tab.active {
+            background: var(--hud-color);
+            color: var(--bg-color);
+            border-color: var(--hud-color);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background: rgba(0, 245, 255, 0.03);
+            border: 1px solid rgba(0, 245, 255, 0.15);
+            overflow: hidden;
+            transition: all 0.2s;
+        }
+
+        .news-card:hover {
+            border-color: var(--hud-color);
+            background: rgba(0, 245, 255, 0.06);
+        }
+
+        .news-card-image {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.05) 0%, rgba(255, 0, 255, 0.05) 100%);
+        }
+
+        .news-card-content {
+            padding: 1.5rem;
+        }
+
+        .news-card-title {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        .news-card-summary {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .news-card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--hud-color);
+            opacity: 0.7;
+        }
+
+        .news-card-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .news-card-link:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem;
+            color: var(--hud-color);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(0, 245, 255, 0.2);
+            border-top-color: var(--hud-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-msg {
+            text-align: center;
+            padding: 2rem;
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="news-container">
+        <!-- Header -->
+        <div class="news-header">
+            <h1 class="news-title">URBAN <span>//</span> NEWS</h1>
+            <button class="back-btn" onclick="window.location.href='index.html'">← BACK TO RADIO</button>
+        </div>
+
+        <!-- Topic Tabs -->
+        <div class="topic-tabs">
+            <button class="topic-tab active" data-topic="uk">🇬🇧 UK</button>
+            <button class="topic-tab" data-topic="hiphop">🎤 HIP-HOP</button>
+            <button class="topic-tab" data-topic="basketball">🏀 NBA</button>
+            <button class="topic-tab" data-topic="football">⚽ FOOTBALL</button>
+            <button class="topic-tab" data-topic="f1">🏎️ F1</button>
+            <button class="topic-tab" data-topic="tech">🤖 TECH</button>
+            <button class="topic-tab" data-topic="entertainment">🎬 ENTERTAINMENT</button>
+        </div>
+
+        <!-- News Content -->
+        <div id="newsContent">
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p style="margin-top: 1rem;">FETCHING LATEST NEWS...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const newsContent = document.getElementById('newsContent');
+        const topicTabs = document.querySelectorAll('.topic-tab');
+        let currentTopic = 'uk';
+
+        // Supabase Edge Function URL
+        const SUPABASE_URL = 'https://vltamaobaqamxnpkftiq.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZsdGFtYW9iYXFhbXhucGtmdGlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAxMDY0MDAsImV4cCI6MjA2NTY4MjQwMH0.jvpgWPhgMBP25oE8iDsaPyBHbDucCctEUQVWid1fBZo';
+
+        // Fetch news from Supabase Edge Function
+        async function fetchNews(topic) {
+            newsContent.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p style="margin-top: 1rem;">SCANNING ${topic.toUpperCase()} FEEDS...</p>
+                </div>
+            `;
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/get-news`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                    },
+                    body: JSON.stringify({ topic })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                if (data.news && Array.isArray(data.news)) {
+                    renderNews(data.news);
+                } else if (data.raw) {
+                    // Fallback for unparsed response
+                    newsContent.innerHTML = `<div class="news-card"><div class="news-card-summary">${data.raw}</div></div>`;
+                }
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                newsContent.innerHTML = `
+                    <div class="error-msg">
+                        <p>CONNECTION_ERROR</p>
+                        <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 0.5rem;">${error.message}</p>
+                        <button class="back-btn" style="margin-top: 1rem;" onclick="fetchNews('${topic}')">RETRY</button>
+                    </div>
+                `;
+            }
+        }
+
+        // Curated fallback images by topic (Unsplash direct URLs - no redirects)
+        const fallbackImages = {
+            uk: [
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop', // concert crowd
+                'https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=400&h=200&fit=crop', // dj mixing
+                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop', // neon concert
+                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=200&fit=crop', // festival crowd
+            ],
+            hiphop: [
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop', // concert
+                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=200&fit=crop', // studio mic
+                'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=200&fit=crop', // headphones
+                'https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=400&h=200&fit=crop', // dj
+            ],
+            basketball: [
+                'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=200&fit=crop', // basketball court
+                'https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=400&h=200&fit=crop', // basketball hoop
+                'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=400&h=200&fit=crop', // basketball
+                'https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=400&h=200&fit=crop', // nba court
+            ],
+            football: [
+                'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=200&fit=crop', // football pitch
+                'https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=200&fit=crop', // football
+                'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=200&fit=crop', // stadium
+                'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop', // goal net
+            ],
+            f1: [
+                'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&h=200&fit=crop', // race car
+                'https://images.unsplash.com/photo-1541348263662-e068662d82af?w=400&h=200&fit=crop', // f1 helmet
+                'https://images.unsplash.com/photo-1504817343863-5092a923803e?w=400&h=200&fit=crop', // race track
+                'https://images.unsplash.com/photo-1580341289255-5b47c98a59dd?w=400&h=200&fit=crop', // racing
+            ],
+            tech: [
+                'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=200&fit=crop', // AI brain
+                'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop', // circuit board
+                'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=200&fit=crop', // cyber security
+                'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=200&fit=crop', // robot
+            ],
+            entertainment: [
+                'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=200&fit=crop', // cinema seats
+                'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&h=200&fit=crop', // film reel
+                'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=200&fit=crop', // red carpet
+                'https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=400&h=200&fit=crop', // streaming
+            ]
+        };
+
+        // Get themed fallback image
+        function getImage(topic, index) {
+            const images = fallbackImages[topic] || fallbackImages.uk;
+            return images[index % images.length];
+        }
+
+        // Render news cards
+        function renderNews(news) {
+            if (!news.length) {
+                newsContent.innerHTML = '<div class="error-msg">NO_DATA_AVAILABLE</div>';
+                return;
+            }
+
+            newsContent.innerHTML = `
+                <div class="news-grid">
+                    ${news.map((story, index) => `
+                        <article class="news-card">
+                            <img src="${story.imageUrl || getImage(currentTopic, index)}"
+                                 alt=""
+                                 class="news-card-image"
+                                 loading="lazy"
+                                 onerror="this.src='${getImage(currentTopic, index)}'">
+                            <div class="news-card-content">
+                                <h3 class="news-card-title">${story.title}</h3>
+                                <p class="news-card-summary">${story.summary}</p>
+                                <div class="news-card-meta">
+                                    <span>${story.source || 'Source'} · ${story.timeAgo || 'Recent'}</span>
+                                    ${story.url ? `<a href="${story.url}" target="_blank" class="news-card-link">READ MORE →</a>` : ''}
+                                </div>
+                            </div>
+                        </article>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // Tab click handlers
+        topicTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                topicTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentTopic = tab.dataset.topic;
+                fetchNews(currentTopic);
+            });
+        });
+
+        // Initial load
+        fetchNews(currentTopic);
+    </script>
+</body>
+
+</html>
