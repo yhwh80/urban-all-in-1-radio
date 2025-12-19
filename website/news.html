@@ -354,6 +354,79 @@
         // Initial load
         fetchNews(currentTopic);
     </script>
+
+    <!-- Mini Player for auto-resume -->
+    <audio id="radioStream" preload="none"></audio>
+    <div id="miniPlayer"
+        style="display:none; position:fixed; bottom:20px; left:20px; right:20px; max-width:400px; background:rgba(10,10,15,0.95); border:1px solid var(--hud-dim); padding:1rem; border-radius:4px; z-index:200;">
+        <div style="display:flex; align-items:center; gap:1rem;">
+            <button id="miniPlayBtn"
+                style="background:var(--hud-color); border:none; color:var(--bg-color); width:40px; height:40px; border-radius:50%; cursor:pointer; font-size:1.2rem;">⏸</button>
+            <div style="flex:1; min-width:0;">
+                <p id="miniTitle"
+                    style="margin:0; font-size:0.9rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                    Loading...</p>
+                <p id="miniArtist" style="margin:0; font-size:0.75rem; color:var(--hud-dim);">Urban Radio</p>
+            </div>
+            <div
+                style="width:8px; height:8px; background:var(--hud-color); border-radius:50%; animation:pulse 1.5s infinite;">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const RADIO_CONFIG = {
+                streamUrl: 'https://a7.asurahosting.com:6660/radio.mp3',
+                nowPlayingUrl: 'https://a7.asurahosting.com/api/nowplaying/urban_-_all_in_1_radio'
+            };
+
+            const radioStream = document.getElementById('radioStream');
+            const miniPlayer = document.getElementById('miniPlayer');
+            const miniPlayBtn = document.getElementById('miniPlayBtn');
+            const miniTitle = document.getElementById('miniTitle');
+            const miniArtist = document.getElementById('miniArtist');
+
+            let isPlaying = false;
+            radioStream.src = RADIO_CONFIG.streamUrl;
+
+            const savedVolume = localStorage.getItem('urbanRadioVolume');
+            radioStream.volume = savedVolume ? parseFloat(savedVolume) : 0.7;
+
+            function togglePlay() {
+                if (isPlaying) {
+                    radioStream.pause();
+                    miniPlayBtn.textContent = '▶';
+                    localStorage.setItem('urbanRadioPlaying', 'false');
+                } else {
+                    radioStream.play().catch(e => console.error(e));
+                    miniPlayBtn.textContent = '⏸';
+                    localStorage.setItem('urbanRadioPlaying', 'true');
+                }
+                isPlaying = !isPlaying;
+            }
+
+            miniPlayBtn.addEventListener('click', togglePlay);
+
+            async function fetchNowPlayingRadio() {
+                try {
+                    const res = await fetch(RADIO_CONFIG.nowPlayingUrl);
+                    const data = await res.json();
+                    if (data?.now_playing?.song) {
+                        miniTitle.textContent = data.now_playing.song.title || 'Unknown';
+                        miniArtist.textContent = data.now_playing.song.artist || 'Urban Radio';
+                    }
+                } catch (e) { console.error(e); }
+            }
+
+            if (localStorage.getItem('urbanRadioPlaying') === 'true') {
+                miniPlayer.style.display = 'block';
+                togglePlay();
+                fetchNowPlayingRadio();
+                setInterval(fetchNowPlayingRadio, 5000);
+            }
+        })();
+    </script>
 </body>
 
 </html>

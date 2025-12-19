@@ -304,6 +304,7 @@ function togglePlay() {
         centerHint.style.display = 'block';
         centerHint.querySelector('span').textContent = 'SYSTEM_PAUSED – PRESS PLAY TO RESUME';
         isPlaying = false;
+        localStorage.setItem('urbanRadioPlaying', 'false');
         return;
     }
 
@@ -317,6 +318,7 @@ function togglePlay() {
             statusDot.classList.add('active');
             centerHint.style.display = 'none';
             isPlaying = true;
+            localStorage.setItem('urbanRadioPlaying', 'true');
         })
         .catch((e) => {
             console.error('Error starting stream playback:', e);
@@ -327,6 +329,7 @@ function togglePlay() {
             centerHint.style.display = 'block';
             centerHint.querySelector('span').textContent = 'UNABLE_TO_CONNECT – TRY AGAIN';
             isPlaying = false;
+            localStorage.setItem('urbanRadioPlaying', 'false');
         });
 }
 
@@ -337,6 +340,7 @@ volumeSlider.addEventListener('input', (e) => {
     const val = e.target.value;
     radioStream.volume = val / 100;
     volValue.textContent = `${val}%`;
+    localStorage.setItem('urbanRadioVolume', radioStream.volume);
 });
 
 window.addEventListener('mousemove', (e) => {
@@ -368,11 +372,23 @@ setInterval(fetchNowPlaying, CONFIG.updateInterval);
 
 // Init
 radioStream.src = CONFIG.streamUrl;
-radioStream.volume = 0.7;
+
+// Restore volume from localStorage or default to 0.7
+const savedVolume = localStorage.getItem('urbanRadioVolume');
+radioStream.volume = savedVolume ? parseFloat(savedVolume) : 0.7;
+volumeSlider.value = radioStream.volume * 100;
+volValue.textContent = `${Math.round(radioStream.volume * 100)}%`;
+
 resize();
 initParticles();
 animate();
 fetchNowPlaying();
 
-// Add pulse animation to play button to draw attention on first load
-playBtn.classList.add('pulse');
+// Auto-resume if was playing before
+if (localStorage.getItem('urbanRadioPlaying') === 'true') {
+    // Small delay to ensure everything is loaded
+    setTimeout(() => togglePlay(), 500);
+} else {
+    // Add pulse animation to play button to draw attention on first load
+    playBtn.classList.add('pulse');
+}
