@@ -37,6 +37,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'website')));
 
+// AI Host Webhook Routes
+const aiHostWebhook = require('./routes/aiHostWebhook');
+app.use('/api/ai-host', aiHostWebhook);
+
 // News API endpoint - proxies to Perplexity with caching
 app.post('/api/news', async (req, res) => {
     const { topic } = req.body;

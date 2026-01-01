@@ -1,6 +1,44 @@
 services:
+  # Node.js API Server (for AI Host automation)
   - type: web
-    name: urban-radio
+    name: urban-radio-api
+    runtime: node
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+      - key: PERPLEXITY_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: DISCORD_WEBHOOK_URL
+        sync: false
+      - key: ELEVENLABS_API_KEY
+        sync: false
+      - key: ELEVENLABS_VOICE_ID
+        sync: false
+      - key: ELEVENLABS_STABILITY
+        value: 0.5
+      - key: ELEVENLABS_SIMILARITY
+        value: 0.75
+      - key: ELEVENLABS_STYLE
+        value: 0.5
+      - key: ELEVENLABS_SPEAKER_BOOST
+        value: true
+      - key: AZURACAST_BASE_URL
+        value: https://a7.asurahosting.com
+      - key: AZURACAST_API_KEY
+        sync: false
+      - key: AZURACAST_STATION_ID
+        value: 546
+    healthCheckPath: /
+
+  # Static Website
+  - type: web
+    name: urban-radio-website
     runtime: static
     buildCommand: echo "No build needed"
     staticPublishPath: ./website

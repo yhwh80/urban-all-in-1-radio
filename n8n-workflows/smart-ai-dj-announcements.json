@@ -1,0 +1,111 @@
+{
+  "name": "Smart AI DJ - Voice Over Announcements",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "seconds",
+              "secondsInterval": 5
+            }
+          ]
+        }
+      },
+      "name": "Every 5 Seconds",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://a7.asurahosting.com/api/nowplaying/546",
+        "options": {}
+      },
+      "name": "Get Now Playing",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "// Get the now playing data from previous node\nconst nowPlaying = $input.item.json;\n\n// Extract song info\nconst song = nowPlaying.now_playing;\nconst elapsed = song.elapsed || 0;\nconst duration = song.duration || 0;\nconst remaining = duration - elapsed;\n\n// Song details\nconst artist = song.song.artist || 'Unknown';\nconst title = song.song.title || 'Unknown';\nconst genre = song.song.genre || '';\n\nlet shouldAnnounce = false;\nlet announcementType = '';\nlet announcementTiming = '';\nlet reason = '';\n\n// 1. OUTRO DETECTION (Last 10-15 seconds of song)\nif (remaining >= 10 && remaining <= 15) {\n  shouldAnnounce = true;\n  announcementType = 'outro';\n  announcementTiming = 'end';\n  reason = `Song ending in ${remaining} seconds - perfect for outro announcement`;\n}\n\n// 2. INTRO DETECTION (First 15-30 seconds of song)\nelse if (elapsed >= 15 && elapsed <= 30) {\n  const hasLongIntro = genre.toLowerCase().includes('hip hop') || \n                       genre.toLowerCase().includes('rap') ||\n                       genre.toLowerCase().includes('urban');\n  \n  if (hasLongIntro) {\n    shouldAnnounce = true;\n    announcementType = 'intro';\n    announcementTiming = 'start';\n    reason = `Song has been playing for ${elapsed} seconds - likely instrumental intro`;\n  }\n}\n\n// 3. RANDOM ANNOUNCEMENT (Every 5-10 songs)\nelse if (Math.random() < 0.05) {\n  shouldAnnounce = true;\n  announcementType = 'random';\n  announcementTiming = 'middle';\n  reason = 'Random announcement to keep engagement';\n}\n\n// COOLDOWN LOGIC\nif (shouldAnnounce) {\n  const randomChance = Math.random();\n  if (randomChance > 0.028) {\n    shouldAnnounce = false;\n    reason = `Cooldown skip - random chance to prevent too many announcements`;\n  }\n}\n\nreturn {\n  json: {\n    shouldAnnounce: shouldAnnounce,\n    announcementType: announcementType,\n    announcementTiming: announcementTiming,\n    reason: reason,\n    currentSong: {\n      artist: artist,\n      title: title,\n      genre: genre,\n      elapsed: elapsed,\n      duration: duration,\n      remaining: remaining\n    },\n    timing: {\n      elapsed: elapsed,\n      remaining: remaining,\n      duration: duration,\n      percentage: Math.round((elapsed / duration) * 100)\n    }\n  }\n};"
+      },
+      "name": "Detect Announcement Moment",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json.shouldAnnounce}}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "name": "Should Announce?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [850, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://localhost:3000/api/ai-host/announce",
+        "options": {},
+        "bodyParametersJson": "={\n  \"type\": \"{{$json.announcementType}}\",\n  \"currentSong\": {{$json.currentSong}}\n}"
+      },
+      "name": "Generate AI Announcement",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1050, 200]
+    },
+    {
+      "parameters": {
+        "url": "=http://localhost:3000/api/ai-host/add-to-playlist",
+        "method": "POST",
+        "options": {},
+        "bodyParametersJson": "={\n  \"fileId\": {{$node['Generate AI Announcement'].json.uploadResult.id}},\n  \"playlistId\": 5344\n}"
+      },
+      "name": "Add to Jingle Playlist",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1250, 200]
+    },
+    {
+      "parameters": {
+        "url": "https://discord.com/api/webhooks/1455299462179066039/45DrBdGEE_yfFpusCKpFs7ewv7InTbZmRCiu4zfy70NlRk9rQWkOqmqVTA2JQ6HXaqh7",
+        "options": {},
+        "bodyParametersJson": "={\n  \"content\": \"🎙️ **AI DJ Announcement**\",\n  \"embeds\": [{\n    \"title\": \"{{$node['Detect Announcement Moment'].json.announcementType}} Announcement\",\n    \"description\": \"{{$node['Generate AI Announcement'].json.text}}\",\n    \"color\": 3447003,\n    \"fields\": [\n      {\n        \"name\": \"Current Song\",\n        \"value\": \"{{$node['Detect Announcement Moment'].json.currentSong.artist}} - {{$node['Detect Announcement Moment'].json.currentSong.title}}\"\n      },\n      {\n        \"name\": \"Timing\",\n        \"value\": \"{{$node['Detect Announcement Moment'].json.announcementTiming}} ({{$node['Detect Announcement Moment'].json.timing.percentage}}% through song)\"\n      },\n      {\n        \"name\": \"Reason\",\n        \"value\": \"{{$node['Detect Announcement Moment'].json.reason}}\"\n      }\n    ],\n    \"timestamp\": \"{{$now}}\"\n  }]\n}"
+      },
+      "name": "Post to Discord",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1450, 200]
+    }
+  ],
+  "connections": {
+    "Every 5 Seconds": {
+      "main": [[{"node": "Get Now Playing", "type": "main", "index": 0}]]
+    },
+    "Get Now Playing": {
+      "main": [[{"node": "Detect Announcement Moment", "type": "main", "index": 0}]]
+    },
+    "Detect Announcement Moment": {
+      "main": [[{"node": "Should Announce?", "type": "main", "index": 0}]]
+    },
+    "Should Announce?": {
+      "main": [[{"node": "Generate AI Announcement", "type": "main", "index": 0}]]
+    },
+    "Generate AI Announcement": {
+      "main": [[{"node": "Add to Jingle Playlist", "type": "main", "index": 0}]]
+    },
+    "Add to Jingle Playlist": {
+      "main": [[{"node": "Post to Discord", "type": "main", "index": 0}]]
+    }
+  }
+}
+

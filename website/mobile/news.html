@@ -78,9 +78,6 @@
         <div class="flex gap-2 p-4 overflow-x-auto no-scrollbar z-10 relative">
             <button
                 class="topic-tab active flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-primary bg-primary text-background-dark"
-                data-topic="uk">🇬🇧 UK</button>
-            <button
-                class="topic-tab flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-white/20 text-white/60"
                 data-topic="hiphop">🎤 HIP-HOP</button>
             <button
                 class="topic-tab flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold tracking-wider border border-white/20 text-white/60"
@@ -127,13 +124,17 @@
                 <span class="material-symbols-outlined text-2xl">explore</span>
                 <span class="text-[10px] font-medium">Discover</span>
             </a>
+            <a href="discover.html" class="flex flex-col items-center gap-1 text-white/50">
+                <span class="material-symbols-outlined text-2xl">explore</span>
+                <span class="text-[10px] font-medium">Discover</span>
+            </a>
         </nav>
     </div>
 
     <script>
         const newsContent = document.getElementById('newsContent');
         const topicTabs = document.querySelectorAll('.topic-tab');
-        let currentTopic = 'uk';
+        let currentTopic = 'hiphop';
 
         // Supabase Edge Function
         const SUPABASE_URL = 'https://vltamaobaqamxnpkftiq.supabase.co';

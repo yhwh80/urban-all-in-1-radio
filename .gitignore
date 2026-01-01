@@ -27,8 +27,17 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+.history/
+.kilocode/
+.roo/
 
 # Logs
 logs/
 *.log
+
+# Output files
+output/
+
+# Supabase temp files
+supabase/.temp/
 
