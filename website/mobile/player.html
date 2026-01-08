@@ -97,45 +97,36 @@
         .visualizer-idle .visualizer-bar:nth-child(4) { animation-delay: 0.9s; }
         .visualizer-idle .visualizer-bar:nth-child(5) { animation-delay: 0.4s; }
 
-        /* Scrolling marquee for long text */
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
+        /* Scrolling marquee for long text - smooth seamless loop */
         .marquee-container {
             overflow: hidden;
             white-space: nowrap;
             position: relative;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
         }
 
         .marquee-content {
             display: inline-block;
-            padding-right: 2rem;
         }
 
-        .marquee-content.animate {
-            animation: marquee 10s linear infinite;
+        .marquee-track {
+            display: inline-flex;
+            animation: marquee-scroll var(--duration, 12s) linear infinite;
         }
 
-        /* Fade edges for marquee */
-        .marquee-container::before,
-        .marquee-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 20px;
-            z-index: 1;
-            pointer-events: none;
+        .marquee-track span {
+            padding-right: 4rem;
         }
-        .marquee-container::before {
-            left: 0;
-            background: linear-gradient(to right, #0a0a0f, transparent);
+
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
-        .marquee-container::after {
-            right: 0;
-            background: linear-gradient(to left, #0a0a0f, transparent);
+
+        /* Pause on hover for accessibility */
+        .marquee-container:hover .marquee-track {
+            animation-play-state: paused;
         }
     </style>
 </head>
@@ -349,25 +340,32 @@
         // Always start paused - user must press play
         // (removed auto-resume to avoid confusion)
 
-        // Check if text needs marquee scrolling
+        // Check if text needs marquee scrolling - smooth seamless version
         function setupMarquee(element, container, text) {
-            element.textContent = text;
-            // Remove animation first
-            element.classList.remove('animate');
+            // Reset to plain text first
+            element.innerHTML = text;
+            element.classList.remove('marquee-content');
 
-            // Check if text overflows container
+            // Wait for layout
             requestAnimationFrame(() => {
                 const containerWidth = container.offsetWidth;
                 const textWidth = element.scrollWidth;
 
                 if (textWidth > containerWidth) {
-                    // Text is too long - duplicate for seamless loop and animate
-                    element.innerHTML = `${text}<span style="padding: 0 3rem;"></span>${text}`;
-                    element.classList.add('animate');
+                    // Text is too long - create seamless scrolling track
+                    // Two identical spans for perfect loop
+                    const speed = Math.max(8, textWidth / 30); // Adjust speed based on length
+                    element.classList.add('marquee-content');
+                    element.innerHTML = `
+                        <div class="marquee-track" style="--duration: ${speed}s">
+                            <span>${text}</span>
+                            <span>${text}</span>
+                        </div>
+                    `;
                 } else {
-                    // Text fits - center it
-                    element.textContent = text;
-                    element.classList.remove('animate');
+                    // Text fits - just show it centered
+                    element.innerHTML = text;
+                    element.classList.remove('marquee-content');
                 }
             });
         }
