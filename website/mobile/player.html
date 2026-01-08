@@ -102,31 +102,29 @@
             overflow: hidden;
             white-space: nowrap;
             position: relative;
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
         }
 
         .marquee-content {
             display: inline-block;
+            min-width: 100%;
         }
 
         .marquee-track {
-            display: inline-flex;
+            display: flex;
+            width: max-content;
             animation: marquee-scroll var(--duration, 12s) linear infinite;
         }
 
-        .marquee-track span {
-            padding-right: 4rem;
+        .marquee-item {
+            flex-shrink: 0;
+            padding-right: 5rem;
         }
 
         @keyframes marquee-scroll {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Pause on hover for accessibility */
-        .marquee-container:hover .marquee-track {
-            animation-play-state: paused;
+            100% { transform: translateX(calc(-50% - 0.5px)); }
         }
     </style>
 </head>
@@ -346,27 +344,28 @@
             element.innerHTML = text;
             element.classList.remove('marquee-content');
 
-            // Wait for layout
+            // Wait for layout to calculate widths
             requestAnimationFrame(() => {
-                const containerWidth = container.offsetWidth;
-                const textWidth = element.scrollWidth;
+                requestAnimationFrame(() => {
+                    const containerWidth = container.offsetWidth;
+                    const textWidth = element.scrollWidth;
 
-                if (textWidth > containerWidth) {
-                    // Text is too long - create seamless scrolling track
-                    // Two identical spans for perfect loop
-                    const speed = Math.max(8, textWidth / 30); // Adjust speed based on length
-                    element.classList.add('marquee-content');
-                    element.innerHTML = `
-                        <div class="marquee-track" style="--duration: ${speed}s">
-                            <span>${text}</span>
-                            <span>${text}</span>
-                        </div>
-                    `;
-                } else {
-                    // Text fits - just show it centered
-                    element.innerHTML = text;
-                    element.classList.remove('marquee-content');
-                }
+                    if (textWidth > containerWidth) {
+                        // Text is too long - create seamless scrolling track
+                        const speed = Math.max(10, textWidth / 25); // Slower for readability
+                        element.classList.add('marquee-content');
+                        element.innerHTML = `
+                            <div class="marquee-track" style="--duration: ${speed}s">
+                                <div class="marquee-item">${text}</div>
+                                <div class="marquee-item">${text}</div>
+                            </div>
+                        `;
+                    } else {
+                        // Text fits - just show it centered
+                        element.innerHTML = text;
+                        element.classList.remove('marquee-content');
+                    }
+                });
             });
         }
 
