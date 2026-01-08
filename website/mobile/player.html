@@ -82,6 +82,61 @@
         .visualizer-bar:nth-child(5) {
             animation-delay: 0.15s;
         }
+
+        /* Idle visualizer animation - subtle breathing */
+        @keyframes idle-bar {
+            0%, 100% { height: 15%; opacity: 0.3; }
+            50% { height: 25%; opacity: 0.5; }
+        }
+
+        .visualizer-idle .visualizer-bar {
+            animation: idle-bar 2s ease-in-out infinite;
+        }
+        .visualizer-idle .visualizer-bar:nth-child(2) { animation-delay: 0.3s; }
+        .visualizer-idle .visualizer-bar:nth-child(3) { animation-delay: 0.6s; }
+        .visualizer-idle .visualizer-bar:nth-child(4) { animation-delay: 0.9s; }
+        .visualizer-idle .visualizer-bar:nth-child(5) { animation-delay: 0.4s; }
+
+        /* Scrolling marquee for long text */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            padding-right: 2rem;
+        }
+
+        .marquee-content.animate {
+            animation: marquee 10s linear infinite;
+        }
+
+        /* Fade edges for marquee */
+        .marquee-container::before,
+        .marquee-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .marquee-container::before {
+            left: 0;
+            background: linear-gradient(to right, #0a0a0f, transparent);
+        }
+        .marquee-container::after {
+            right: 0;
+            background: linear-gradient(to left, #0a0a0f, transparent);
+        }
     </style>
 </head>
 
@@ -115,13 +170,13 @@
 
         <!-- Main Content -->
         <main class="flex-1 flex flex-col justify-center items-center px-6 z-10 relative">
-            <!-- Visualizer -->
-            <div id="visualizer" class="flex items-center justify-center gap-1 h-24 mb-8 opacity-50">
-                <div class="w-1 bg-primary rounded-full visualizer-bar" style="height: 40%;"></div>
-                <div class="w-1 bg-primary rounded-full visualizer-bar" style="height: 70%;"></div>
-                <div class="w-1 bg-primary rounded-full visualizer-bar" style="height: 100%;"></div>
-                <div class="w-1 bg-primary rounded-full visualizer-bar" style="height: 60%;"></div>
-                <div class="w-1 bg-primary rounded-full visualizer-bar" style="height: 30%;"></div>
+            <!-- Visualizer - starts with idle animation -->
+            <div id="visualizer" class="flex items-center justify-center gap-1.5 h-24 mb-8 visualizer-idle">
+                <div class="w-1.5 bg-primary rounded-full visualizer-bar" style="height: 20%;"></div>
+                <div class="w-1.5 bg-primary rounded-full visualizer-bar" style="height: 35%;"></div>
+                <div class="w-1.5 bg-primary rounded-full visualizer-bar" style="height: 50%;"></div>
+                <div class="w-1.5 bg-primary rounded-full visualizer-bar" style="height: 30%;"></div>
+                <div class="w-1.5 bg-primary rounded-full visualizer-bar" style="height: 15%;"></div>
             </div>
 
             <!-- Genre Badge -->
@@ -132,10 +187,14 @@
                 </span>
             </div>
 
-            <!-- Track Info -->
+            <!-- Track Info with scrolling marquee for long names -->
             <div class="text-center mb-4 w-full px-4">
-                <h1 id="trackTitle" class="text-2xl font-bold leading-tight truncate">CONNECTING...</h1>
-                <p id="trackArtist" class="text-primary text-lg font-medium truncate mt-1">WAITING FOR DATA</p>
+                <div id="titleContainer" class="marquee-container">
+                    <h1 id="trackTitle" class="text-2xl font-bold leading-tight marquee-content">CONNECTING...</h1>
+                </div>
+                <div id="artistContainer" class="marquee-container mt-1">
+                    <p id="trackArtist" class="text-primary text-lg font-medium marquee-content">WAITING FOR DATA</p>
+                </div>
             </div>
 
             <!-- Progress Bar -->
@@ -258,7 +317,9 @@
             if (isPlaying) {
                 radioStream.pause();
                 playIcon.textContent = 'play_arrow';
-                visualizer.style.opacity = '0.3';
+                // Switch to idle animation instead of static
+                visualizer.classList.add('visualizer-idle');
+                visualizer.style.opacity = '1';
                 liveIndicator.classList.remove('animate-pulse');
                 liveIndicator.classList.add('bg-gray-500');
                 liveIndicator.classList.remove('bg-primary');
@@ -266,6 +327,8 @@
             } else {
                 radioStream.play().catch(e => console.error(e));
                 playIcon.textContent = 'pause';
+                // Switch to active animation
+                visualizer.classList.remove('visualizer-idle');
                 visualizer.style.opacity = '1';
                 liveIndicator.classList.add('animate-pulse');
                 liveIndicator.classList.remove('bg-gray-500');
@@ -288,6 +351,29 @@
             togglePlay();
         }
 
+        // Check if text needs marquee scrolling
+        function setupMarquee(element, container, text) {
+            element.textContent = text;
+            // Remove animation first
+            element.classList.remove('animate');
+
+            // Check if text overflows container
+            requestAnimationFrame(() => {
+                const containerWidth = container.offsetWidth;
+                const textWidth = element.scrollWidth;
+
+                if (textWidth > containerWidth) {
+                    // Text is too long - duplicate for seamless loop and animate
+                    element.innerHTML = `${text}<span style="padding: 0 3rem;"></span>${text}`;
+                    element.classList.add('animate');
+                } else {
+                    // Text fits - center it
+                    element.textContent = text;
+                    element.classList.remove('animate');
+                }
+            });
+        }
+
         // Now Playing
         async function fetchNowPlaying() {
             try {
@@ -295,8 +381,14 @@
                 const data = await response.json();
                 if (data && data.now_playing && data.now_playing.song) {
                     const np = data.now_playing;
-                    trackTitle.textContent = np.song.title || 'Unknown Track';
-                    trackArtist.textContent = np.song.artist || 'Unknown Artist';
+                    const title = np.song.title || 'Unknown Track';
+                    const artist = np.song.artist || 'Unknown Artist';
+
+                    // Setup marquee for long text
+                    const titleContainer = document.getElementById('titleContainer');
+                    const artistContainer = document.getElementById('artistContainer');
+                    setupMarquee(trackTitle, titleContainer, title);
+                    setupMarquee(trackArtist, artistContainer, artist);
 
                     // Genre/Playlist badge
                     const genre = np.playlist || np.song.genre || 'LIVE';
