@@ -231,12 +231,10 @@
             } catch (e) { console.error(e); }
         }
 
-        if (localStorage.getItem('urbanRadioPlaying') === 'true') {
-            miniPlayer.classList.remove('hidden');
-            togglePlay();
-            fetchNowPlaying();
-            setInterval(fetchNowPlaying, 5000);
-        }
+        // Always show mini player but start paused - user must press play
+        miniPlayer.classList.remove('hidden');
+        fetchNowPlaying();
+        setInterval(fetchNowPlaying, 5000);
     </script>
 </body>
 
