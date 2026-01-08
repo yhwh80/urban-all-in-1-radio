@@ -346,10 +346,8 @@
             localStorage.setItem('urbanRadioVolume', radioStream.volume);
         });
 
-        // Auto-resume if was playing before
-        if (localStorage.getItem('urbanRadioPlaying') === 'true') {
-            togglePlay();
-        }
+        // Always start paused - user must press play
+        // (removed auto-resume to avoid confusion)
 
         // Check if text needs marquee scrolling
         function setupMarquee(element, container, text) {
