@@ -246,6 +246,68 @@ router.get('/current-listeners', async (req, res) => {
 });
 
 /**
+ * POST /api/ai-host/mixer
+ * Run the Python AI DJ Mixer (v2 with variety jingles)
+ *
+ * Body (optional):
+ * {
+ *   "type": "next_song|music_news|time_check|station_id|weather"
+ * }
+ */
+router.post('/mixer', async (req, res) => {
+    try {
+        const { type } = req.body;
+        const { exec } = require('child_process');
+
+        console.log(`🎙️ Running Python AI DJ Mixer...`);
+
+        // Build command
+        const mixerPath = path.join(__dirname, '..', 'ai-dj-mixer');
+        let command = `cd "${mixerPath}" && source venv/bin/activate && python mixer.py`;
+        if (type) {
+            command += ` --type=${type}`;
+        }
+
+        exec(command, { timeout: 120000, shell: '/bin/bash' }, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`❌ Mixer error:`, error.message);
+                return res.status(500).json({
+                    success: false,
+                    error: error.message,
+                    stderr: stderr
+                });
+            }
+
+            console.log(`✅ Mixer output:`, stdout);
+
+            // Try to parse JSON result from output
+            let result = {};
+            try {
+                const jsonMatch = stdout.match(/Result:\s*({[\s\S]*})/m);
+                if (jsonMatch) {
+                    result = JSON.parse(jsonMatch[1]);
+                }
+            } catch (e) {
+                result = { raw: stdout };
+            }
+
+            res.json({
+                success: true,
+                ...result,
+                stdout: stdout
+            });
+        });
+
+    } catch (error) {
+        console.error('❌ Error running mixer:', error);
+        res.status(500).json({
+            success: false,
+            error: error.message
+        });
+    }
+});
+
+/**
  * POST /api/ai-host/test
  * Test the AI host with different scenarios
  */

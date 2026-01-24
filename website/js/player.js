@@ -3,12 +3,12 @@
 // ===================================
 
 const CONFIG = {
-    streamUrl: 'https://a7.asurahosting.com:6660/radio.mp3',
-    nowPlayingUrl: 'https://a7.asurahosting.com/api/nowplaying/urban_-_all_in_1_radio',
-    updateInterval: 10000,
-    particleCount: 200,
-    connectionRadius: 100,
-    mouseRadius: 150
+	streamUrl: 'https://stream.urbanallin1radio.co.uk/radio.mp3',
+	nowPlayingUrl: 'https://a7.asurahosting.com/api/nowplaying/urban_-_all_in_1_radio',
+	updateInterval: 10000,
+	particleCount: 200,
+	connectionRadius: 100,
+	mouseRadius: 150
 };
 
 // DOM Elements

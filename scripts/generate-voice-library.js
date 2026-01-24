@@ -41,7 +41,19 @@ const TEMPLATES = {
         "This is Urban All-in-One Radio. More music, less talk.",
         "Urban All-in-One Radio. Your number one for urban music.",
         "You're locked into Urban All-in-One Radio.",
-        "Urban All-in-One Radio. UK's finest urban station."
+        "Urban All-in-One Radio. UK's finest urban station.",
+
+        // Custom high-energy station IDs
+        "You’re locked into Urban All-in-1 Radio – non-stop UK urban vibes, fresh cuts and future classics. Keep it right here.",
+        "This is Urban All-in-1 Radio – for the ones on the grind, on the move and up late. Real music, real energy.",
+        "Urban All-in-1 Radio – UK rap, R&B, drill and everything in between. If it hits, we spin it.",
+        "You’re listening to Urban All-in-1 Radio – turning your speakers into a little piece of the city, wherever you are.",
+        "Urban All-in-1 Radio – soundtracking the workday, the weekend and the late-night scroll. Stay tuned.",
+        "This is Urban All-in-1 Radio – no fake hype, no dead playlists, just back-to-back urban heat.",
+        "Urban All-in-1 Radio – from underground gems to big anthems, we’ve got your playlist covered 24/7.",
+        "You’re tuned to Urban All-in-1 Radio – the station that keeps the volume up, even when life’s tryna turn it down.",
+        "Urban All-in-1 Radio – the best blend of UK urban, R&B and rap, live from the city straight into your headphones.",
+        "This is Urban All-in-1 Radio – music for the commute, the link-up and the late-night zone-out. Don’t touch that dial."
     ],
     
     timeChecks: [

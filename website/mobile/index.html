@@ -95,24 +95,66 @@
             <!-- Logo -->
             <div class="flex-grow flex flex-col items-center justify-center -mt-16">
                 <div class="relative">
-                    <div class="absolute inset-0 bg-primary rounded-full blur-2xl opacity-40 scale-110 pulse-glow">
+                    <div class="absolute inset-0 bg-primary rounded-full blur-3xl opacity-30 scale-150 pulse-glow">
                     </div>
-                    <div class="relative bg-[#1c1122] p-2 rounded-[2rem] border border-white/5 shadow-2xl">
+                    <div class="relative bg-gradient-to-br from-[#1a1a2e] to-[#0f0f1a] p-4 rounded-[2rem] border border-white/10 shadow-2xl">
                         <div
-                            class="flex items-center justify-center w-36 h-36 bg-gradient-to-br from-gray-800 to-black rounded-[1.5rem] border border-white/5">
-                            <span class="material-symbols-outlined text-[6rem] text-primary">graphic_eq</span>
+                            class="flex items-center justify-center w-32 h-32 bg-gradient-to-br from-[#1a1a2e] to-[#0a0a14] rounded-[1.5rem]">
+                            <!-- Custom Radio Wave Icon -->
+                            <svg viewBox="0 0 100 100" class="w-24 h-24">
+                                <!-- Center circle with wifi icon -->
+                                <circle cx="50" cy="50" r="12" fill="none" stroke="url(#centerGrad)" stroke-width="2"/>
+                                <path d="M44 50 Q50 44 56 50" fill="none" stroke="url(#centerGrad)" stroke-width="2" stroke-linecap="round"/>
+                                <path d="M41 53 Q50 41 59 53" fill="none" stroke="url(#centerGrad)" stroke-width="2" stroke-linecap="round"/>
+
+                                <!-- Left bars -->
+                                <rect x="18" y="35" width="6" height="30" rx="3" fill="url(#barGrad1)"/>
+                                <rect x="28" y="25" width="6" height="50" rx="3" fill="url(#barGrad2)"/>
+
+                                <!-- Right bars -->
+                                <rect x="66" y="25" width="6" height="50" rx="3" fill="url(#barGrad3)"/>
+                                <rect x="76" y="35" width="6" height="30" rx="3" fill="url(#barGrad4)"/>
+
+                                <!-- Gradients -->
+                                <defs>
+                                    <linearGradient id="centerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#00f5ff"/>
+                                        <stop offset="100%" stop-color="#00d4dd"/>
+                                    </linearGradient>
+                                    <linearGradient id="barGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#00f5ff"/>
+                                        <stop offset="100%" stop-color="#00d4dd"/>
+                                    </linearGradient>
+                                    <linearGradient id="barGrad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#00f5ff"/>
+                                        <stop offset="50%" stop-color="#a855f7"/>
+                                        <stop offset="100%" stop-color="#00d4dd"/>
+                                    </linearGradient>
+                                    <linearGradient id="barGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#a855f7"/>
+                                        <stop offset="50%" stop-color="#00f5ff"/>
+                                        <stop offset="100%" stop-color="#a855f7"/>
+                                    </linearGradient>
+                                    <linearGradient id="barGrad4" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" stop-color="#a855f7"/>
+                                        <stop offset="100%" stop-color="#8b5cf6"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                         </div>
                     </div>
                 </div>
 
                 <!-- Branding -->
-                <div class="flex flex-col items-center gap-3 mt-10">
-                    <h1 class="text-4xl font-bold tracking-tight text-center drop-shadow-lg">URBAN RADIO</h1>
-                    <div class="flex items-center gap-2">
-                        <div class="h-[1px] w-4 bg-primary/50"></div>
-                        <p class="text-primary text-lg font-medium tracking-[0.15em] uppercase">Your City, Your Sound
-                        </p>
-                        <div class="h-[1px] w-4 bg-primary/50"></div>
+                <div class="flex flex-col items-center gap-4 mt-12">
+                    <h1 class="text-2xl font-bold tracking-wide text-center drop-shadow-lg">URBAN - ALL IN 1 RADIO</h1>
+                    <div class="flex flex-col items-center gap-1 mt-2">
+                        <div class="flex items-center gap-3">
+                            <div class="h-[1px] w-8 bg-primary/60"></div>
+                            <p class="text-white/80 text-sm font-medium tracking-[0.2em] uppercase">GLOBAL BEATS, LOCAL VIBES</p>
+                            <div class="h-[1px] w-8 bg-primary/60"></div>
+                        </div>
+                        <p class="text-white/60 text-xs font-medium tracking-[0.15em] uppercase mt-1">YOUR SOUND, UNIFIED</p>
                     </div>
                 </div>
             </div>

@@ -52,10 +52,18 @@
                 <span class="material-symbols-outlined">arrow_back</span>
             </a>
             <h2 class="text-xl font-bold">Discover</h2>
-            <div class="size-10"></div>
-        </header>
+	            <div class="size-10"></div>
+	        </header>
 
-        <!-- Breaking News Hero -->
+	        <!-- Coming Soon notice -->
+	        <div class="px-4 pt-4">
+	            <div class="rounded-2xl border border-white/10 bg-white/5 text-white/80 text-sm p-3">
+	                <span class="font-semibold block mb-1">Discover is coming soon</span>
+	                <span>We're building personalised playlists, podcasts &amp; events. For now, keep it locked to the live stream.</span>
+	            </div>
+	        </div>
+
+	        <!-- Breaking News Hero -->
         <div class="p-4">
             <div class="relative rounded-2xl overflow-hidden bg-surface-dark border border-white/5">
                 <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent z-10">
@@ -64,14 +72,14 @@
                     <span
                         class="inline-block bg-primary text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider mb-4">Breaking
                         News</span>
-                    <h3 class="text-2xl font-bold leading-tight mb-2">Interview with Kendrick Lamar</h3>
-                    <p class="text-white/60 text-sm mb-4">Discussing the new album, tour life, and the state of the
-                        culture.</p>
-                    <button
-                        class="flex items-center gap-2 bg-white text-background-dark font-bold px-6 py-3 rounded-full active:scale-95 transition-transform">
-                        <span class="material-symbols-outlined text-xl">play_arrow</span>
-                        Listen Now
-                    </button>
+	                    <h3 class="text-2xl font-bold leading-tight mb-2">Exclusive Artist Interview</h3>
+	                    <p class="text-white/60 text-sm mb-4">Discussing the new album, tour life, and the state of the
+	                        culture.</p>
+	                    <button
+	                        class="flex items-center gap-2 bg-white text-background-dark font-bold px-6 py-3 rounded-full active:scale-95 transition-transform opacity-60 cursor-default pointer-events-none">
+	                        <span class="material-symbols-outlined text-xl">play_arrow</span>
+	                        Coming Soon
+	                    </button>
                 </div>
             </div>
         </div>
@@ -150,7 +158,7 @@
 
         <!-- Bottom Nav -->
         <nav
-            class="fixed bottom-0 left-0 right-0 z-50 flex justify-around items-center p-4 pb-8 bg-background-dark/95 backdrop-blur-lg border-t border-white/5">
+            class="fixed bottom-0 left-0 right-0 z-20 flex justify-around items-center p-4 pb-8 bg-background-dark/90 backdrop-blur-lg border-t border-white/5">
             <a href="player.html" class="flex flex-col items-center gap-1 text-white/50">
                 <span class="material-symbols-outlined text-2xl">radio</span>
                 <span class="text-[10px] font-medium">Live</span>
@@ -174,7 +182,7 @@
     <!-- Mini Player (auto-resume) -->
     <audio id="radioStream" preload="none"></audio>
     <div id="miniPlayer"
-        class="hidden fixed bottom-20 left-4 right-4 z-40 flex items-center gap-3 p-3 rounded-2xl bg-surface-dark/95 backdrop-blur-lg border border-white/10 shadow-lg">
+        class="hidden fixed bottom-24 left-4 right-4 z-40 flex items-center gap-3 p-3 rounded-2xl bg-surface-dark/95 backdrop-blur-lg border border-white/10 shadow-lg">
         <button id="miniPlayBtn" class="flex items-center justify-center size-10 rounded-full bg-primary text-white">
             <span id="miniPlayIcon" class="material-symbols-outlined"
                 style="font-variation-settings: 'FILL' 1;">play_arrow</span>
@@ -186,11 +194,11 @@
         <div class="size-2 rounded-full bg-primary animate-pulse"></div>
     </div>
 
-    <script>
-        const CONFIG = {
-            streamUrl: 'https://a7.asurahosting.com:6660/radio.mp3',
-            nowPlayingUrl: 'https://a7.asurahosting.com/api/nowplaying/urban_-_all_in_1_radio'
-        };
+	    <script>
+	        const CONFIG = {
+	            streamUrl: 'https://stream.urbanallin1radio.co.uk/radio.mp3',
+	            nowPlayingUrl: 'https://a7.asurahosting.com/api/nowplaying/urban_-_all_in_1_radio'
+	        };
 
         const radioStream = document.getElementById('radioStream');
         const miniPlayer = document.getElementById('miniPlayer');
