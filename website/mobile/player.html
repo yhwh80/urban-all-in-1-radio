@@ -206,16 +206,18 @@
                 </div>
             </div>
 
-            <!-- Progress Bar -->
+            <!-- Live Indicator Bar -->
             <div class="w-full max-w-xs px-4 mb-8">
-                <div class="flex justify-between text-xs text-white/50 mb-1">
-                    <span id="elapsedTime">0:00</span>
-                    <span id="remainingTime">-0:00</span>
+                <div class="flex justify-center text-xs text-white/50 mb-1">
+                    <span class="flex items-center gap-1">
+                        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                        LIVE STREAM
+                    </span>
                 </div>
                 <div class="w-full h-1 bg-white/10 rounded-full overflow-hidden">
                     <div id="progressBar"
-                        class="h-full bg-gradient-to-r from-primary to-accent rounded-full transition-all duration-1000"
-                        style="width: 0%;"></div>
+                        class="h-full bg-gradient-to-r from-primary to-accent rounded-full"
+                        style="width: 100%;"></div>
                 </div>
             </div>
 
@@ -285,11 +287,8 @@
         const liveIndicator = document.getElementById('liveIndicator');
         const genreBadge = document.getElementById('genreBadge');
         const progressBar = document.getElementById('progressBar');
-        const elapsedTime = document.getElementById('elapsedTime');
-        const remainingTime = document.getElementById('remainingTime');
 
         let isPlaying = false;
-        let currentTrackData = null;
 
         // Initialize
         radioStream.src = CONFIG.streamUrl;
@@ -298,28 +297,6 @@
         const savedVolume = localStorage.getItem('urbanRadioVolume');
         radioStream.volume = savedVolume ? parseFloat(savedVolume) : 0.7;
         volumeSlider.value = radioStream.volume * 100;
-
-        // Format seconds to M:SS
-        function formatTime(seconds) {
-            if (!seconds || seconds < 0) return '0:00';
-            const mins = Math.floor(seconds / 60);
-            const secs = Math.floor(seconds % 60);
-            return `${mins}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        // Update progress bar
-        function updateProgress() {
-            if (!currentTrackData) return;
-            const { played_at, duration } = currentTrackData;
-            const now = Math.floor(Date.now() / 1000);
-            const elapsed = now - played_at;
-            const remaining = Math.max(0, duration - elapsed);
-            const percent = Math.min(100, (elapsed / duration) * 100);
-
-            progressBar.style.width = `${percent}%`;
-            elapsedTime.textContent = formatTime(elapsed);
-            remainingTime.textContent = `-${formatTime(remaining)}`;
-        }
 
         // Play/Pause
         function togglePlay() {
@@ -420,12 +397,6 @@
                     // Genre/Playlist badge
                     const genre = source.genre || 'LIVE';
                     genreBadge.textContent = genre.toUpperCase();
-
-                    // Store for progress updates (Icecast doesn't provide duration)
-                    currentTrackData = {
-                        played_at: null,
-                        duration: 0
-                    };
                 }
             } catch (e) {
                 console.error('Error fetching now playing:', e);
@@ -435,8 +406,6 @@
 
         fetchNowPlaying();
         setInterval(fetchNowPlaying, CONFIG.updateInterval);
-        // Update progress every second for smooth bar
-        setInterval(updateProgress, 1000);
     </script>
 </body>
 
