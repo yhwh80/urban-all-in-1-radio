@@ -306,7 +306,7 @@
 	        (function () {
 	            const RADIO_CONFIG = {
 	                streamUrl: 'https://stream.urbanallin1radio.co.uk/radio.mp3',
-	                nowPlayingUrl: 'https://a7.asurahosting.com/api/nowplaying/urban_-_all_in_1_radio'
+	                nowPlayingUrl: 'https://stream.urbanallin1radio.co.uk/status-json.xsl'
 	            };
 
             const radioStream = document.getElementById('radioStream');
@@ -341,9 +341,17 @@
                 try {
                     const res = await fetch(RADIO_CONFIG.nowPlayingUrl);
                     const data = await res.json();
-                    if (data?.now_playing?.song) {
-                        miniTitle.textContent = data.now_playing.song.title || 'Unknown';
-                        miniArtist.textContent = data.now_playing.song.artist || 'Urban Radio';
+                    // Icecast format: icestats.source.title contains "Artist - Title"
+                    if (data?.icestats?.source) {
+                        const fullTitle = data.icestats.source.title || '';
+                        if (fullTitle.includes(' - ')) {
+                            const parts = fullTitle.split(' - ');
+                            miniArtist.textContent = parts[0].trim();
+                            miniTitle.textContent = parts.slice(1).join(' - ').trim();
+                        } else {
+                            miniTitle.textContent = fullTitle || 'Unknown';
+                            miniArtist.textContent = 'Urban Radio';
+                        }
                     }
                 } catch (e) { console.error(e); }
             }

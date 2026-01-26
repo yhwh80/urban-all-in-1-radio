@@ -4,7 +4,7 @@
 
 const CONFIG = {
 	streamUrl: 'https://stream.urbanallin1radio.co.uk/radio.mp3',
-	nowPlayingUrl: 'https://a7.asurahosting.com/api/nowplaying/urban_-_all_in_1_radio',
+	nowPlayingUrl: 'https://stream.urbanallin1radio.co.uk/status-json.xsl',
 	updateInterval: 10000,
 	particleCount: 200,
 	connectionRadius: 100,
@@ -359,10 +359,20 @@ async function fetchNowPlaying() {
         const response = await fetch(CONFIG.nowPlayingUrl);
         const data = await response.json();
 
-        if (data && data.now_playing && data.now_playing.song) {
-            const song = data.now_playing.song;
-            trackTitle.textContent = song.title;
-            trackArtist.textContent = song.artist;
+        // Icecast format: icestats.source.title contains "Artist - Title"
+        if (data && data.icestats && data.icestats.source) {
+            const source = data.icestats.source;
+            const title = source.title || '';
+
+            // Split "Artist - Title" format
+            if (title.includes(' - ')) {
+                const parts = title.split(' - ');
+                trackArtist.textContent = parts[0].trim();
+                trackTitle.textContent = parts.slice(1).join(' - ').trim();
+            } else {
+                trackTitle.textContent = title;
+                trackArtist.textContent = '';
+            }
         }
     } catch (e) {
         console.error('Error fetching now playing:', e);

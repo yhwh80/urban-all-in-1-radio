@@ -270,7 +270,7 @@
 	        // Configuration
 	        const CONFIG = {
 	            streamUrl: 'https://stream.urbanallin1radio.co.uk/radio.mp3',
-	            nowPlayingUrl: 'https://a7.asurahosting.com/api/nowplaying/urban_-_all_in_1_radio',
+	            nowPlayingUrl: 'https://stream.urbanallin1radio.co.uk/status-json.xsl',
 	            updateInterval: 5000
 	        };
 
@@ -394,10 +394,22 @@
             try {
                 const response = await fetch(CONFIG.nowPlayingUrl);
                 const data = await response.json();
-                if (data && data.now_playing && data.now_playing.song) {
-                    const np = data.now_playing;
-                    const title = np.song.title || 'Unknown Track';
-                    const artist = np.song.artist || 'Unknown Artist';
+
+                // Icecast format: icestats.source.title contains "Artist - Title"
+                if (data && data.icestats && data.icestats.source) {
+                    const source = data.icestats.source;
+                    const fullTitle = source.title || '';
+                    let title = 'Unknown Track';
+                    let artist = 'Unknown Artist';
+
+                    // Split "Artist - Title" format
+                    if (fullTitle.includes(' - ')) {
+                        const parts = fullTitle.split(' - ');
+                        artist = parts[0].trim();
+                        title = parts.slice(1).join(' - ').trim();
+                    } else if (fullTitle) {
+                        title = fullTitle;
+                    }
 
                     // Setup marquee for long text
                     const titleContainer = document.getElementById('titleContainer');
@@ -406,15 +418,14 @@
                     setupMarquee(trackArtist, artistContainer, artist);
 
                     // Genre/Playlist badge
-                    const genre = np.playlist || np.song.genre || 'LIVE';
+                    const genre = source.genre || 'LIVE';
                     genreBadge.textContent = genre.toUpperCase();
 
-                    // Store for progress updates
+                    // Store for progress updates (Icecast doesn't provide duration)
                     currentTrackData = {
-                        played_at: np.played_at,
-                        duration: np.duration
+                        played_at: null,
+                        duration: 0
                     };
-                    updateProgress();
                 }
             } catch (e) {
                 console.error('Error fetching now playing:', e);
