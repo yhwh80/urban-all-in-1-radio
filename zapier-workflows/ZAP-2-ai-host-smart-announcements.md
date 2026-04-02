@@ -45,7 +45,7 @@ Saves tasks and prevents annoying listeners.
 App: Webhooks by Zapier
 Event: GET Request
 
-URL: https://a7.asurahosting.com/api/station/546/listeners
+URL: http://72.62.210.209/api/station/1/listeners
 Method: GET
 Headers:
 - X-API-Key: d32e677c71441ab0:72813a8356bb52b6eae1bf629660c4ee
@@ -93,7 +93,7 @@ This generates smart announcement based on:
 App: Webhooks by Zapier
 Event: POST Request
 
-URL: https://a7.asurahosting.com/api/station/546/files
+URL: http://72.62.210.209/api/station/1/files
 Method: POST
 Headers:
 - X-API-Key: d32e677c71441ab0:72813a8356bb52b6eae1bf629660c4ee

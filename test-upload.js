@@ -14,7 +14,7 @@ async function testUpload() {
     
     try {
         const response = await axios.post(
-            'https://a7.asurahosting.com/api/station/546/files/upload',
+            'http://72.62.210.209/api/station/1/files/upload',
             formData,
             {
                 headers: {

@@ -78,7 +78,7 @@ git push origin main
 ```
 AzuraCast AutoDJ (music source)
     ↓
-https://a7.asurahosting.com:6660/radio.mp3
+http://72.62.210.209/listen/urban_all_in_1_radio/radio.mp3
     ↓
 Liquidsoap Mixer (adds AI voice with ducking)
     ↓

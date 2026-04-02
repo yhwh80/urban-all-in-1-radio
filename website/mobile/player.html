@@ -271,8 +271,8 @@
 	    <script>
 	        // Configuration
 	        const CONFIG = {
-	            streamUrl: 'https://stream.urbanallin1radio.co.uk/radio.mp3',
-	            nowPlayingUrl: 'https://stream.urbanallin1radio.co.uk/status-json.xsl',
+	            streamUrl: 'https://stream.urbanallin1radio.co.uk/listen/urban_all_in_1_radio/radio.mp3',
+	            nowPlayingUrl: 'https://stream.urbanallin1radio.co.uk/api/nowplaying/urban_all_in_1_radio',
 	            updateInterval: 5000
 	        };
 
@@ -372,10 +372,10 @@
                 const response = await fetch(CONFIG.nowPlayingUrl);
                 const data = await response.json();
 
-                // Icecast format: icestats.source.title contains "Artist - Title"
-                if (data && data.icestats && data.icestats.source) {
-                    const source = data.icestats.source;
-                    const fullTitle = source.title || '';
+                // AzuraCast API format
+                if (data && data.now_playing && data.now_playing.song) {
+                    const source = data.now_playing.song;
+                    const fullTitle = song.artist + " - " + song.title || '';
                     let title = 'Unknown Track';
                     let artist = 'Unknown Artist';
 

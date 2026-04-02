@@ -43,6 +43,6 @@ echo ""
 echo "📊 Next steps:"
 echo "1. Check the output above for any errors"
 echo "2. Check Supabase logs: https://supabase.com/dashboard/project/vltamaobaqamxnpkftiq/logs/edge-functions"
-echo "3. Check AzuraCast media library: https://a7.asurahosting.com/station/546/files"
+echo "3. Check AzuraCast media library: http://72.62.210.209/station/1/files"
 echo ""
 

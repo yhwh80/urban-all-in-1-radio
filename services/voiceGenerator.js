@@ -5,9 +5,14 @@ const path = require('path');
 
 /**
  * AI DJ Voice Generator
- * Generates announcements using ElevenLabs API
+ * Generates announcements using Chatterbox TTS (local, free)
+ * Falls back to ElevenLabs if Chatterbox is unavailable
  */
 
+// Chatterbox (primary - free, local)
+const CHATTERBOX_URL = process.env.CHATTERBOX_URL || 'http://localhost:4123';
+
+// ElevenLabs (fallback - paid)
 const ELEVENLABS_API_KEY = process.env.ELEVENLABS_API_KEY;
 const ELEVENLABS_VOICE_ID = process.env.ELEVENLABS_VOICE_ID;
 const ELEVENLABS_STABILITY = parseFloat(process.env.ELEVENLABS_STABILITY) || 0.5;
@@ -24,59 +29,89 @@ if (!fs.existsSync(OUTPUT_DIR)) {
 }
 
 /**
- * Generate speech from text using ElevenLabs
+ * Generate speech using Chatterbox TTS (local, free)
+ */
+async function generateWithChatterbox(text, outputPath, options = {}) {
+    const response = await axios({
+        method: 'POST',
+        url: `${CHATTERBOX_URL}/v1/audio/speech`,
+        headers: { 'Content-Type': 'application/json' },
+        data: {
+            input: text,
+            voice: 'default',
+            response_format: 'wav',
+            exaggeration: options.exaggeration || 0.5,
+            cfg_weight: options.cfg_weight || 0.5,
+            temperature: options.temperature || 0.8
+        },
+        responseType: 'arraybuffer',
+        timeout: 120000
+    });
+
+    fs.writeFileSync(outputPath, response.data);
+    return outputPath;
+}
+
+/**
+ * Generate speech using ElevenLabs (paid fallback)
+ */
+async function generateWithElevenLabs(text, outputPath, options = {}) {
+    const response = await axios({
+        method: 'POST',
+        url: `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
+        headers: {
+            'Accept': 'audio/mpeg',
+            'Content-Type': 'application/json',
+            'xi-api-key': ELEVENLABS_API_KEY
+        },
+        data: {
+            text: text,
+            model_id: 'eleven_turbo_v2_5',
+            voice_settings: {
+                stability: options.stability || ELEVENLABS_STABILITY,
+                similarity_boost: options.similarity || ELEVENLABS_SIMILARITY,
+                style: options.style || ELEVENLABS_STYLE,
+                use_speaker_boost: options.speakerBoost !== undefined ? options.speakerBoost : ELEVENLABS_SPEAKER_BOOST
+            }
+        },
+        responseType: 'arraybuffer'
+    });
+
+    fs.writeFileSync(outputPath, response.data);
+    return outputPath;
+}
+
+/**
+ * Generate speech from text — tries Chatterbox first, falls back to ElevenLabs
  * @param {string} text - Text to convert to speech
  * @param {string} filename - Output filename (without path)
  * @param {object} options - Optional voice settings override
  * @returns {Promise<string>} - Path to generated audio file
  */
 async function generateVoice(text, filename, options = {}) {
-    if (!ELEVENLABS_API_KEY || !ELEVENLABS_VOICE_ID) {
-        throw new Error('ElevenLabs API key or Voice ID not configured in .env');
-    }
-
     const outputPath = path.join(OUTPUT_DIR, filename);
 
     try {
-        console.log(`🎤 Generating: "${text}"`);
-
-        const response = await axios({
-            method: 'POST',
-            url: `https://api.elevenlabs.io/v1/text-to-speech/${ELEVENLABS_VOICE_ID}`,
-            headers: {
-                'Accept': 'audio/mpeg',
-                'Content-Type': 'application/json',
-                'xi-api-key': ELEVENLABS_API_KEY
-            },
-            data: {
-                text: text,
-                model_id: 'eleven_turbo_v2_5', // Updated to newer model (works on all tiers)
-                voice_settings: {
-                    stability: options.stability || ELEVENLABS_STABILITY,
-                    similarity_boost: options.similarity || ELEVENLABS_SIMILARITY,
-                    style: options.style || ELEVENLABS_STYLE,
-                    use_speaker_boost: options.speakerBoost !== undefined ? options.speakerBoost : ELEVENLABS_SPEAKER_BOOST
-                }
-            },
-            responseType: 'arraybuffer'
-        });
-
-        // Save the audio file
-        fs.writeFileSync(outputPath, response.data);
-        console.log(`✅ Saved: ${filename}`);
-
+        console.log(`🎤 Generating (Chatterbox): "${text}"`);
+        await generateWithChatterbox(text, outputPath, options);
+        console.log(`✅ Saved (Chatterbox): ${filename}`);
         return outputPath;
-    } catch (error) {
-        if (error.response?.data) {
-            // Try to parse the error message
-            const errorText = Buffer.isBuffer(error.response.data)
-                ? error.response.data.toString('utf-8')
-                : error.response.data;
-            console.error('❌ Error generating voice:', errorText);
-        } else {
-            console.error('❌ Error generating voice:', error.message);
+    } catch (chatterboxError) {
+        console.warn(`⚠️ Chatterbox unavailable: ${chatterboxError.message}`);
+
+        if (!ELEVENLABS_API_KEY || !ELEVENLABS_VOICE_ID) {
+            throw new Error('Chatterbox unavailable and ElevenLabs not configured');
         }
-        throw error;
+
+        try {
+            console.log(`🎤 Falling back to ElevenLabs: "${text}"`);
+            await generateWithElevenLabs(text, outputPath, options);
+            console.log(`✅ Saved (ElevenLabs fallback): ${filename}`);
+            return outputPath;
+        } catch (elevenLabsError) {
+            console.error('❌ Both TTS engines failed');
+            throw elevenLabsError;
+        }
     }
 }
 

@@ -26,7 +26,7 @@ Setup:
 App: Webhooks by Zapier
 Event: GET Request
 
-URL: https://a7.asurahosting.com/api/station/546/history
+URL: http://72.62.210.209/api/station/1/history
 Method: GET
 Query Parameters:
 - start: {{7 days ago timestamp}}
@@ -141,7 +141,7 @@ Email Content (HTML):
         {{playlist_text}}
     </div>
     
-    <a href="https://a7.asurahosting.com:6660/radio.mp3" class="cta">
+    <a href="http://72.62.210.209:6660/radio.mp3" class="cta">
         🎧 Listen Live Now
     </a>
     

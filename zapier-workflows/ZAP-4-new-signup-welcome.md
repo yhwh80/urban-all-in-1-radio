@@ -67,7 +67,7 @@ Body (HTML):
     <h2>🎵 Listen Live Now</h2>
     <p>We're playing non-stop heat right now!</p>
     
-    <a href="https://a7.asurahosting.com:6660/radio.mp3" class="cta">
+    <a href="http://72.62.210.209:6660/radio.mp3" class="cta">
         🎧 Listen Live
     </a>
     

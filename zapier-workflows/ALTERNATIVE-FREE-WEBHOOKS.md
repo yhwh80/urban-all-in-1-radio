@@ -163,8 +163,8 @@ if (FACEBOOK_PAGE_ID && FACEBOOK_ACCESS_TOKEN) {
     await axios.post(
         `https://graph.facebook.com/${FACEBOOK_PAGE_ID}/feed`,
         {
-            message: `🎵 Now Playing: ${artist} - ${title}\n\n🎧 Listen live: https://a7.asurahosting.com:6660/radio.mp3`,
-            link: 'https://a7.asurahosting.com:6660/radio.mp3'
+            message: `🎵 Now Playing: ${artist} - ${title}\n\n🎧 Listen live: http://72.62.210.209:6660/radio.mp3`,
+            link: 'http://72.62.210.209:6660/radio.mp3'
         },
         {
             params: {

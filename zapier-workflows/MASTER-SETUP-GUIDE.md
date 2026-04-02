@@ -29,7 +29,7 @@ Login: zapier.com
 
 ### 2. AzuraCast Access
 ```
-✅ URL: https://a7.asurahosting.com
+✅ URL: http://72.62.210.209
 ✅ Station ID: 546
 ✅ API Key: d32e677c71441ab0:72813a8356bb52b6eae1bf629660c4ee
 ```

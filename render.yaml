@@ -29,7 +29,7 @@ services:
       - key: ELEVENLABS_SPEAKER_BOOST
         value: true
       - key: AZURACAST_BASE_URL
-        value: https://a7.asurahosting.com
+        value: http://72.62.210.209
       - key: AZURACAST_API_KEY
         sync: false
       - key: AZURACAST_STATION_ID

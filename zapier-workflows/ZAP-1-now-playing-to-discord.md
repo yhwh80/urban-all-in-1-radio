@@ -41,7 +41,7 @@ App: Webhooks by Zapier
 Event: GET Request
 
 Setup:
-URL: https://a7.asurahosting.com/api/nowplaying/546
+URL: http://72.62.210.209/api/nowplaying/1
 Method: GET
 Headers: (leave empty - public API)
 
@@ -78,7 +78,7 @@ Message:
 Genre: {{Genre}}
 Album: {{Album}}
 
-🎧 Listen live: https://a7.asurahosting.com:6660/radio.mp3
+🎧 Listen live: http://72.62.210.209:6660/radio.mp3
 
 Image URL: {{Album Art}}
 ```

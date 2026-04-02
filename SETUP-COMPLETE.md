@@ -58,7 +58,7 @@ curl -X POST http://localhost:3000/api/ai-host/add-to-playlist \
 
 ### Upload Custom Jingle
 ```bash
-curl -X POST "https://a7.asurahosting.com/api/station/546/files/upload" \
+curl -X POST "http://72.62.210.209/api/station/1/files/upload" \
   -H "X-API-Key: YOUR_API_KEY" \
   -F "path=jingles/my-jingle.mp3" \
   -F "file=@/path/to/jingle.mp3"
@@ -66,7 +66,7 @@ curl -X POST "https://a7.asurahosting.com/api/station/546/files/upload" \
 
 ### Check Playlist Status
 ```bash
-curl -s "https://a7.asurahosting.com/api/station/546/playlist/5344" \
+curl -s "http://72.62.210.209/api/station/1/playlist/5344" \
   -H "X-API-Key: YOUR_API_KEY" | jq '{name, num_songs, is_enabled}'
 ```
 
@@ -100,8 +100,8 @@ curl -s "https://a7.asurahosting.com/api/station/546/playlist/5344" \
 
 - **Station ID:** 546
 - **Jingle Playlist ID:** 5344
-- **Listen URL:** https://a7.asurahosting.com/listen/urban_all_in_one_radio/radio.mp3
-- **API Base:** https://a7.asurahosting.com
+- **Listen URL:** http://72.62.210.209/listen/urban_all_in_one_radio/radio.mp3
+- **API Base:** http://72.62.210.209
 - **Local Server:** http://localhost:3000
 
 ---

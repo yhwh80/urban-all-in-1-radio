@@ -3,7 +3,7 @@
 # Test AzuraCast file upload with both ID and shortcode
 
 API_KEY="d32e677c71441ab0:72813a8356bb52b6eae1bf629660c4ee"
-BASE_URL="https://a7.asurahosting.com"
+BASE_URL="http://72.62.210.209"
 
 echo "🔍 Testing AzuraCast File Upload..."
 echo ""
@@ -24,7 +24,7 @@ echo ""
 
 # Test 1: Upload with numeric ID (546)
 echo "🧪 TEST 1: Upload with numeric ID (546)"
-echo "URL: $BASE_URL/api/station/546/files/upload"
+echo "URL: $BASE_URL/api/station/1/files/upload"
 echo ""
 
 RESPONSE1=$(curl -s -w "\nHTTP_STATUS:%{http_code}" \
@@ -32,7 +32,7 @@ RESPONSE1=$(curl -s -w "\nHTTP_STATUS:%{http_code}" \
   -H "X-API-Key: $API_KEY" \
   -F "file=@$TEST_FILE" \
   -F "path=$TEST_FILE" \
-  "$BASE_URL/api/station/546/files/upload")
+  "$BASE_URL/api/station/1/files/upload")
 
 HTTP_STATUS1=$(echo "$RESPONSE1" | grep "HTTP_STATUS" | cut -d: -f2)
 BODY1=$(echo "$RESPONSE1" | sed '/HTTP_STATUS/d')
@@ -68,7 +68,7 @@ RESPONSE3=$(curl -s -w "\nHTTP_STATUS:%{http_code}" \
   -X POST \
   -H "X-API-Key: $API_KEY" \
   -F "file=@$TEST_FILE" \
-  "$BASE_URL/api/station/546/files/upload")
+  "$BASE_URL/api/station/1/files/upload")
 
 HTTP_STATUS3=$(echo "$RESPONSE3" | grep "HTTP_STATUS" | cut -d: -f2)
 BODY3=$(echo "$RESPONSE3" | sed '/HTTP_STATUS/d')

@@ -14,7 +14,7 @@ async function testUpload() {
     formData.append('file', blob, 'test-upload.mp3');
     
     try {
-        const response = await fetch('https://a7.asurahosting.com/api/station/546/files', {
+        const response = await fetch('http://72.62.210.209/api/station/1/files', {
             method: 'POST',
             headers: {
                 'X-API-Key': 'd32e677c71441ab0:72813a8356bb52b6eae1bf629660c4ee'

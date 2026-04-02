@@ -1,0 +1,74 @@
+{
+  "_info": "Add artist facts here. The AI DJ will use these when announcing songs.",
+  "_example": "For each artist, add 2-5 short facts the DJ can randomly pick from.",
+
+  "artists": {
+    "Stormzy": [
+      "The Croydon king himself",
+      "Shut down the Brits with that iconic performance",
+      "One of the biggest names in UK grime",
+      "Started from YouTube freestyles to headlining Glastonbury"
+    ],
+    "Central Cee": [
+      "West London's finest",
+      "Blowing up internationally right now",
+      "That drill sound taking over everywhere",
+      "Young king of UK rap"
+    ],
+    "Dave": [
+      "Streatham's own genius",
+      "Mercury Prize winner",
+      "Lyrics that hit different every time",
+      "One of the smartest writers in UK music"
+    ],
+    "Burna Boy": [
+      "The African Giant",
+      "Grammy winner bringing Afrobeats worldwide",
+      "Nigerian superstar",
+      "Sold out stadiums across the globe"
+    ],
+    "Raye": [
+      "Finally getting her flowers",
+      "That voice is unmatched",
+      "Brit Award winner after years of grinding",
+      "From songwriter to superstar"
+    ],
+    "Jorja Smith": [
+      "Walsall's finest export",
+      "That soulful sound we all love",
+      "One of the UK's best vocalists",
+      "Smooth R&B vibes"
+    ],
+    "Skepta": [
+      "Grime legend, Tottenham's finest",
+      "Shutdown changed the game",
+      "Been doing this since day one",
+      "BBK forever"
+    ],
+    "Little Simz": [
+      "One of the best lyricists out right now",
+      "North London representing",
+      "Album of the year material",
+      "Incredible live performer"
+    ],
+    "Headie One": [
+      "Tottenham drill pioneer",
+      "Changed the UK sound",
+      "Edna was a classic",
+      "Real street music"
+    ],
+    "Tion Wayne": [
+      "Edmonton's own",
+      "Body took over the summer",
+      "Infectious energy in every track",
+      "UK Afro-swing king"
+    ],
+    "_default": [
+      "Big tune coming up",
+      "You know this one",
+      "Certified banger",
+      "Turn it up for this one",
+      "Absolute vibes"
+    ]
+  }
+}

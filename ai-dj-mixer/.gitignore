@@ -1,0 +1,19 @@
+# Environment
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Output files
+output/
+voices/
+*.mp3
+*.wav
+
+# IDE
+.vscode/
+.idea/
