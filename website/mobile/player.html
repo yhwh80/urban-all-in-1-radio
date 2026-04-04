@@ -373,9 +373,9 @@
                 const data = await response.json();
 
                 // AzuraCast API format
-                if (data && data.now_playing && data.now_playing.song) {
-                    const source = data.now_playing.song;
-                    const fullTitle = song.artist + " - " + song.title || '';
+                if (data && data.icestats && data.icestats.source) {
+                    const source = data.icestats.source;
+                    const fullTitle = source.title || '';
                     let title = 'Unknown Track';
                     let artist = 'Unknown Artist';
 

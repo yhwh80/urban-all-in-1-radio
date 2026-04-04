@@ -253,7 +253,7 @@
                 const data = await res.json();
                 // AzuraCast API format
                 if (data?.icestats?.source) {
-                    const fullTitle = data.now_playing.song.title || '';
+                    const fullTitle = source.title || '';
                     if (fullTitle.includes(' - ')) {
                         const parts = fullTitle.split(' - ');
                         miniArtist.textContent = parts[0].trim();
