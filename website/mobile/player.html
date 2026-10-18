@@ -271,8 +271,8 @@
 	    <script>
 	        // Configuration
 	        const CONFIG = {
-	            streamUrl: 'https://stream.urbanallin1radio.co.uk/radio.mp3',
-	            nowPlayingUrl: 'https://stream.urbanallin1radio.co.uk/status-json.xsl',
+	            streamUrl: 'https://stream.urbanallin1radio.co.uk/listen/urban_all_in_1_radio/radio.mp3',
+	            nowPlayingUrl: 'https://stream.urbanallin1radio.co.uk/api/nowplaying/urban_all_in_1_radio',
 	            updateInterval: 5000
 	        };
 
@@ -372,31 +372,14 @@
                 const response = await fetch(CONFIG.nowPlayingUrl);
                 const data = await response.json();
 
-                // AzuraCast API format
-                if (data && data.icestats && data.icestats.source) {
-                    const source = data.icestats.source;
-                    const fullTitle = source.title || '';
-                    let title = 'Unknown Track';
-                    let artist = 'Unknown Artist';
-
-                    // Split "Artist - Title" format
-                    if (fullTitle.includes(' - ')) {
-                        const parts = fullTitle.split(' - ');
-                        artist = parts[0].trim();
-                        title = parts.slice(1).join(' - ').trim();
-                    } else if (fullTitle) {
-                        title = fullTitle;
-                    }
-
-                    // Setup marquee for long text
-                    const titleContainer = document.getElementById('titleContainer');
-                    const artistContainer = document.getElementById('artistContainer');
-                    setupMarquee(trackTitle, titleContainer, title);
-                    setupMarquee(trackArtist, artistContainer, artist);
-
-                    // Genre/Playlist badge
-                    const genre = source.genre || 'LIVE';
-                    genreBadge.textContent = genre.toUpperCase();
+                // AzuraCast format: now_playing.song carries artist and title separately
+                const song = data?.now_playing?.song;
+                if (song) {
+                    const title  = song.title  || 'Unknown Track';
+                    const artist = song.artist || 'Urban Radio';
+                    setupMarquee(trackTitle,  document.getElementById('titleContainer'),  title);
+                    setupMarquee(trackArtist, document.getElementById('artistContainer'), artist);
+                    genreBadge.textContent = (data.now_playing.playlist || 'LIVE').toUpperCase();
                 }
             } catch (e) {
                 console.error('Error fetching now playing:', e);
