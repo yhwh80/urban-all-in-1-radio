@@ -1,0 +1,94 @@
+====================================
+URBAN ALL IN 1 RADIO - DIRECTORY SUBMISSION INFO
+====================================
+
+STATION DETAILS
+---------------
+Station Name: Urban All In 1 Radio
+Website: https://urbanallin1radio.co.uk
+Stream URL: https://stream.urbanallin1radio.co.uk/listen/urban_all_in_1_radio/radio.mp3
+Location: United Kingdom
+Language: English
+
+GENRES
+------
+- Afrobeats
+- Amapiano
+- Dancehall
+- UK Urban
+- R&B
+- Hip-Hop
+- Afro House
+- UK Garage
+- Old Skool Funky House
+- Remixes
+
+DESCRIPTIONS
+------------
+Short Description:
+"Urban All In 1 Radio - Your home for Afrobeats, Amapiano, Dancehall, UK Urban & R&B. Featuring fresh remixes and AI-powered DJ announcements, broadcasting 24/7 from the UK."
+
+Long Description:
+"From Afrobeats to Amapiano, Dancehall to UK Garage, Afro House to Old Skool Funky House, Hip-Hop to R&B - Urban All In 1 Radio has it all. AI-powered, UK-based, and streaming 24/7."
+
+LOGO/IMAGES
+-----------
+Logo file: /website/images/radio-icon.png
+Banner file: /website/images/radio-banner.png
+Favicon: /website/images/favicon-32.png
+
+CONTACT EMAIL
+-------------
+sgpyhwh1980@gmail.com
+
+====================================
+RADIO DIRECTORIES TO SUBMIT TO
+====================================
+
+1. TuneIn (Biggest - millions of listeners)
+   Submit: https://help.tunein.com/contact/add-your-station-S19TR3Sdf
+   Status: [ ] Submitted
+
+2. Radio.net (Popular in Europe)
+   Submit: https://www.radio.net/s/addstation
+   Status: [ ] Submitted
+
+3. Streema (Good global reach)
+   Submit: https://streema.com/radios/add
+   Status: [ ] Submitted
+
+4. Radio Garden (Visual/interactive)
+   Submit: http://radio.garden/add
+   Status: [ ] Submitted
+
+5. OnlineRadioBox (Good for discovery)
+   Submit: https://onlineradiobox.com/add/
+   Status: [ ] Submitted
+
+6. Internet-Radio.com
+   Submit: https://www.internet-radio.com/submit/
+   Status: [ ] Submitted
+
+7. Radio Directory UK
+   Submit: https://radiodirectory.co.uk/submit-station/
+   Status: [ ] Submitted
+
+8. Radiooooo (Trendy/curated)
+   Submit: https://radiooooo.com/submit
+   Status: [ ] Submitted
+
+9. Zeno.FM
+   Submit: https://zeno.fm/
+   Status: [ ] Submitted
+
+10. Shoutcast Directory
+    Submit: https://directory.shoutcast.com/
+    Status: [ ] Submitted
+
+====================================
+NOTES
+====================================
+- Most directories take a few days to weeks to approve
+- Some may require email verification
+- TuneIn is the most important one for listener reach
+- Keep this file updated as you submit to each directory
