@@ -269,55 +269,89 @@
         }
 
         // Curated fallback images by topic (Unsplash direct URLs - no redirects)
+        // Fallbacks only — real article images come from the backend (RSS enclosure,
+        // else the article's og:image). Every URL below was checked on 2026-10-18;
+        // two previously here returned 404, which is why some cards showed nothing.
         const fallbackImages = {
             uk: [
-                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop', // concert crowd
-                'https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=400&h=200&fit=crop', // dj mixing
-                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop', // neon concert
-                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=200&fit=crop', // festival crowd
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=400&h=200&fit=crop',
             ],
             hiphop: [
-                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop', // concert
-                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=200&fit=crop', // studio mic
-                'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=200&fit=crop', // headphones
-                'https://images.unsplash.com/photo-1571266028243-3716f02d2d2e?w=400&h=200&fit=crop', // dj
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=400&h=200&fit=crop',
             ],
             basketball: [
-                'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=200&fit=crop', // basketball court
-                'https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=400&h=200&fit=crop', // basketball hoop
-                'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=400&h=200&fit=crop', // basketball
-                'https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=400&h=200&fit=crop', // nba court
+                'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1504450758481-7338eba7524a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1574623452334-1e0ac2b3ccb4?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=200&fit=crop',
             ],
             football: [
-                'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&h=200&fit=crop', // football pitch
-                'https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=200&fit=crop', // football
-                'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=200&fit=crop', // stadium
-                'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop', // goal net
+                'https://images.unsplash.com/photo-1553778263-73a83bab9b0c?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&h=200&fit=crop',
             ],
             f1: [
-                'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&h=200&fit=crop', // race car
-                'https://images.unsplash.com/photo-1541348263662-e068662d82af?w=400&h=200&fit=crop', // f1 helmet
-                'https://images.unsplash.com/photo-1504817343863-5092a923803e?w=400&h=200&fit=crop', // race track
-                'https://images.unsplash.com/photo-1580341289255-5b47c98a59dd?w=400&h=200&fit=crop', // racing
+                'https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1541348263662-e068662d82af?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1504817343863-5092a923803e?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1580341289255-5b47c98a59dd?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=200&fit=crop',
             ],
             tech: [
-                'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=200&fit=crop', // AI brain
-                'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop', // circuit board
-                'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=200&fit=crop', // cyber security
-                'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=200&fit=crop', // robot
+                'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=200&fit=crop',
             ],
             entertainment: [
-                'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=200&fit=crop', // cinema seats
-                'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&h=200&fit=crop', // film reel
-                'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=200&fit=crop', // red carpet
-                'https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=400&h=200&fit=crop', // streaming
-            ]
+                'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1440404653325-ab127d49abc1?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=400&h=200&fit=crop',
+                'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=400&h=200&fit=crop',
+            ],
         };
 
         // Get themed fallback image
-        function getImage(topic, index) {
+
+        function getImage(topic, index, seed) {
             const images = fallbackImages[topic] || fallbackImages.uk;
-            return images[index % images.length];
+            let h = 0;
+            for (const ch of String(seed ?? index)) h = (h * 31 + ch.charCodeAt(0)) | 0;
+            return images[Math.abs(h) % images.length];
         }
 
         // Render news cards
@@ -358,7 +392,7 @@
             newsContent.innerHTML = `
                 <div class="news-grid">
                     ${news.map((story, index) => {
-                        const fallback = getImage(currentTopic, index);
+                        const fallback = getImage(currentTopic, index, story.title);
                         const img = safeUrl(story.image) || fallback;
                         const link = safeUrl(story.url);
                         return `

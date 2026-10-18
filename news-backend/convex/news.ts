@@ -18,6 +18,7 @@ export type Story = {
 export type Feed = { name: string; url: string; filter?: boolean };
 
 const FEED_TIMEOUT_MS = 6000;
+const OG_TIMEOUT_MS = 5000;
 
 /**
  * Feeds per topic. Every one was checked live on 2026-10-18 and returned a
@@ -178,6 +179,43 @@ export function matchesTopic(story: Story, topic: string): boolean {
 }
 
 /** Exported for the HTTP action; kept here so the feed list and parser live together. */
+/**
+ * Some feeds carry no images at all — Rated R&B publishes none, and Rolling Stone's
+ * items omit them — so the article page is asked for its og:image instead. Checked
+ * 2026-10-18: this recovered an image for 6 of 6 otherwise-imageless stories.
+ *
+ * Only ever called for stories already trimmed to the returned 12, and the result is
+ * cached for 15 minutes with them, so it is at most 12 extra fetches per topic per
+ * refresh — not one per page view.
+ */
+async function ogImage(pageUrl: string): Promise<string | undefined> {
+  try {
+    const res = await fetch(pageUrl, {
+      signal: AbortSignal.timeout(OG_TIMEOUT_MS),
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; UrbanRadioBot/1.0; +https://urbanallin1radio.co.uk)",
+        Accept: "text/html",
+      },
+    });
+    if (!res.ok) return undefined;
+
+    // Only the <head> is needed; article bodies can be hundreds of KB.
+    const html = (await res.text()).slice(0, 120_000);
+    const meta =
+      html.match(/<meta[^>]*\b(?:property|name)=["'](?:og:image(?::url)?|twitter:image)["'][^>]*\bcontent=["']([^"']+)["']/i) ||
+      html.match(/<meta[^>]*\bcontent=["']([^"']+)["'][^>]*\b(?:property|name)=["'](?:og:image(?::url)?|twitter:image)["']/i);
+    if (!meta) return undefined;
+
+    const raw = decode(meta[1]);
+    // og:image is often protocol-relative or site-root-relative.
+    if (raw.startsWith("//")) return "https:" + raw;
+    if (raw.startsWith("/")) return new URL(raw, pageUrl).href;
+    return raw.startsWith("http") ? raw : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
 export async function fetchTopic(topic: string): Promise<Story[]> {
   const feeds = FEEDS[topic] ?? FEEDS.uk;
 
@@ -215,9 +253,17 @@ export async function fetchTopic(topic: string): Promise<Story[]> {
       seen.add(key);
       return true;
     })
-    .sort((a, b) => b.pubDate - a.pubDate);
+    .sort((a, b) => b.pubDate - a.pubDate)
+    .slice(0, 12);
 
-  return stories.slice(0, 12);
+  // Backfill images only for the stories actually being returned.
+  await Promise.all(
+    stories.map(async (s) => {
+      if (!s.image) s.image = await ogImage(s.url);
+    }),
+  );
+
+  return stories;
 }
 
 export const readCache = internalQuery({
@@ -248,5 +294,23 @@ export const writeCache = internalMutation({
     const row = { topic, stories, fetchedAt: Date.now() };
     if (existing) await ctx.db.patch(existing._id, row);
     else await ctx.db.insert("newsCache", row);
+  },
+});
+
+/**
+ * Ops helper: drop a topic's cached row (or every row) so the next request refetches.
+ * Needed after changing the feed list or the parser — otherwise the old rows keep
+ * serving for up to 15 minutes and it looks like the deploy did nothing.
+ *   npx convex run --prod news:clearCache '{"topic":"hiphop"}'
+ *   npx convex run --prod news:clearCache '{}'
+ */
+export const clearCache = internalMutation({
+  args: { topic: v.optional(v.string()) },
+  handler: async (ctx, { topic }) => {
+    const rows = topic
+      ? await ctx.db.query("newsCache").withIndex("by_topic", (q) => q.eq("topic", topic)).collect()
+      : await ctx.db.query("newsCache").collect();
+    for (const r of rows) await ctx.db.delete(r._id);
+    return { cleared: rows.length };
   },
 });
