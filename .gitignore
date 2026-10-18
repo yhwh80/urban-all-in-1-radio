@@ -41,3 +41,9 @@ output/
 # Supabase temp files
 supabase/.temp/
 
+
+# Local secret/deploy scratch dirs — never commit (this repo is PUBLIC)
+convex-secrets/
+convex-api-keys/
+hostinger-deploy/
+ai-dj-mixer.local-stale-*/

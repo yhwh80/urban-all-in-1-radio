@@ -215,8 +215,8 @@
 
 	    <script>
 	        const CONFIG = {
-	            streamUrl: 'https://stream.urbanallin1radio.co.uk/radio.mp3',
-	            nowPlayingUrl: 'https://stream.urbanallin1radio.co.uk/status-json.xsl'
+	            streamUrl: 'https://stream.urbanallin1radio.co.uk/listen/urban_all_in_1_radio/radio.mp3',
+	            nowPlayingUrl: 'https://stream.urbanallin1radio.co.uk/api/nowplaying/urban_all_in_1_radio'
 	        };
 
         const radioStream = document.getElementById('radioStream');
@@ -251,17 +251,13 @@
             try {
                 const res = await fetch(CONFIG.nowPlayingUrl);
                 const data = await res.json();
-                // AzuraCast API format
-                if (data?.icestats?.source) {
-                    const fullTitle = source.title || '';
-                    if (fullTitle.includes(' - ')) {
-                        const parts = fullTitle.split(' - ');
-                        miniArtist.textContent = parts[0].trim();
-                        miniTitle.textContent = parts.slice(1).join(' - ').trim();
-                    } else {
-                        miniTitle.textContent = fullTitle || 'Unknown';
-                        miniArtist.textContent = 'Urban Radio';
-                    }
+                // AzuraCast format: now_playing.song carries artist and title separately
+                const song = data?.now_playing?.song;
+                if (song) {
+                    const title  = song.title  || 'Unknown Track';
+                    const artist = song.artist || 'Urban Radio';
+                    miniTitle.textContent  = title;
+                    miniArtist.textContent = artist;
                 }
             } catch (e) { console.error(e); }
         }
