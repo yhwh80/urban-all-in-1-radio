@@ -1,0 +1,9 @@
+{
+  "name": "urban-radio-news",
+  "version": "1.0.0",
+  "private": true,
+  "description": "RSS news backend for Urban All in 1 Radio. Separate Convex project from ai-dj-secrets on purpose — that one holds API keys.",
+  "dependencies": {
+    "convex": "^1.31.6"
+  }
+}

@@ -151,9 +151,9 @@
         const topicTabs = document.querySelectorAll('.topic-tab');
         let currentTopic = 'hiphop';
 
-        // Supabase Edge Function
-        const SUPABASE_URL = 'https://vltamaobaqamxnpkftiq.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZsdGFtYW9iYXFhbXhucGtmdGlxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAxMDY0MDAsImV4cCI6MjA2NTY4MjQwMH0.jvpgWPhgMBP25oE8iDsaPyBHbDucCctEUQVWid1fBZo';
+        // RSS news backend (Convex). Replaced the Supabase edge function, whose
+        // project was deleted — every request returned an error.
+        const NEWS_API = 'https://hip-hummingbird-200.convex.site/news';
 
         async function fetchNews(topic) {
             newsContent.innerHTML = `
@@ -164,21 +164,14 @@
             `;
 
             try {
-                const response = await fetch(`${SUPABASE_URL}/functions/v1/get-news`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-                    },
-                    body: JSON.stringify({ topic })
-                });
+                const response = await fetch(`${NEWS_API}?topic=${encodeURIComponent(topic)}`);
                 const data = await response.json();
 
                 if (data.error) throw new Error(data.error);
-                if (data.news && Array.isArray(data.news)) {
+                if (Array.isArray(data.news)) {
                     renderNews(data.news);
-                } else if (data.raw) {
-                    newsContent.innerHTML = `<div class="p-4 bg-surface-dark rounded-xl text-sm text-white/70">${data.raw}</div>`;
+                } else {
+                    throw new Error('Unexpected response from news service');
                 }
             } catch (error) {
                 newsContent.innerHTML = `
@@ -242,6 +235,34 @@
             return images[index % images.length];
         }
 
+        // Feed content is third-party HTML, so it must never reach innerHTML raw.
+        function esc(str) {
+            return String(str ?? '').replace(/[&<>"']/g, c => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[c]);
+        }
+
+        // Only http(s) links are rendered — a feed could otherwise supply javascript:.
+        function safeUrl(u) {
+            try {
+                const parsed = new URL(u);
+                return (parsed.protocol === 'http:' || parsed.protocol === 'https:') ? parsed.href : '';
+            } catch { return ''; }
+        }
+
+        // Computed in the browser so it stays correct while a response is served
+        // from the backend's 15-minute cache.
+        function timeAgo(ts) {
+            const mins = Math.floor((Date.now() - ts) / 60000);
+            if (!ts || mins < 0) return 'Recent';
+            if (mins < 1) return 'Just now';
+            if (mins < 60) return `${mins}m ago`;
+            const hrs = Math.floor(mins / 60);
+            if (hrs < 24) return `${hrs}h ago`;
+            const days = Math.floor(hrs / 24);
+            return days === 1 ? 'Yesterday' : `${days}d ago`;
+        }
+
         function renderNews(news) {
             if (!news.length) {
                 newsContent.innerHTML = '<p class="text-center text-white/50 py-12">No news available</p>';
@@ -249,23 +270,27 @@
             }
             newsContent.innerHTML = `
                 <div class="flex flex-col gap-4">
-                    ${news.map((story, index) => `
+                    ${news.map((story, index) => {
+                        const fallback = getImage(currentTopic, index);
+                        const img = safeUrl(story.image) || fallback;
+                        const link = safeUrl(story.url);
+                        return `
                         <article class="bg-surface-dark/50 rounded-xl border border-white/5 overflow-hidden">
-                            <img src="${story.imageUrl || getImage(currentTopic, index)}"
+                            <img src="${esc(img)}"
                                  alt=""
                                  class="w-full h-36 object-cover bg-gradient-to-br from-primary/5 to-accent/5"
                                  loading="lazy"
-                                 onerror="this.src='${getImage(currentTopic, index)}'">
+                                 onerror="this.onerror=null;this.src='${esc(fallback)}'">
                             <div class="p-4">
-                                <h3 class="text-base font-bold leading-snug mb-2">${story.title}</h3>
-                                <p class="text-sm text-white/60 leading-relaxed mb-3">${story.summary}</p>
+                                <h3 class="text-base font-bold leading-snug mb-2">${esc(story.title)}</h3>
+                                <p class="text-sm text-white/60 leading-relaxed mb-3">${esc(story.summary)}</p>
                                 <div class="flex justify-between items-center text-xs">
-                                    <span class="text-primary/70">${story.source || 'Source'} · ${story.timeAgo || 'Recent'}</span>
-                                    ${story.url ? `<a href="${story.url}" target="_blank" class="text-accent font-bold">READ →</a>` : ''}
+                                    <span class="text-primary/70">${esc(story.source || 'Source')} \u00b7 ${esc(timeAgo(story.pubDate))}</span>
+                                    ${link ? `<a href="${esc(link)}" target="_blank" rel="noopener noreferrer" class="text-accent font-bold">READ \u2192</a>` : ''}
                                 </div>
                             </div>
-                        </article>
-                    `).join('')}
+                        </article>`;
+                    }).join('')}
                 </div>
             `;
         }
