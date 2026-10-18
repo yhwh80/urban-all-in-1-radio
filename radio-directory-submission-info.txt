@@ -1,94 +1,109 @@
 ====================================
-URBAN ALL IN 1 RADIO - DIRECTORY SUBMISSION INFO
+URBAN ALL IN 1 RADIO — DIRECTORY SUBMISSION PACK
+Rebuilt 2026-10-19. Every URL below was checked live on that date.
 ====================================
 
-STATION DETAILS
----------------
-Station Name: Urban All In 1 Radio
-Website: https://urbanallin1radio.co.uk
-Stream URL: https://stream.urbanallin1radio.co.uk/listen/urban_all_in_1_radio/radio.mp3
-Location: United Kingdom
-Language: English
+STATION DETAILS  (paste these)
+------------------------------
+Station Name : Urban All In 1 Radio
+Website      : https://urbanallin1radio.co.uk
+Stream URL   : https://stream.urbanallin1radio.co.uk/listen/urban_all_in_1_radio/radio.mp3
+Format       : MP3, 192 kbps
+Location     : United Kingdom
+Language     : English
+Timezone     : Europe/London
+Contact      : contact@urbanallin1radio.co.uk
+Licensing    : PPL and PRS for Music (broadcast)
 
 GENRES
 ------
-- Afrobeats
-- Amapiano
-- Dancehall
-- UK Urban
-- R&B
-- Hip-Hop
-- Afro House
-- UK Garage
-- Old Skool Funky House
-- Remixes
+Afrobeats · Amapiano · Dancehall · UK Urban · R&B · Hip-Hop · Afro House ·
+UK Garage · Old Skool Funky House · Remixes
 
-DESCRIPTIONS
-------------
-Short Description:
-"Urban All In 1 Radio - Your home for Afrobeats, Amapiano, Dancehall, UK Urban & R&B. Featuring fresh remixes and AI-powered DJ announcements, broadcasting 24/7 from the UK."
+SHORT DESCRIPTION
+-----------------
+Urban All In 1 Radio — your home for Afrobeats, Amapiano, Dancehall, UK Garage
+and R&B. Fresh remixes and an AI-powered DJ, broadcasting 24/7 from the UK.
 
-Long Description:
-"From Afrobeats to Amapiano, Dancehall to UK Garage, Afro House to Old Skool Funky House, Hip-Hop to R&B - Urban All In 1 Radio has it all. AI-powered, UK-based, and streaming 24/7."
+LONG DESCRIPTION
+----------------
+From Afrobeats to Amapiano, Dancehall to UK Garage, Afro House to Old Skool
+Funky House, Hip-Hop to R&B — Urban All In 1 Radio has it all. AI-powered,
+UK-based, streaming 24/7.
 
-LOGO/IMAGES
------------
-Logo file: /website/images/radio-icon.png
-Banner file: /website/images/radio-banner.png
-Favicon: /website/images/favicon-32.png
-
-CONTACT EMAIL
--------------
-sgpyhwh1980@gmail.com
+IMAGES
+------
+Square logo : website/images/logo-1200x1200.png        (1200x1200)
+Social/cover: website/images/social/facebook-cover-820x312.png
+Profile      : website/images/social/facebook-profile-1024.png
+(Do NOT use radio-icon.png — it is only 178x175 and renders blurry.)
 
 ====================================
-RADIO DIRECTORIES TO SUBMIT TO
+DIRECTORIES — corrected URLs, verified 2026-10-19
 ====================================
+The URLs in the previous version of this file were wrong: 7 of 8 returned 404.
+These are the live ones.
 
-1. TuneIn (Biggest - millions of listeners)
-   Submit: https://help.tunein.com/contact/add-your-station-S19TR3Sdf
-   Status: [ ] Submitted
+1. Radio Garden          https://submit.radio.garden              [200 OK]
+   Status: [ ] submitted
+   Requires: site online 24/7 with contact info (ADDED to the homepage
+   2026-10-19), stream reachable worldwide, no geo-blocking, MP3/AAC/M3U/PLS.
+   Turnaround ~1-2 weeks.
 
-2. Radio.net (Popular in Europe)
-   Submit: https://www.radio.net/s/addstation
-   Status: [ ] Submitted
+2. TuneIn                https://help.tunein.com/contact/add-your-station-S19TR3Sdf  [200 OK]
+   Status: [ ] submitted
+   Biggest reach. Free "basic" listing.
 
-3. Streema (Good global reach)
-   Submit: https://streema.com/radios/add
-   Status: [ ] Submitted
+3. Streema               https://help.streema.com  ->  "Add a Radio Station"
+                                                   ->  "Request a Radio"      [200 OK]
+   Status: [ ] submitted
+   Wants name, language, genres, at least one stream URL. ~1-2 weeks.
 
-4. Radio Garden (Visual/interactive)
-   Submit: http://radio.garden/add
-   Status: [ ] Submitted
+4. Online Radio Box      https://onlineradiobox.com/office/        [200 OK]
+   Status: [ ] submitted
+   Register for the Office dashboard, then add the station.
+   8-11M monthly visits. Stream must be live when they review it.
 
-5. OnlineRadioBox (Good for discovery)
-   Submit: https://onlineradiobox.com/add/
-   Status: [ ] Submitted
+5. radio.net             https://corporate.radio.net/broadcasters/linking-agreement/  [200 OK]
+   Status: [ ] submitted
+   Strongest in Europe, 60,000+ stations. Must be online 24/7.
 
-6. Internet-Radio.com
-   Submit: https://www.internet-radio.com/submit/
-   Status: [ ] Submitted
+6. Internet-Radio.com    https://www.internet-radio.com/add/       [200 OK]
+   Status: [ ] submitted
+   ⚠️ CONDITION: they require a RECIPROCAL LINK — you must link to
+   internet-radio.com from your site or they will not list you, and they
+   re-check periodically and remove stations that drop the link.
+   Decide whether a directory backlink on the homepage is worth it before
+   submitting this one.
 
-7. Radio Directory UK
-   Submit: https://radiodirectory.co.uk/submit-station/
-   Status: [ ] Submitted
-
-8. Radiooooo (Trendy/curated)
-   Submit: https://radiooooo.com/submit
-   Status: [ ] Submitted
-
-9. Zeno.FM
-   Submit: https://zeno.fm/
-   Status: [ ] Submitted
-
-10. Shoutcast Directory
-    Submit: https://directory.shoutcast.com/
-    Status: [ ] Submitted
+DEAD / WRONG — do not reuse from the old file
+---------------------------------------------
+radio.net/s/addstation (404) · streema.com/radios/add (404) ·
+radio.garden/add (404) · onlineradiobox.com/add/ (404) ·
+internet-radio.com/submit/ (404) · radiodirectory.co.uk (no DNS) ·
+radiooooo.com/submit (404 — and Radiooooo is a curated historical
+archive, not a live-station directory; it was never a fit)
 
 ====================================
-NOTES
+BEFORE SUBMITTING — one thing still outstanding
 ====================================
-- Most directories take a few days to weeks to approve
-- Some may require email verification
-- TuneIn is the most important one for listener reach
-- Keep this file updated as you submit to each directory
+[ ] Create the email forwarder `contact@urbanallin1radio.co.uk` in Namecheap
+    (Domain List -> urbanallin1radio.co.uk -> Redirect Email) pointing at the
+    Gmail. The MX records and SPF are already in place, so this is the only
+    step. The address is already published on the site footer, so until the
+    forwarder exists, mail to it will bounce.
+
+DONE 2026-10-19
+---------------
+[x] Stream URL corrected (the old one pointed at the dead Coolify host)
+[x] Station description, website URL and timezone set in AzuraCast
+    (all three were empty/UTC; directories read these)
+[x] Contact details + PPL/PRS notice added to the site footer
+[x] Mount set to public in AzuraCast
+
+OPTIONAL TIDY-UP
+----------------
+[ ] Icecast still reports `icy-pub: 0`, which only affects automatic listing
+    on Xiph YP directories — it does NOT block the manual submissions above.
+    To change it, set the public flag in the AzuraCast UI under the station's
+    frontend configuration.
