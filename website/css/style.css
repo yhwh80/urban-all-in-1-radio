@@ -556,3 +556,62 @@ body::before {
     margin-bottom: 0.5rem;
     box-shadow: 0 0 10px var(--accent);
 }
+/* ---------------------------------------------------------------
+   Station footer — identity and contact details.
+   Radio directories require a site that says who runs the station
+   and how to reach them; Radio Garden rejects submissions without it.
+   --------------------------------------------------------------- */
+.station-footer {
+    border-top: 1px solid rgba(0, 245, 255, 0.18);
+    margin-top: 4rem;
+    padding: 2.5rem 1.5rem 1.5rem;
+    background: rgba(0, 0, 0, 0.45);
+    font-family: 'Space Mono', monospace;
+}
+
+.station-footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.sf-block { flex: 1 1 240px; min-width: 0; }
+
+.sf-heading {
+    color: var(--hud-color, #00f5ff);
+    font-size: 0.78rem;
+    letter-spacing: 0.16em;
+    margin-bottom: 0.65rem;
+}
+
+.sf-text {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.8rem;
+    line-height: 1.75;
+    margin: 0;
+}
+
+.sf-text a {
+    color: rgba(255, 255, 255, 0.82);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 245, 255, 0.35);
+}
+
+.sf-text a:hover { color: var(--hud-color, #00f5ff); }
+
+.sf-legal {
+    max-width: 1100px;
+    margin: 2rem auto 0;
+    padding-top: 1.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.38);
+    font-size: 0.72rem;
+    line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+    .station-footer { padding: 2rem 1.25rem 1.25rem; }
+    .station-footer-inner { gap: 1.75rem; }
+}
