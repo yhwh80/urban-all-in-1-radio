@@ -36,6 +36,17 @@
     <!-- Mobile Redirect -->
     <script>
         (function () {
+            // ?desktop=1 means the visitor deliberately asked for the full site from
+            // the mobile player. Without this the link bounced straight back here ->
+            // mobile/ -> 3s splash -> player, i.e. a loop with no way out.
+            try {
+                if (new URLSearchParams(location.search).has('desktop')) {
+                    sessionStorage.setItem('preferDesktop', '1');
+                    return;
+                }
+                if (sessionStorage.getItem('preferDesktop') === '1') return;
+            } catch (e) { /* private mode: fall through to normal detection */ }
+
             const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             const isSmallScreen = window.innerWidth <= 768;
             if (isMobile || isSmallScreen) {

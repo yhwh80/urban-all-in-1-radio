@@ -198,10 +198,16 @@
     </div>
 
     <script>
-        // Redirect to player after loading animation
-        setTimeout(() => {
-            window.location.href = 'player.html';
-        }, 3000);
+        // Play the loading animation once per session. It previously ran on every
+        // entry, so each trip through here cost 3 seconds.
+        let seen = false;
+        try { seen = sessionStorage.getItem('splashSeen') === '1'; } catch (e) { }
+        if (seen) {
+            window.location.replace('player.html');
+        } else {
+            try { sessionStorage.setItem('splashSeen', '1'); } catch (e) { }
+            setTimeout(() => { window.location.replace('player.html'); }, 3000);
+        }
     </script>
 </body>
 
