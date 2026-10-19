@@ -128,55 +128,47 @@
             </div>
 
             <div class="schedule-grid">
-                <!-- Morning Mix (06:00 - 12:00) -->
-                <div class="schedule-item" data-start="6" data-end="12">
-                    <div class="time-col">
-                        <span class="time">06:00</span>
-                        <span class="ampm">AM</span>
-                    </div>
+                <!-- Live on-air panel. This grid previously listed four named shows
+                     at fixed times; no playlist in AzuraCast has a schedule, so the
+                     station is a continuous rotation and none of that was true. -->
+                <div class="schedule-item" style="flex-direction: column; border-color: var(--hud-color);">
                     <div class="info-col">
-                        <div class="show-title">Morning Mix</div>
-                        <div class="show-host">Urban Radio</div>
-                        <div class="show-desc">Start your day with high energy beats and news updates.</div>
+                        <div class="show-title">24/7 NON-STOP ROTATION</div>
+                        <div class="show-desc" style="margin-top: 0.4rem;">
+                            No fixed show times &mdash; one continuous mix across Afrobeats,
+                            Amapiano, Dancehall, UK Garage, R&amp;B and Hip-Hop.
+                        </div>
                     </div>
                 </div>
 
-                <!-- Afternoon Vibes (12:00 - 18:00) -->
-                <div class="schedule-item" data-start="12" data-end="18">
+                <div class="schedule-item">
                     <div class="time-col">
-                        <span class="time">12:00</span>
-                        <span class="ampm">PM</span>
+                        <span class="material-symbols-outlined"
+                            style="font-size: 2rem; color: var(--hud-color);">graphic_eq</span>
                     </div>
                     <div class="info-col">
-                        <div class="show-title">Afternoon Vibes</div>
-                        <div class="show-host">Urban Radio</div>
-                        <div class="show-desc">The perfect soundtrack for your daily grind.</div>
+                        <div class="show-host" style="letter-spacing:.14em;font-size:.72rem;">NOW PLAYING</div>
+                        <div class="show-title" id="airNowTitle">Loading&hellip;</div>
+                        <div class="show-desc" id="airNowArtist"></div>
                     </div>
                 </div>
 
-                <!-- Evening Flow (18:00 - 00:00) -->
-                <div class="schedule-item" data-start="18" data-end="24">
+                <div class="schedule-item" id="airNextItem" style="display:none;">
                     <div class="time-col">
-                        <span class="time">18:00</span>
-                        <span class="ampm">PM</span>
+                        <span class="material-symbols-outlined"
+                            style="font-size: 2rem; color: var(--hud-color);">skip_next</span>
                     </div>
                     <div class="info-col">
-                        <div class="show-title">Evening Flow</div>
-                        <div class="show-host">Urban Radio</div>
-                        <div class="show-desc">Winding down with smooth tracks and requests.</div>
+                        <div class="show-host" style="letter-spacing:.14em;font-size:.72rem;">UP NEXT</div>
+                        <div class="show-title" id="airNextTitle"></div>
+                        <div class="show-desc" id="airNextArtist"></div>
                     </div>
                 </div>
 
-                <!-- Late Night (00:00 - 06:00) -->
-                <div class="schedule-item" data-start="0" data-end="6">
-                    <div class="time-col">
-                        <span class="time">00:00</span>
-                        <span class="ampm">AM</span>
-                    </div>
-                    <div class="info-col">
-                        <div class="show-title">Late Night Session</div>
-                        <div class="show-host">Urban Radio</div>
-                        <div class="show-desc">Non-stop music for the night owls.</div>
+                <div class="schedule-item" style="flex-direction: column;">
+                    <div class="info-col" style="width:100%;">
+                        <div class="show-host" style="letter-spacing:.14em;font-size:.72rem;">RECENTLY PLAYED</div>
+                        <div id="airHistory" style="margin-top:.6rem;"></div>
                     </div>
                 </div>
             </div>
@@ -213,49 +205,13 @@
                     </div>
                 </div>
 
-                <!-- Featured Podcasts Header -->
-                <h3 class="schedule-title" style="font-size: 1.2rem; margin-top: 1rem;">FEATURED PODCASTS</h3>
-
-                <!-- Podcast 1 -->
-                <div class="schedule-item">
-                    <div class="time-col">
-                        <span class="material-symbols-outlined"
-                            style="font-size: 2rem; color: var(--hud-color);">podcasts</span>
-                    </div>
-                    <div class="info-col">
-                        <div class="show-title">Street Politics</div>
-                        <div class="show-host">Ep. 42 • 45m</div>
-                        <div class="show-desc">Deep dive into local community issues.</div>
-                    </div>
-                </div>
-
-                <!-- Podcast 2 -->
-                <div class="schedule-item">
-                    <div class="time-col">
-                        <span class="material-symbols-outlined"
-                            style="font-size: 2rem; color: var(--hud-color);">graphic_eq</span>
-                    </div>
-                    <div class="info-col">
-                        <div class="show-title">Beats & Rhymes</div>
-                        <div class="show-host">Ep. 108 • 1h 12m</div>
-                        <div class="show-desc">Production breakdown of top hits.</div>
-                    </div>
-                </div>
-
-                <!-- Podcast 3 -->
-                <div class="schedule-item">
-                    <div class="time-col">
-                        <span class="material-symbols-outlined"
-                            style="font-size: 2rem; color: var(--hud-color);">history</span>
-                    </div>
-                    <div class="info-col">
-                        <div class="show-title">Old School</div>
-                        <div class="show-host">Ep. 15 • 30m</div>
-                        <div class="show-desc">History of the golden era.</div>
-                    </div>
-                </div>
             </div>
         </div>
+
+        </div><!-- /.hud-layer — this was never closed, so everything after it
+             inherited position:fixed and pointer-events:none. The overlays set
+             pointer-events:auto so they worked; the footer below did not, which
+             left its contact link unclickable. -->
 
         <!-- Station identity + contact. Radio directories (Radio Garden especially)
              require a working site that states who runs the station and how to reach
@@ -291,6 +247,47 @@
             </div>
         </footer>
 
+
+        <script>
+            // Live on-air data for the schedule overlay. Nothing hardcoded — the
+            // station has no dayparting, so anything fixed here would be fiction.
+            (function () {
+                const API = 'https://stream.urbanallin1radio.co.uk/api/nowplaying/urban_all_in_1_radio';
+                const esc = v => String(v ?? '').replace(/[&<>"']/g,
+                    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+                async function refresh() {
+                    let d;
+                    try { d = await (await fetch(API, { cache: 'no-store' })).json(); }
+                    catch (e) { return; }            // transient: keep the last good render
+
+                    const song = (d.now_playing || {}).song || {};
+                    document.getElementById('airNowTitle').textContent = song.title || 'Unknown track';
+                    document.getElementById('airNowArtist').textContent = song.artist || '';
+
+                    const nx = (d.playing_next || {}).song;
+                    const nextItem = document.getElementById('airNextItem');
+                    if (nx && nx.title) {
+                        document.getElementById('airNextTitle').textContent = nx.title;
+                        document.getElementById('airNextArtist').textContent = nx.artist || '';
+                        nextItem.style.display = '';
+                    } else {
+                        nextItem.style.display = 'none';
+                    }
+
+                    document.getElementById('airHistory').innerHTML =
+                        (d.song_history || []).slice(0, 5).map(h => {
+                            const sg = h.song || {};
+                            return `<div style="padding:.35rem 0;border-top:1px solid rgba(255,255,255,.06);">
+                                <span style="color:rgba(255,255,255,.8);">${esc(sg.title || 'Unknown')}</span>
+                                <span style="color:rgba(255,255,255,.4);"> &middot; ${esc(sg.artist || '')}</span>
+                            </div>`;
+                        }).join('') || '<div style="color:rgba(255,255,255,.35);">Nothing logged yet.</div>';
+                }
+                refresh();
+                setInterval(refresh, 15000);
+            })();
+        </script>
         <script src="js/player.js"></script>
 </body>
 
