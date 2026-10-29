@@ -45,28 +45,86 @@ The URLs in the previous version of this file were wrong: 7 of 8 returned 404.
 These are the live ones.
 
 1. Radio Garden          https://submit.radio.garden              [200 OK]
-   Status: [ ] submitted
+   Status: [x] SUBMITTED 2026-10-29 — "Your response has been recorded."
+   Submitted as: New station · Internet-only · Crawley, West Sussex, UK
+   Contact given: sgpyhwh1980@gmail.com (Gmail, not contact@ — forwarder was
+   not live at the time of submission). Marketing opt-in deliberately declined.
+   They email a direct link to the station once an editor approves it (~1-2 wks).
    Requires: site online 24/7 with contact info (ADDED to the homepage
    2026-10-19), stream reachable worldwide, no geo-blocking, MP3/AAC/M3U/PLS.
    Turnaround ~1-2 weeks.
 
-2. TuneIn                https://help.tunein.com/contact/add-your-station-S19TR3Sdf  [200 OK]
-   Status: [ ] submitted
-   Biggest reach. Free "basic" listing.
+2. TuneIn                https://cms.tunein.com/broadcasters/     <- CORRECTED 2026-10-29
+   Status: [ ] NOT submitted — needs Simon to create a broadcaster account first
+   ⚠️ The old help.tunein.com/contact/add-your-station link is STALE. It still
+   loads, but it redirects to a generic support ticket form whose only issue
+   types are Cancel Subscription / Login Issue / Delete Account / Playback
+   Issue / Advertising Issue / General Inquiry. There is no station-submission
+   category. Do not file a General Inquiry ticket — it is the wrong route.
+   Real route: broadcaster account at cms.tunein.com/broadcasters (free).
+   Needs: stream URL, square logo 512px+ (use images/logo-1200x1200.png),
+   genre, language, country, short description. Approval ~48h by email.
 
-3. Streema               https://help.streema.com  ->  "Add a Radio Station"
-                                                   ->  "Request a Radio"      [200 OK]
-   Status: [ ] submitted
-   Wants name, language, genres, at least one stream URL. ~1-2 weeks.
+3. Streema               https://help.streema.com -> "Request a New Station"
+   (the form itself lives on old.streema.com/request)              [200 OK]
+   Status: [x] SUBMITTED 2026-10-29 — "Thank you for submitting a request."
+   Submitted as: Web station (Internet) · Crawley, England, UK · English ·
+   genre Urban · logo uploaded (logo-1200x1200.png, accepted) ·
+   "Yes, I work for the station" · notify sgpyhwh1980@gmail.com
+   ⚠️ GOTCHAS for next time:
+     - A REQUIRED email field sits at the very bottom, HIDDEN BEHIND the sticky
+       "Confirm Request" button. Clicking Confirm does nothing and shows no
+       visible error. Read the page TEXT (not the screenshot) to find it.
+     - There is a reCAPTCHA — Simon must tick it, Claude will not.
+     - Their genre list DOES include Urban, Afrobeats, Dancehall, Garage, RnB.
+       Do not settle for "Hip Hop". Urban is the best single fit.
+     - "Yes, I work for the station" reveals an optional proof-of-ownership
+       upload; left empty, with the comment pointing at the website instead.
 
 4. Online Radio Box      https://onlineradiobox.com/office/        [200 OK]
    Status: [ ] submitted
    Register for the Office dashboard, then add the station.
    8-11M monthly visits. Stream must be live when they review it.
 
-5. radio.net             https://corporate.radio.net/broadcasters/linking-agreement/  [200 OK]
-   Status: [ ] submitted
-   Strongest in Europe, 60,000+ stations. Must be online 24/7.
+5. radio.net             https://corporate.radio.net/broadcasters/linking-agreement/
+                         -> "Add new station" -> Linking Agreement           [200 OK]
+   Status: [~] PART-FILLED 2026-10-29, left open in the browser. NOT submitted.
+   It is a LEGAL AGREEMENT (Retool-embedded form), not a simple listing.
+
+   ALREADY FILLED:
+     Contact Person   Simon Powell
+     Address          5 Deers Leap
+     Postal Code      RH16 4FW
+     Station name     Urban All In 1 Radio
+     Station-ID       urban-all-in-1-radio  -> radio.net/s/urban-all-in-1-radio
+     Website          urbanallin1radio.co.uk
+     Stream           .../listen/urban_all_in_1_radio/radio.mp3  (validated GREEN
+                      even though they ask for M3U/AAC — plain MP3 over HTTPS passed)
+     Beschreibung     full description incl. genres + PPL/PRS
+     Genres           "Hip Hop" only (1 of max 4)
+     Word share       music only (correct default)
+
+   STILL NEEDED (all Simon's):
+     City / Region / State+Country / Continent  — CASCADING dropdowns. "Haywards
+       Heath" returns No options until the country is chosen first. Note the
+       registered address is Haywards Heath even though the PUBLIC station
+       location given to Radio Garden and Streema is Crawley — a registered
+       address and a broadcast location are legitimately different.
+     Email            suggest contact@urbanallin1radio.co.uk (now live)
+     Topics, Sprache (language)  — required multi-selects
+     LOGO             REQUIRED at 2200x2200 PNG, non-transparent, max 10MB.
+                      -> USE website/images/social/logo-2200x2200.png (generated
+                         2026-10-29; upscaled from the 1200px source so slightly
+                         soft, but meets spec)
+     Accepting the agreement itself.
+
+   ⚠️ GENRE TAXONOMY IS POOR for this station: no Afrobeats, no R&B, no Amapiano,
+      no UK Garage. "Hip Hop" exists. Try Dance / Soul / Reggae for the rest.
+      The full genre list is already in the description, so coverage is fine.
+
+   ⚠️ The form SCROLLS while typing and the dropdowns CASCADE — values land in the
+      wrong fields if you batch clicks from a stale screenshot. Fill one field per
+      step and re-screenshot.
 
 6. Internet-Radio.com    https://www.internet-radio.com/add/       [200 OK]
    Status: [ ] submitted
@@ -87,7 +145,10 @@ archive, not a live-station directory; it was never a fit)
 ====================================
 BEFORE SUBMITTING — one thing still outstanding
 ====================================
-[ ] Create the email forwarder `contact@urbanallin1radio.co.uk` in Namecheap
+[x] DONE 2026-10-29 — email forwarder `contact@urbanallin1radio.co.uk` ->
+    sgpyhwh1980@gmail.com created in Namecheap (Domain tab -> Redirect Email).
+    Namecheap says forwarding can take ~30 min to activate.
+[ ] (superseded) Create the email forwarder in Namecheap
     (Domain List -> urbanallin1radio.co.uk -> Redirect Email) pointing at the
     Gmail. The MX records and SPF are already in place, so this is the only
     step. The address is already published on the site footer, so until the
