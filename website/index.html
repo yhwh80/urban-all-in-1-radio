@@ -1,294 +1,238 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="dark" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urban All-in-1 Radio | UK Hip-Hop, R&B, Afrobeats, Dancehall & Drill</title>
-    <meta name="description" content="Urban All-in-1 Radio — UK's home for Hip-Hop, R&B, Afrobeats, Dancehall & Drill. Live 24/7. Global Beats, Local Vibes.">
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Urban All in 1 Radio | Afrobeats, Amapiano, Dancehall, UK Garage &amp; R&amp;B</title>
+    <meta name="description"
+        content="24/7 urban radio from the UK. Afrobeats, Amapiano, Dancehall, UK Garage, R&amp;B and Hip-Hop. Listen free, no signup." />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    <link rel="icon" href="images/favicon-32.png" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://urbanallin1radio.co.uk/">
-    <meta property="og:title" content="Urban All-in-1 Radio | UK Hip-Hop, R&B, Afrobeats, Dancehall & Drill">
-    <meta property="og:description" content="UK's home for Hip-Hop, R&B, Afrobeats, Dancehall & Drill. Live 24/7. Global Beats, Local Vibes.">
-    <meta property="og:image" content="https://urbanallin1radio.co.uk/images/og-preview.png">
+    <meta property="og:title" content="Urban All in 1 Radio" />
+    <meta property="og:description" content="Afrobeats, Amapiano, Dancehall, UK Garage and R&amp;B. 24/7 from the UK." />
+    <meta property="og:type" content="music.radio_station" />
+    <meta property="og:url" content="https://urbanallin1radio.co.uk" />
+    <meta property="og:image" content="https://urbanallin1radio.co.uk/images/social/facebook-cover-820x312.png" />
+    <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:url" content="https://urbanallin1radio.co.uk/">
-    <meta name="twitter:title" content="Urban All-in-1 Radio | UK Hip-Hop, R&B, Afrobeats, Dancehall & Drill">
-    <meta name="twitter:description" content="UK's home for Hip-Hop, R&B, Afrobeats, Dancehall & Drill. Live 24/7. Global Beats, Local Vibes.">
-    <meta name="twitter:image" content="https://urbanallin1radio.co.uk/images/og-preview.png">
-
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
 
-    <!-- Mobile Redirect -->
-    <script>
-        (function () {
-            // ?desktop=1 means the visitor deliberately asked for the full site from
-            // the mobile player. Without this the link bounced straight back here ->
-            // mobile/ -> 3s splash -> player, i.e. a loop with no way out.
-            try {
-                if (new URLSearchParams(location.search).has('desktop')) {
-                    sessionStorage.setItem('preferDesktop', '1');
-                    return;
-                }
-                if (sessionStorage.getItem('preferDesktop') === '1') return;
-            } catch (e) { /* private mode: fall through to normal detection */ }
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/theme.js"></script>
+    <script src="assets/station.js"></script>
 
-            const isMobile = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            const isSmallScreen = window.innerWidth <= 768;
-            if (isMobile || isSmallScreen) {
-                window.location.href = 'mobile/';
-            }
-        })();
-    </script>
+    <style>
+        body { min-height: 100dvh; }
+
+        /* The old desktop page set overflow:hidden on body, so the footer —
+           and the contact details directories require — could never be
+           reached. This page scrolls. */
+
+        .bar { width: 4px; border-radius: 2px; background: #14dcc8; transition: height .18s ease; }
+
+        @keyframes pulseBar { 0%,100% { height: 18%; } 50% { height: 70%; } }
+        .visualizer-idle .bar { animation: pulseBar 2.6s ease-in-out infinite; }
+        .visualizer-idle .bar:nth-child(2n) { animation-delay: .25s; }
+        .visualizer-idle .bar:nth-child(3n) { animation-delay: .5s; }
+        .visualizer-idle .bar:nth-child(5n) { animation-delay: .75s; }
+
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; }
+        @keyframes marquee { 0%,15% { transform: translateX(0); } 85%,100% { transform: translateX(var(--shift)); } }
+        .marquee-run { animation: marquee 14s linear infinite alternate; }
+
+        input[type=range] { -webkit-appearance: none; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 4px; border-radius: 2px; background: rgba(255,255,255,.14);
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; margin-top: -5px; width: 14px; height: 14px;
+            border-radius: 50%; background: #14dcc8;
+        }
+    </style>
 </head>
 
-<body>
-    <!-- Particle Canvas -->
-    <canvas id="particleCanvas"></canvas>
+<body class="font-display bg-background-dark text-white antialiased">
 
-    <!-- HUD Overlay -->
-    <div class="hud-layer">
-        <!-- Top Left: Identity -->
-        <div class="hud-top-left">
-            <h1 class="brand">URBAN // RADIO</h1>
-            <div class="meta">
-                <span class="freq">FREQ: 128.0kbps</span>
-                <span class="status-dot"></span>
-                <span id="connectionStatus">READY</span>
-            </div>
-        </div>
+    <!-- ambient glow, pulled from the logo's teal/violet gradient -->
+    <div class="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+        <div class="absolute -top-40 -left-32 w-[36rem] h-[36rem] rounded-full blur-3xl opacity-[0.17]"
+            style="background: radial-gradient(circle, #14dcc8 0%, transparent 70%)"></div>
+        <div class="absolute -bottom-48 -right-32 w-[34rem] h-[34rem] rounded-full blur-3xl opacity-[0.14]"
+            style="background: radial-gradient(circle, #7060e0 0%, transparent 70%)"></div>
+    </div>
 
-        <!-- Top Right: Menu -->
-        <div class="hud-top-right">
-            <button id="menuBtn" class="hud-btn" aria-label="Menu">
-                <span>[ MENU ]</span>
-            </button>
+    <div class="relative z-10 flex min-h-screen flex-col pb-24 md:pb-0">
 
-            <!-- Menu Dropdown -->
-            <div id="menuDropdown" class="menu-dropdown">
-                <button id="navSchedule" class="menu-item">SCHEDULE</button>
-                <button id="navDiscover" class="menu-item">DISCOVER</button>
-                <button id="navNews" class="menu-item">NEWS</button>
-                <button id="navAbout" class="menu-item disabled">ABOUT</button>
-            </div>
-        </div>
+        <!-- ===== header ===== -->
+        <header class="w-full border-b border-white/5 backdrop-blur-sm">
+            <div class="mx-auto flex max-w-content items-center justify-between px-4 py-3 md:px-8 md:py-4">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="images/logo-1200x1200.png" alt="" class="size-9 rounded-lg md:size-10" />
+                    <span class="hidden text-base font-bold tracking-tight sm:block md:text-lg">
+                        URBAN <span class="text-primary">ALL IN 1</span> RADIO
+                    </span>
+                </a>
 
-        <!-- Bottom Left: Now Playing -->
-        <div class="hud-bottom-left">
-            <!-- Controls (Moved Above Track Info) -->
-            <div class="controls-container">
-                <div class="controls">
-                    <button id="playBtn" class="hud-control-btn" aria-label="Play/Pause">
-                        <span id="playIcon">▶</span>
-                    </button>
-                    <div class="volume-wrapper">
-                        <span class="vol-label">VOL</span>
-                        <input type="range" id="volumeSlider" min="0" max="100" value="70" class="hud-slider">
-                        <span id="volValue">70%</span>
-                    </div>
+                <nav class="hidden items-center gap-1 md:flex">
+                    <a href="index.html"
+                        class="rounded-full bg-white/5 px-4 py-2 text-sm font-semibold text-white">Live</a>
+                    <a href="on-air.html"
+                        class="rounded-full px-4 py-2 text-sm font-medium text-white/55 transition hover:bg-white/5 hover:text-white">On
+                        Air</a>
+                    <a href="news.html"
+                        class="rounded-full px-4 py-2 text-sm font-medium text-white/55 transition hover:bg-white/5 hover:text-white">News</a>
+                </nav>
+
+                <div class="flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5">
+                    <span id="liveDot" class="size-2 rounded-full bg-primary"></span>
+                    <span id="liveLabel" class="text-[11px] font-bold tracking-[0.12em] text-primary">LIVE</span>
                 </div>
             </div>
+        </header>
 
-            <div class="track-info">
-                <div>
-                    <div class="label">NOW PLAYING</div>
-                    <div class="track-title" id="trackTitle">CONNECTING...</div>
-                    <div class="track-artist" id="trackArtist">WAITING FOR DATA</div>
-                </div>
-            </div>
+        <!-- ===== player ===== -->
+        <main class="mx-auto flex w-full max-w-content flex-1 flex-col px-4 py-5 md:px-8 md:py-14">
 
-            <!-- Center: Interaction Hint -->
-            <div class="hud-center-hint">
-                <span>CLICK PLAY TO START STREAM</span>
-            </div>
-        </div>
+            <div class="flex flex-col items-center gap-6 md:flex-row md:items-stretch md:gap-14">
 
-        <!-- Hidden Audio -->
-        <audio id="radioStream" preload="none" crossorigin="anonymous"></audio>
-
-        <!-- Schedule Overlay -->
-        <div id="scheduleOverlay" class="schedule-overlay">
-            <div class="schedule-header">
-                <h2 class="schedule-title">BROADCAST SCHEDULE</h2>
-                <button id="closeScheduleBtn" class="close-btn">[ CLOSE ]</button>
-            </div>
-
-            <div class="schedule-grid">
-                <!-- Live on-air panel. This grid previously listed four named shows
-                     at fixed times; no playlist in AzuraCast has a schedule, so the
-                     station is a continuous rotation and none of that was true. -->
-                <div class="schedule-item" style="flex-direction: column; border-color: var(--hud-color);">
-                    <div class="info-col">
-                        <div class="show-title">24/7 NON-STOP ROTATION</div>
-                        <div class="show-desc" style="margin-top: 0.4rem;">
-                            No fixed show times &mdash; one continuous mix across Afrobeats,
-                            Amapiano, Dancehall, UK Garage, R&amp;B and Hip-Hop.
+                <!-- artwork + visualiser -->
+                <div class="flex w-full max-w-[15.5rem] flex-col items-center gap-4 sm:max-w-[18rem] md:max-w-[22rem] md:gap-6">
+                    <div
+                        class="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/10 bg-surface-dark shadow-2xl shadow-black/50">
+                        <img id="art" alt="" class="size-full object-cover opacity-0 transition-opacity duration-500" />
+                        <div id="artFallback"
+                            class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary/10 to-accent/10">
+                            <img src="images/logo-1200x1200.png" alt="" class="w-1/2 rounded-xl opacity-60" />
                         </div>
                     </div>
-                </div>
 
-                <div class="schedule-item">
-                    <div class="time-col">
-                        <span class="material-symbols-outlined"
-                            style="font-size: 2rem; color: var(--hud-color);">graphic_eq</span>
-                    </div>
-                    <div class="info-col">
-                        <div class="show-host" style="letter-spacing:.14em;font-size:.72rem;">NOW PLAYING</div>
-                        <div class="show-title" id="airNowTitle">Loading&hellip;</div>
-                        <div class="show-desc" id="airNowArtist"></div>
+                    <div id="visualizer" class="visualizer-idle flex h-8 items-end justify-center gap-1.5 md:h-12">
+                        <!-- bars injected by script -->
                     </div>
                 </div>
 
-                <div class="schedule-item" id="airNextItem" style="display:none;">
-                    <div class="time-col">
-                        <span class="material-symbols-outlined"
-                            style="font-size: 2rem; color: var(--hud-color);">skip_next</span>
+                <!-- track info + controls -->
+                <div class="flex w-full flex-1 flex-col justify-center text-center md:text-left">
+
+                    <span id="genreBadge"
+                        class="mx-auto mb-3 w-fit rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[11px] font-bold tracking-[0.14em] text-primary md:mx-0">LIVE</span>
+
+                    <div class="marquee-container">
+                        <h1 id="trackTitle"
+                            class="marquee-content text-xl font-bold leading-tight sm:text-2xl md:text-4xl lg:text-5xl">
+                            Connecting&hellip;</h1>
                     </div>
-                    <div class="info-col">
-                        <div class="show-host" style="letter-spacing:.14em;font-size:.72rem;">UP NEXT</div>
-                        <div class="show-title" id="airNextTitle"></div>
-                        <div class="show-desc" id="airNextArtist"></div>
+                    <div class="marquee-container mt-2">
+                        <p id="trackArtist" class="marquee-content text-base font-medium text-primary sm:text-lg md:text-2xl">
+                            &nbsp;</p>
                     </div>
-                </div>
 
-                <div class="schedule-item" style="flex-direction: column;">
-                    <div class="info-col" style="width:100%;">
-                        <div class="show-host" style="letter-spacing:.14em;font-size:.72rem;">RECENTLY PLAYED</div>
-                        <div id="airHistory" style="margin-top:.6rem;"></div>
+                    <!-- up next -->
+                    <div id="nextWrap" class="mt-4 hidden items-center gap-3 rounded-xl bg-white/[0.04] p-3 md:mt-6 md:w-fit">
+                        <span class="material-symbols-outlined text-xl text-white/40">skip_next</span>
+                        <div class="min-w-0 text-left">
+                            <p class="text-[10px] font-bold tracking-[0.14em] text-white/35">UP NEXT</p>
+                            <p id="nextText" class="truncate text-sm text-white/70"></p>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Discover Overlay -->
-        <div id="discoverOverlay" class="schedule-overlay">
-            <div class="schedule-header">
-                <h2 class="schedule-title">DISCOVER</h2>
-                <button id="closeDiscoverBtn" class="close-btn">[ CLOSE ]</button>
-            </div>
-	    	
-	    	    <div class="schedule-grid">
-	    	        <!-- Coming Soon notice -->
-	    	        <div class="schedule-item" style="flex-direction: column; opacity: 0.9; border-color: var(--hud-color);">
-	    	            <div class="info-col">
-	    	                <div class="show-title">Discover is coming soon</div>
-	    	                <div class="show-desc">We're building personalised playlists, podcasts &amp; events. For now, keep it locked to the live stream.</div>
-	    	            </div>
-	    	        </div>
+                    <!-- controls -->
+                    <div class="mt-5 flex flex-col items-center gap-4 md:mt-8 md:flex-row md:gap-8">
+                        <button id="playBtn" aria-label="Play or pause"
+                            class="flex size-[4.5rem] shrink-0 items-center justify-center rounded-full bg-primary text-background-dark shadow-lg shadow-primary/25 transition hover:scale-105 active:scale-95">
+                            <span id="playIcon" class="material-symbols-outlined text-5xl"
+                                style="font-variation-settings:'FILL' 1">play_arrow</span>
+                        </button>
 
-                <!-- Breaking News Hero -->
-	    	        <div class="schedule-item" style="border-color: var(--accent); flex-direction: column;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                        <span class="live-badge" style="background: #fff; color: #000;">BREAKING NEWS</span>
-                        <span class="time" style="font-size: 0.8rem;">JUST NOW</span>
+                        <div class="flex w-full max-w-xs items-center gap-3">
+                            <span class="material-symbols-outlined text-xl text-white/40">volume_down</span>
+                            <input id="volumeSlider" type="range" min="0" max="100" value="70" class="h-1 flex-1"
+                                aria-label="Volume" />
+                            <span class="material-symbols-outlined text-xl text-white/40">volume_up</span>
+                        </div>
                     </div>
-                    <div class="info-col">
-	    	                <div class="show-title" style="font-size: 1.5rem;">Exclusive Artist Interview</div>
-                        <div class="show-desc" style="margin-top: 0.5rem;">Discussing the new album, tour life, and the
-                            state of the culture.</div>
-	    	                <button class="hud-btn" style="margin-top: 1rem; align-self: flex-start; opacity: 0.6; pointer-events: none; cursor: default;">[ COMING SOON
-	    	                    ]</button>
-                    </div>
-                </div>
 
-            </div>
-        </div>
-
-        </div><!-- /.hud-layer — this was never closed, so everything after it
-             inherited position:fixed and pointer-events:none. The overlays set
-             pointer-events:auto so they worked; the footer below did not, which
-             left its contact link unclickable. -->
-
-        <!-- Station identity + contact. Radio directories (Radio Garden especially)
-             require a working site that states who runs the station and how to reach
-             them; without this, submissions get rejected. -->
-        <footer class="station-footer">
-            <div class="station-footer-inner">
-                <div class="sf-block">
-                    <div class="sf-heading">URBAN ALL IN 1 RADIO</div>
-                    <p class="sf-text">
-                        Afrobeats, Amapiano, Dancehall, UK Garage, R&amp;B and Hip-Hop,
-                        broadcasting 24/7 from the United Kingdom.
-                        Licensed by PPL and PRS for Music.
+                    <p class="mt-4 text-xs text-white/30 md:mt-6">
+                        Free to listen &middot; no signup &middot; 192&nbsp;kbps
                     </p>
                 </div>
-                <div class="sf-block">
-                    <div class="sf-heading">CONTACT</div>
-                    <p class="sf-text">
-                        <a href="mailto:contact@urbanallin1radio.co.uk">contact@urbanallin1radio.co.uk</a><br>
+            </div>
+
+            <!-- recently played -->
+            <section class="mt-10 md:mt-16">
+                <h2 class="mb-4 text-[11px] font-bold tracking-[0.18em] text-white/40">RECENTLY PLAYED</h2>
+                <div id="history" class="grid gap-2 sm:grid-cols-2 lg:grid-cols-3"></div>
+            </section>
+        </main>
+
+        <!-- ===== footer: identity + contact =====
+             Radio directories (Radio Garden in particular) require the site to
+             state who runs the station and how to reach them. On the old page
+             this sat below a body with overflow:hidden, so no human could
+             scroll to it. -->
+        <footer class="mt-auto border-t border-white/5 bg-black/30">
+            <div class="mx-auto grid max-w-content gap-8 px-4 py-10 md:grid-cols-3 md:px-8">
+                <div>
+                    <div class="mb-2 text-[11px] font-bold tracking-[0.16em] text-primary">URBAN ALL IN 1 RADIO</div>
+                    <p class="text-sm leading-relaxed text-white/50">
+                        Afrobeats, Amapiano, Dancehall, UK Garage, R&amp;B and Hip-Hop,
+                        broadcasting 24/7 from the United Kingdom.
+                    </p>
+                </div>
+                <div>
+                    <div class="mb-2 text-[11px] font-bold tracking-[0.16em] text-primary">CONTACT</div>
+                    <p class="text-sm leading-relaxed text-white/50">
+                        <a class="text-white/75 underline decoration-primary/40 underline-offset-4 hover:text-primary"
+                            href="mailto:contact@urbanallin1radio.co.uk">contact@urbanallin1radio.co.uk</a><br />
                         United Kingdom
                     </p>
                 </div>
-                <div class="sf-block">
-                    <div class="sf-heading">LISTEN</div>
-                    <p class="sf-text">
-                        <a href="https://stream.urbanallin1radio.co.uk/listen/urban_all_in_1_radio/radio.mp3">Direct stream (192kbps MP3)</a><br>
-                        <a href="https://urbanallin1radio.co.uk">urbanallin1radio.co.uk</a>
+                <div>
+                    <div class="mb-2 text-[11px] font-bold tracking-[0.16em] text-primary">LISTEN</div>
+                    <p class="text-sm leading-relaxed text-white/50">
+                        <a class="text-white/75 underline decoration-primary/40 underline-offset-4 hover:text-primary"
+                            href="https://stream.urbanallin1radio.co.uk/listen/urban_all_in_1_radio/radio.mp3">Direct
+                            stream (192kbps MP3)</a><br />
+                        <a class="text-white/75 underline decoration-primary/40 underline-offset-4 hover:text-primary"
+                            href="https://urbanallin1radio.co.uk">urbanallin1radio.co.uk</a>
                     </p>
                 </div>
             </div>
-            <div class="sf-legal">
-                &copy; 2026 Urban All in 1 Radio &middot; All music played is licensed
-                for broadcast through PPL and PRS for Music.
+            <div class="mx-auto max-w-content border-t border-white/5 px-4 py-5 text-xs text-white/30 md:px-8">
+                &copy; 2026 Urban All in 1 Radio &middot; Licensed for broadcast through PPL and PRS for Music.
             </div>
         </footer>
+    </div>
 
+    <!-- ===== bottom nav (small screens only) ===== -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-around border-t border-white/10 bg-background-dark/95 py-2 backdrop-blur md:hidden">
+        <a href="index.html" class="flex flex-col items-center gap-1 px-5 py-1 text-primary">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1">radio</span>
+            <span class="text-[10px] font-medium">Live</span>
+        </a>
+        <a href="on-air.html" class="flex flex-col items-center gap-1 px-5 py-1 text-white/45">
+            <span class="material-symbols-outlined text-2xl">graphic_eq</span>
+            <span class="text-[10px] font-medium">On Air</span>
+        </a>
+        <a href="news.html" class="flex flex-col items-center gap-1 px-5 py-1 text-white/45">
+            <span class="material-symbols-outlined text-2xl">newspaper</span>
+            <span class="text-[10px] font-medium">News</span>
+        </a>
+    </nav>
 
-        <script>
-            // Live on-air data for the schedule overlay. Nothing hardcoded — the
-            // station has no dayparting, so anything fixed here would be fiction.
-            (function () {
-                const API = 'https://stream.urbanallin1radio.co.uk/api/nowplaying/urban_all_in_1_radio';
-                const esc = v => String(v ?? '').replace(/[&<>"']/g,
-                    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-
-                async function refresh() {
-                    let d;
-                    try { d = await (await fetch(API, { cache: 'no-store' })).json(); }
-                    catch (e) { return; }            // transient: keep the last good render
-
-                    const song = (d.now_playing || {}).song || {};
-                    document.getElementById('airNowTitle').textContent = song.title || 'Unknown track';
-                    document.getElementById('airNowArtist').textContent = song.artist || '';
-
-                    const nx = (d.playing_next || {}).song;
-                    const nextItem = document.getElementById('airNextItem');
-                    if (nx && nx.title) {
-                        document.getElementById('airNextTitle').textContent = nx.title;
-                        document.getElementById('airNextArtist').textContent = nx.artist || '';
-                        nextItem.style.display = '';
-                    } else {
-                        nextItem.style.display = 'none';
-                    }
-
-                    document.getElementById('airHistory').innerHTML =
-                        (d.song_history || []).slice(0, 5).map(h => {
-                            const sg = h.song || {};
-                            return `<div style="padding:.35rem 0;border-top:1px solid rgba(255,255,255,.06);">
-                                <span style="color:rgba(255,255,255,.8);">${esc(sg.title || 'Unknown')}</span>
-                                <span style="color:rgba(255,255,255,.4);"> &middot; ${esc(sg.artist || '')}</span>
-                            </div>`;
-                        }).join('') || '<div style="color:rgba(255,255,255,.35);">Nothing logged yet.</div>';
-                }
-                refresh();
-                setInterval(refresh, 15000);
-            })();
-        </script>
-        <script src="js/player.js"></script>
+    <audio id="radioStream" preload="none"></audio>
+    <script src="assets/player.js"></script>
 </body>
 
 </html>

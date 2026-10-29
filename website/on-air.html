@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>On Air | Urban All in 1 Radio</title>
+    <meta name="description" content="What is playing right now on Urban All in 1 Radio, what is next, and what just played." />
+
+    <link rel="icon" href="images/favicon-32.png" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+
+    <meta property="og:title" content="Urban All in 1 Radio" />
+    <meta property="og:description" content="Afrobeats, Amapiano, Dancehall, UK Garage and R&amp;B. 24/7 from the UK." />
+    <meta property="og:type" content="music.radio_station" />
+    <meta property="og:url" content="https://urbanallin1radio.co.uk" />
+    <meta property="og:image" content="https://urbanallin1radio.co.uk/images/social/facebook-cover-820x312.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/theme.js"></script>
+    <script src="assets/station.js"></script>
+
+    <style>
+        body { min-height: 100dvh; }
+
+        /* The old desktop page set overflow:hidden on body, so the footer —
+           and the contact details directories require — could never be
+           reached. This page scrolls. */
+
+        .bar { width: 4px; border-radius: 2px; background: #14dcc8; transition: height .18s ease; }
+
+        @keyframes pulseBar { 0%,100% { height: 18%; } 50% { height: 70%; } }
+        .visualizer-idle .bar { animation: pulseBar 2.6s ease-in-out infinite; }
+        .visualizer-idle .bar:nth-child(2n) { animation-delay: .25s; }
+        .visualizer-idle .bar:nth-child(3n) { animation-delay: .5s; }
+        .visualizer-idle .bar:nth-child(5n) { animation-delay: .75s; }
+
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; }
+        @keyframes marquee { 0%,15% { transform: translateX(0); } 85%,100% { transform: translateX(var(--shift)); } }
+        .marquee-run { animation: marquee 14s linear infinite alternate; }
+
+        input[type=range] { -webkit-appearance: none; background: transparent; }
+        input[type=range]::-webkit-slider-runnable-track {
+            height: 4px; border-radius: 2px; background: rgba(255,255,255,.14);
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none; margin-top: -5px; width: 14px; height: 14px;
+            border-radius: 50%; background: #14dcc8;
+        }
+    </style>
+</head>
+
+<body class="font-display bg-background-dark text-white antialiased">
+
+    <!-- ambient glow, pulled from the logo's teal/violet gradient -->
+    <div class="pointer-events-none fixed inset-0 z-0" aria-hidden="true">
+        <div class="absolute -top-40 -left-32 w-[36rem] h-[36rem] rounded-full blur-3xl opacity-[0.17]"
+            style="background: radial-gradient(circle, #14dcc8 0%, transparent 70%)"></div>
+        <div class="absolute -bottom-48 -right-32 w-[34rem] h-[34rem] rounded-full blur-3xl opacity-[0.14]"
+            style="background: radial-gradient(circle, #7060e0 0%, transparent 70%)"></div>
+    </div>
+
+    <div class="relative z-10 flex min-h-screen flex-col pb-24 md:pb-0">
+
+        <!-- ===== header ===== -->
+        <header class="w-full border-b border-white/5 backdrop-blur-sm">
+            <div class="mx-auto flex max-w-content items-center justify-between px-4 py-3 md:px-8 md:py-4">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="images/logo-1200x1200.png" alt="" class="size-9 rounded-lg md:size-10" />
+                    <span class="hidden text-base font-bold tracking-tight sm:block md:text-lg">
+                        URBAN <span class="text-primary">ALL IN 1</span> RADIO
+                    </span>
+                </a>
+
+                <nav class="hidden items-center gap-1 md:flex">
+                    <a href="index.html"
+                        class="rounded-full px-4 py-2 text-sm font-medium text-white/55 transition hover:bg-white/5 hover:text-white">Live</a>
+                    <a href="on-air.html"
+                        class="rounded-full bg-white/5 px-4 py-2 text-sm font-semibold text-white">On
+                        Air</a>
+                    <a href="news.html"
+                        class="rounded-full px-4 py-2 text-sm font-medium text-white/55 transition hover:bg-white/5 hover:text-white">News</a>
+                </nav>
+
+                <div class="flex items-center gap-2 rounded-full bg-white/5 px-3 py-1.5">
+                    <span id="liveDot" class="size-2 rounded-full bg-primary"></span>
+                    <span id="liveLabel" class="text-[11px] font-bold tracking-[0.12em] text-primary">LIVE</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===== on air ===== -->
+        <main class="mx-auto flex w-full max-w-content flex-1 flex-col px-4 py-6 md:px-8 md:py-12">
+            <div class="mb-8">
+                <div class="flex items-center gap-2">
+                    <span class="size-2 animate-pulse rounded-full bg-primary"></span>
+                    <span class="text-sm font-bold text-primary">ON AIR</span>
+                    <span class="text-sm text-white/45">24/7 non-stop rotation</span>
+                </div>
+                <p class="mt-2 max-w-xl text-sm leading-relaxed text-white/35">
+                    No fixed show times &mdash; the station runs a continuous mix.
+                    Here is what is playing, what is next, and what just played.
+                </p>
+            </div>
+
+            <div class="grid gap-6 lg:grid-cols-3">
+                <section class="lg:col-span-2">
+                    <h2 class="mb-3 text-[11px] font-bold tracking-[0.18em] text-white/40">NOW PLAYING</h2>
+                    <div class="flex gap-4 rounded-2xl border border-primary/25 bg-surface-dark p-4">
+                        <div class="size-24 shrink-0 overflow-hidden rounded-xl bg-white/5 md:size-28">
+                            <img id="art" alt="" class="size-full object-cover opacity-0 transition-opacity" />
+                            <div id="artFallback" class="hidden"></div>
+                        </div>
+                        <div class="min-w-0 flex-1 self-center">
+                            <span id="genreBadge"
+                                class="mb-1 inline-block text-[10px] font-bold tracking-[0.14em] text-primary">LIVE</span>
+                            <div class="marquee-container">
+                                <h3 id="trackTitle" class="marquee-content text-xl font-bold md:text-2xl">Loading&hellip;</h3>
+                            </div>
+                            <div class="marquee-container">
+                                <p id="trackArtist" class="marquee-content text-white/55">&nbsp;</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="nextWrap" class="mt-4 hidden items-center gap-3 rounded-xl bg-white/[0.04] p-3">
+                        <span class="material-symbols-outlined text-xl text-white/40">skip_next</span>
+                        <div class="min-w-0">
+                            <p class="text-[10px] font-bold tracking-[0.14em] text-white/35">UP NEXT</p>
+                            <p id="nextText" class="truncate text-sm text-white/70"></p>
+                        </div>
+                    </div>
+
+                    <h2 class="mb-3 mt-8 text-[11px] font-bold tracking-[0.18em] text-white/40">RECENTLY PLAYED</h2>
+                    <div id="history" class="grid gap-2 sm:grid-cols-2"></div>
+                </section>
+
+                <section>
+                    <h2 class="mb-3 text-[11px] font-bold tracking-[0.18em] text-white/40">IN ROTATION</h2>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="rounded-full border border-white/5 bg-surface-dark px-3 py-1.5 text-xs text-white/65">Afrobeats</span>
+                        <span class="rounded-full border border-white/5 bg-surface-dark px-3 py-1.5 text-xs text-white/65">Amapiano</span>
+                        <span class="rounded-full border border-white/5 bg-surface-dark px-3 py-1.5 text-xs text-white/65">Dancehall</span>
+                        <span class="rounded-full border border-white/5 bg-surface-dark px-3 py-1.5 text-xs text-white/65">UK Urban</span>
+                        <span class="rounded-full border border-white/5 bg-surface-dark px-3 py-1.5 text-xs text-white/65">UK Garage</span>
+                        <span class="rounded-full border border-white/5 bg-surface-dark px-3 py-1.5 text-xs text-white/65">R&amp;B</span>
+                        <span class="rounded-full border border-white/5 bg-surface-dark px-3 py-1.5 text-xs text-white/65">Hip-Hop</span>
+                        <span class="rounded-full border border-white/5 bg-surface-dark px-3 py-1.5 text-xs text-white/65">Afro House</span>
+                        <span class="rounded-full border border-white/5 bg-surface-dark px-3 py-1.5 text-xs text-white/65">Remixes</span>
+                    </div>
+                    <a href="index.html"
+                        class="mt-6 inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-bold text-background-dark">
+                        <span class="material-symbols-outlined text-lg">play_arrow</span> Listen live
+                    </a>
+                </section>
+            </div>
+        </main>
+
+        <!-- ===== footer: identity + contact =====
+             Radio directories (Radio Garden in particular) require the site to
+             state who runs the station and how to reach them. On the old page
+             this sat below a body with overflow:hidden, so no human could
+             scroll to it. -->
+        <footer class="mt-auto border-t border-white/5 bg-black/30">
+            <div class="mx-auto grid max-w-content gap-8 px-4 py-10 md:grid-cols-3 md:px-8">
+                <div>
+                    <div class="mb-2 text-[11px] font-bold tracking-[0.16em] text-primary">URBAN ALL IN 1 RADIO</div>
+                    <p class="text-sm leading-relaxed text-white/50">
+                        Afrobeats, Amapiano, Dancehall, UK Garage, R&amp;B and Hip-Hop,
+                        broadcasting 24/7 from the United Kingdom.
+                    </p>
+                </div>
+                <div>
+                    <div class="mb-2 text-[11px] font-bold tracking-[0.16em] text-primary">CONTACT</div>
+                    <p class="text-sm leading-relaxed text-white/50">
+                        <a class="text-white/75 underline decoration-primary/40 underline-offset-4 hover:text-primary"
+                            href="mailto:contact@urbanallin1radio.co.uk">contact@urbanallin1radio.co.uk</a><br />
+                        United Kingdom
+                    </p>
+                </div>
+                <div>
+                    <div class="mb-2 text-[11px] font-bold tracking-[0.16em] text-primary">LISTEN</div>
+                    <p class="text-sm leading-relaxed text-white/50">
+                        <a class="text-white/75 underline decoration-primary/40 underline-offset-4 hover:text-primary"
+                            href="https://stream.urbanallin1radio.co.uk/listen/urban_all_in_1_radio/radio.mp3">Direct
+                            stream (192kbps MP3)</a><br />
+                        <a class="text-white/75 underline decoration-primary/40 underline-offset-4 hover:text-primary"
+                            href="https://urbanallin1radio.co.uk">urbanallin1radio.co.uk</a>
+                    </p>
+                </div>
+            </div>
+            <div class="mx-auto max-w-content border-t border-white/5 px-4 py-5 text-xs text-white/30 md:px-8">
+                &copy; 2026 Urban All in 1 Radio &middot; Licensed for broadcast through PPL and PRS for Music.
+            </div>
+        </footer>
+    </div>
+
+    <!-- ===== bottom nav (small screens only) ===== -->
+    <nav
+        class="fixed bottom-0 left-0 right-0 z-20 flex items-center justify-around border-t border-white/10 bg-background-dark/95 py-2 backdrop-blur md:hidden">
+        <a href="index.html" class="flex flex-col items-center gap-1 px-5 py-1 text-white/45">
+            <span class="material-symbols-outlined text-2xl">radio</span>
+            <span class="text-[10px] font-medium">Live</span>
+        </a>
+        <a href="on-air.html" class="flex flex-col items-center gap-1 px-5 py-1 text-primary">
+            <span class="material-symbols-outlined text-2xl" style="font-variation-settings:'FILL' 1">graphic_eq</span>
+            <span class="text-[10px] font-medium">On Air</span>
+        </a>
+        <a href="news.html" class="flex flex-col items-center gap-1 px-5 py-1 text-white/45">
+            <span class="material-symbols-outlined text-2xl">newspaper</span>
+            <span class="text-[10px] font-medium">News</span>
+        </a>
+    </nav>
+
+    <audio id="radioStream" preload="none"></audio>
+    <script src="assets/player.js"></script>
+</body>
+
+</html>
