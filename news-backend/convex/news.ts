@@ -32,7 +32,10 @@ const OG_TIMEOUT_MS = 5000;
 export const FEEDS: Record<string, Feed[]> = {
   uk: [
     { name: "The Guardian", url: "https://www.theguardian.com/music/grime/rss" },
-    { name: "The Guardian", url: "https://www.theguardian.com/music/afrobeats/rss" },
+    // NOTE: the Guardian's afrobeats tag silently serves its general music feed,
+    // so it must be keyword-filtered like any general source. grime, hip-hop and
+    // rap were checked and are genuinely on-topic; afrobeats is not.
+    { name: "The Guardian", url: "https://www.theguardian.com/music/afrobeats/rss", filter: true },
     { name: "Clash", url: "https://www.clashmusic.com/feed/", filter: true },
     { name: "NME", url: "https://www.nme.com/news/music/feed", filter: true },
     { name: "DJ Mag", url: "https://djmag.com/rss.xml", filter: true },
@@ -79,7 +82,7 @@ export const FEEDS: Record<string, Feed[]> = {
 const KEYWORDS: Record<string, string[]> = {
   uk: [
     "grime", "drill", "uk rap", "afrobeat", "afroswing", "garage", "amapiano",
-    "stormzy", "central cee", "dave", "little simz", "skepta", "jorja smith",
+    "stormzy", "central cee", "little simz", "skepta", "jorja smith",
     "headie one", "digga d", "raye", "knucks", "aitch", "tion wayne", "arrdee",
     "cat burns", "mahalia", "ghetts", "kano", "wretch 32", "j hus", "nines",
     "fredo", "potter payper", "bashy", "pa salieu", "shygirl", "flo",
@@ -114,8 +117,10 @@ function tag(block: string, name: string): string {
   const re = new RegExp(`<(?:[a-zA-Z0-9]+:)?${name}[^>]*>([\\s\\S]*?)</(?:[a-zA-Z0-9]+:)?${name}>`, "i");
   const m = block.match(re);
   if (!m) return "";
-  const raw = m[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1");
-  return decode(raw.replace(/<[^>]+>/g, " ").replace(/\s+/g, " "));
+  let raw = m[1].replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1");
+  raw = decode(raw);                       // &lt;p&gt; -> <p> before stripping
+  raw = raw.replace(/<[^>]+>/g, " ");      // strip real and newly-decoded tags
+  return decode(raw).replace(/\s+/g, " ").trim();
 }
 
 function image(block: string): string | undefined {
