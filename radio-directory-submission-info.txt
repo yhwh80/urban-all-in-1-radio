@@ -54,16 +54,35 @@ These are the live ones.
    2026-10-19), stream reachable worldwide, no geo-blocking, MP3/AAC/M3U/PLS.
    Turnaround ~1-2 weeks.
 
-2. TuneIn                https://cms.tunein.com/broadcasters/     <- CORRECTED 2026-10-29
-   Status: [ ] NOT submitted — needs Simon to create a broadcaster account first
-   ⚠️ The old help.tunein.com/contact/add-your-station link is STALE. It still
-   loads, but it redirects to a generic support ticket form whose only issue
-   types are Cancel Subscription / Login Issue / Delete Account / Playback
-   Issue / Advertising Issue / General Inquiry. There is no station-submission
-   category. Do not file a General Inquiry ticket — it is the wrong route.
-   Real route: broadcaster account at cms.tunein.com/broadcasters (free).
-   Needs: stream URL, square logo 512px+ (use images/logo-1200x1200.png),
-   genre, language, country, short description. Approval ~48h by email.
+2. TuneIn                https://broadcasters.tunein.com/stations/add
+   Status: [x] SUBMITTED 2026-10-29 — "Thank you for your submission."
+   REFERENCE ID: 363922      (country=GB, published=false, under review)
+   Support contact: broadcaster-support@tunein.com
+
+   ⚠️ THEY WILL ASK FOR LICENCE PROOF: "UK regulations require us to check for
+   valid licenses. We'll reach out to you shortly to collect proof of valid PPL
+   and PRS licenses." The PRS certificate is in ~/Downloads
+   (Licence_Certificate_LC-004246.pdf). A PPL certificate will be needed too —
+   locate it before they ask.
+
+   Submitted as: Internet Only · United Kingdom / Crawley / West Sussex ·
+   English · GMT (DST) · Genre "Hip Hop Music" · Explicit False ·
+   Geo-Restrictions "Licensed in home country only" (PRS territory is UK only —
+   see private memory) · MP3 192kbps · public email contact@urbanallin1radio.co.uk
+   · logo logo-1200x1200.png · cover cover-1000x300.png
+
+   ⚠️ COVER IMAGE SPEC TRAP: TuneIn writes "300px x 1000px" but means 1000 WIDE
+   x 300 TALL. The portrait cover-300x1000.png was silently refused — no error,
+   no preview, and the page HUNG mid-upload for several minutes. Use
+   website/images/social/cover-1000x300.png.
+
+   ⚠️ Typing into this form DROPS CHARACTERS ("Danehall", "Afr House", "statio").
+   Type in short chunks with pauses and zoom in to proofread every field.
+
+   Account: passwordless — one-time code emailed to sgpyhwh1980@gmail.com.
+   The dashboard self-manages name, description, logo, streams, and can upload
+   show schedules as an Excel file.
+
 
 3. Streema               https://help.streema.com -> "Request a New Station"
    (the form itself lives on old.streema.com/request)              [200 OK]
@@ -88,43 +107,43 @@ These are the live ones.
 
 5. radio.net             https://corporate.radio.net/broadcasters/linking-agreement/
                          -> "Add new station" -> Linking Agreement           [200 OK]
-   Status: [~] PART-FILLED 2026-10-29, left open in the browser. NOT submitted.
-   It is a LEGAL AGREEMENT (Retool-embedded form), not a simple listing.
+   Status: [~] FULLY FILLED 2026-10-29 — awaiting EMAIL VERIFICATION CODE.
+   Simon ticked "I accept the Terms and Conditions" himself (Claude does not
+   accept agreements on his behalf) and pressed "request verification code".
+   radio.net emails a code to sgpyhwh1980@gmail.com; it can take a while.
+   NEXT STEP: enter the code in the field beside that button, then press submit.
 
-   ALREADY FILLED:
+   FILLED AND VERIFIED:
      Contact Person   Simon Powell
-     Address          5 Deers Leap
-     Postal Code      RH16 4FW
+     Address          5 Deers Leap   Postal Code  RH16 4FW
+     City             Crawley        (see the note below)
+     State/Country    United Kingdom      Continent  Europe
+     Email            sgpyhwh1980@gmail.com
      Station name     Urban All In 1 Radio
      Station-ID       urban-all-in-1-radio  -> radio.net/s/urban-all-in-1-radio
      Website          urbanallin1radio.co.uk
-     Stream           .../listen/urban_all_in_1_radio/radio.mp3  (validated GREEN
-                      even though they ask for M3U/AAC — plain MP3 over HTTPS passed)
+     Stream           .../listen/urban_all_in_1_radio/radio.mp3 — validated GREEN
+                      even though the form asks for M3U/AAC. Plain MP3 over HTTPS
+                      was accepted, so the Icecast .m3u problem did NOT matter.
      Beschreibung     full description incl. genres + PPL/PRS
-     Genres           "Hip Hop" only (1 of max 4)
-     Word share       music only (correct default)
+     Genres           Hip Hop only (max 4 allowed — Dance/Soul/Reggae are the
+                      nearest others; their list has NO Afrobeats, R&B, Amapiano
+                      or UK Garage)
+     Sprache          English          Word share  music only
+     Logo             logo-2200x2200.png (generated for their 2200x2200
+                      non-transparent spec; also copied to ~/Desktop)
+     Add. comments    explains the Haywards Heath / Crawley discrepancy
 
-   STILL NEEDED (all Simon's):
-     City / Region / State+Country / Continent  — CASCADING dropdowns. "Haywards
-       Heath" returns No options until the country is chosen first. Note the
-       registered address is Haywards Heath even though the PUBLIC station
-       location given to Radio Garden and Streema is Crawley — a registered
-       address and a broadcast location are legitimately different.
-     Email            suggest contact@urbanallin1radio.co.uk (now live)
-     Topics, Sprache (language)  — required multi-selects
-     LOGO             REQUIRED at 2200x2200 PNG, non-transparent, max 10MB.
-                      -> USE website/images/social/logo-2200x2200.png (generated
-                         2026-10-29; upscaled from the 1200px source so slightly
-                         soft, but meets spec)
-     Accepting the agreement itself.
+   ⚠️ CITY: their dropdown has NO Haywards Heath. Searching "Hayward" returns US
+      cities (Hayward CA, Hayward WI); "Haywards Heath" returns No options. The
+      list is NOT filtered by the chosen country. Crawley was selected as the
+      nearest listed town in the same county, and a note in Additional Comments
+      states the real registered address and why. Region/County/State has no
+      West Sussex either, but it is optional and was left blank.
 
-   ⚠️ GENRE TAXONOMY IS POOR for this station: no Afrobeats, no R&B, no Amapiano,
-      no UK Garage. "Hip Hop" exists. Try Dance / Soul / Reggae for the rest.
-      The full genre list is already in the description, so coverage is fine.
-
-   ⚠️ The form SCROLLS while typing and the dropdowns CASCADE — values land in the
-      wrong fields if you batch clicks from a stale screenshot. Fill one field per
-      step and re-screenshot.
+   ⚠️ The form SCROLLS while typing and its dropdowns are Retool components that
+      default to the first alphabetical entry if mishandled — it had silently set
+      City to "Aalsmeer" (Netherlands). Fill one field per step and re-screenshot.
 
 6. Internet-Radio.com    https://www.internet-radio.com/add/       [200 OK]
    Status: [ ] submitted
